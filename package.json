@@ -1,0 +1,21 @@
+{
+  "name": "dk.sundgaard.universalrfremote",
+  "version": "1.0.1",
+  "private": true,
+  "description": "Universal RF Remote for Homey Pro: send 433 MHz codes captured with a Flipper Zero",
+  "main": "app.js",
+  "scripts": {
+    "test": "node test/selftest.js",
+    "build-signals": "node scripts/build-signals.js"
+  },
+  "dependencies": {},
+  "license": "GPL-3.0-only",
+  "author": "Bo Sundgaard <homey@uniteapps.dk> (https://www.uniteapps.dk)",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bosund/universal-rf-remote.git"
+  },
+  "bugs": {
+    "url": "https://github.com/bosund/universal-rf-remote/issues"
+  }
+}

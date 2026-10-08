@@ -1,0 +1,53 @@
+{
+  "lang": "en",
+  "pair": {
+    "name": "Name",
+    "class": "Device type",
+    "repetitions": "Repetitions",
+    "repetitions_hint": "How many times the code is sent per command (the Flipper uses 10).",
+    "tab_file": ".sub file",
+    "tab_manual": "Enter",
+    "paste_hint": "… or paste the file contents:",
+    "protocol": "Protocol",
+    "key": "Key (hex)",
+    "bits": "Bits",
+    "te": "TE (µs)",
+    "raw": "RAW_Data (µs, + = on, − = off)",
+    "frequency": "Frequency (MHz)",
+    "apply": "Use these values",
+    "test": "Test",
+    "sent": "Sent",
+    "create": "Add device",
+    "save": "Save"
+  },
+  "error": {
+    "no_code": "There is no code for this button"
+  },
+  "remote": {
+    "title": "Remote control",
+    "intro": "Choose a name and icon, and add a button for each code. Give each button a label (e.g. In, Out, Stop) and load its .sub file from the Flipper (Sub-GHz → Saved), or enter the values.",
+    "icon": "Icon",
+    "button": "Button",
+    "add": "+ Add button",
+    "label_placeholder": "Label, e.g. In",
+    "name_placeholder": "E.g. Awning",
+    "no_buttons": "Add at least one button.",
+    "incomplete": "is missing a label or a code.",
+    "icons": {
+      "remote": "Remote control",
+      "awning": "Awning",
+      "blind": "Blind",
+      "curtain": "Curtain",
+      "window": "Window",
+      "screen": "Projector screen",
+      "garage": "Garage door",
+      "gate": "Gate",
+      "light": "Light",
+      "socket": "Socket",
+      "fan": "Fan",
+      "bell": "Doorbell",
+      "button": "Button"
+    },
+    "selected": "Selected"
+  }
+}

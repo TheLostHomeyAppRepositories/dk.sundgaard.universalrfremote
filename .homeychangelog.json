@@ -1,0 +1,10 @@
+{
+  "1.0.0": {
+    "en": "First version: remote controls with your own buttons, codes from Flipper Zero .sub files or entered by hand, 32 fixed-code protocols plus RAW.",
+    "da": "Første version: fjernbetjeninger med egne knapper, koder fra Flipper Zero .sub-filer eller indtastet i hånden, 32 protokoller med faste koder samt RAW."
+  },
+  "1.0.1": {
+    "en": "New \"A button is pressed\" flow card, links to source code and issue tracker, and small fixes.",
+    "da": "Nyt flowkort \"Der trykkes på en knap\", links til kildekode og fejlrapportering samt små rettelser."
+  }
+}

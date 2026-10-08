@@ -1,0 +1,352 @@
+<!--
+  Parring og reparation af en fjernbetjening (kopieres til drivers/remote/pair og /repair af scripts/build.js).
+  Brugeren vælger navn, ikon og type og tilføjer selv knapper med etiket og kode (.sub-fil eller manuelt).
+-->
+<style>
+  .ur-hide { display: none !important; }
+  .ur-icons { display: grid; grid-template-columns: repeat(auto-fill, minmax(56px, 1fr)); gap: .5em; }
+  /* Homeys stylesheet overskriver knap-stilarter, derfor !important. */
+  .ur-icons button { position: relative; aspect-ratio: 1; padding: 8px !important; border-radius: 12px !important; border: 3px solid transparent !important; background: #fff !important; opacity: .55; box-shadow: none !important; }
+  .ur-icons button.active { opacity: 1; border-color: #2a8af6 !important; box-shadow: 0 0 0 3px rgba(42,138,246,.35) !important; }
+  .ur-icons button.active::after { content: "✓"; position: absolute; top: -8px; right: -8px; width: 22px; height: 22px; border-radius: 50%; background: #2a8af6; color: #fff; font-size: 14px; line-height: 22px; text-align: center; font-weight: 700; }
+  .ur-icons img { width: 100%; height: 100%; pointer-events: none; }
+  .ur-icon-name { font-size: .85em; opacity: .8; margin-top: .4em; }
+  .ur-btn { margin-bottom: 1em; }
+  .ur-btn-head { display: flex; gap: .5em; align-items: center; }
+  .ur-btn-head input { flex: 1; }
+  .ur-icon-btn { padding: .35em .7em; border-radius: 6px; border: 1px solid rgba(128,128,128,.4); background: transparent; color: inherit; font: inherit; }
+  .ur-tabs { display: flex; gap: .5em; margin: .6em 0; }
+  .ur-tabs button { flex: 1; padding: .45em; border-radius: 6px; border: 1px solid rgba(128,128,128,.4); background: transparent; color: inherit; font: inherit; }
+  .ur-tabs button.active { background: rgba(128,128,128,.25); font-weight: 600; }
+  .ur-row { display: flex; gap: .5em; }
+  .ur-row > * { flex: 1; min-width: 0; }
+  .ur-summary { font-size: .9em; margin: .5em 0; opacity: .85; word-break: break-word; }
+  .ur-summary.ok::before { content: "✓ "; }
+  .ur-summary.err { color: #d9534f; opacity: 1; }
+  .ur-small { font-size: .85em; opacity: .7; }
+  textarea.homey-form-input { min-height: 4.5em; font-family: monospace; font-size: .85em; }
+  .ur-actions { display: flex; gap: .5em; margin-top: .4em; }
+  .ur-actions button { flex: 1; }
+  #ur-add { margin-bottom: 1em; }
+</style>
+
+<header class="homey-header">
+  <h1 class="homey-title" data-i18n="remote.title"></h1>
+  <p class="homey-subtitle" data-i18n="remote.intro"></p>
+</header>
+
+<fieldset class="homey-form-fieldset">
+  <div class="homey-form-group" data-role="pair-only">
+    <label class="homey-form-label" for="ur-name" data-i18n="pair.name"></label>
+    <input class="homey-form-input" id="ur-name" type="text" />
+  </div>
+  <div class="homey-form-group" data-role="pair-only">
+    <label class="homey-form-label" data-i18n="remote.icon"></label>
+    <div class="ur-icons" id="ur-icons"></div>
+    <div class="ur-icon-name" id="ur-icon-name"></div>
+  </div>
+  <div class="homey-form-group">
+    <label class="homey-form-label" for="ur-class" data-i18n="pair.class"></label>
+    <select class="homey-form-select" id="ur-class"></select>
+  </div>
+  <div class="homey-form-group">
+    <label class="homey-form-label" for="ur-rep" data-i18n="pair.repetitions"></label>
+    <input class="homey-form-input" id="ur-rep" type="number" min="1" max="255" value="10" />
+    <div class="ur-small" data-i18n="pair.repetitions_hint"></div>
+  </div>
+</fieldset>
+
+<div id="ur-buttons"></div>
+<button type="button" class="homey-button-secondary-full" id="ur-add" data-i18n="remote.add"></button>
+<button type="button" class="homey-button-primary-full" id="ur-save"></button>
+
+<template id="ur-btn-tpl">
+  <fieldset class="homey-form-fieldset ur-btn">
+    <legend class="homey-form-legend" data-role="legend"></legend>
+    <div class="ur-btn-head">
+      <input class="homey-form-input" type="text" data-role="label" maxlength="30" />
+      <button type="button" class="ur-icon-btn" data-role="up" title="↑">↑</button>
+      <button type="button" class="ur-icon-btn" data-role="down" title="↓">↓</button>
+      <button type="button" class="ur-icon-btn" data-role="remove" title="✕">✕</button>
+    </div>
+
+    <div class="ur-tabs">
+      <button type="button" data-tab="file" class="active" data-i18n="pair.tab_file"></button>
+      <button type="button" data-tab="manual" data-i18n="pair.tab_manual"></button>
+    </div>
+
+    <div data-pane="file">
+      <input class="homey-form-input" type="file" accept=".sub,text/plain" data-role="file" />
+      <div class="ur-small" data-i18n="pair.paste_hint"></div>
+      <textarea class="homey-form-input" data-role="paste" placeholder="Filetype: Flipper SubGhz Key File&#10;…"></textarea>
+    </div>
+
+    <div data-pane="manual" class="ur-hide">
+      <div class="homey-form-group">
+        <label class="homey-form-label" data-i18n="pair.protocol"></label>
+        <select class="homey-form-select" data-role="protocol"></select>
+      </div>
+      <div data-role="keyfields">
+        <div class="homey-form-group">
+          <label class="homey-form-label" data-i18n="pair.key"></label>
+          <input class="homey-form-input" type="text" data-role="key" placeholder="00 00 00 00 00 5A 3C 94" />
+        </div>
+        <div class="ur-row">
+          <div class="homey-form-group">
+            <label class="homey-form-label" data-i18n="pair.bits"></label>
+            <input class="homey-form-input" type="number" data-role="bits" />
+          </div>
+          <div class="homey-form-group" data-role="tegroup">
+            <label class="homey-form-label" data-i18n="pair.te"></label>
+            <input class="homey-form-input" type="number" data-role="te" />
+          </div>
+        </div>
+      </div>
+      <div class="homey-form-group ur-hide" data-role="rawfields">
+        <label class="homey-form-label" data-i18n="pair.raw"></label>
+        <textarea class="homey-form-input" data-role="raw" placeholder="350 -1050 1050 -350 …"></textarea>
+      </div>
+      <div class="homey-form-group">
+        <label class="homey-form-label" data-i18n="pair.frequency"></label>
+        <input class="homey-form-input" type="text" inputmode="decimal" data-role="freq" value="433.92" />
+      </div>
+      <button type="button" class="homey-button-secondary-full" data-role="apply" data-i18n="pair.apply"></button>
+    </div>
+
+    <div class="ur-summary" data-role="summary"></div>
+    <div class="ur-actions">
+      <button type="button" class="homey-button-secondary-small ur-hide" data-role="test" data-i18n="pair.test"></button>
+    </div>
+  </fieldset>
+</template>
+
+<script type="application/javascript">
+(function () {
+  const $ = (sel, root) => (root || document).querySelector(sel);
+  const t = (key) => Homey.__(key) || key;
+  let ctx;
+  let icon = 'remote';
+  const buttons = []; // { id, label, code, el }
+
+  function translate(root) {
+    root.querySelectorAll('[data-i18n]').forEach((el) => { el.textContent = t(el.dataset.i18n); });
+  }
+
+  // Knapper skal ikke blive stående i "trykket" tilstand.
+  document.addEventListener('click', (e) => {
+    const b = e.target.closest('button');
+    if (b) setTimeout(() => b.blur(), 0);
+  });
+
+  function renumber() {
+    buttons.forEach((b, i) => {
+      $('[data-role=legend]', b.el).textContent = `${t('remote.button')} ${i + 1}`;
+      $('[data-role=up]', b.el).disabled = i === 0;
+      $('[data-role=down]', b.el).disabled = i === buttons.length - 1;
+    });
+    $('#ur-add').classList.toggle('ur-hide', buttons.length >= ctx.maxButtons);
+  }
+
+  function showSummary(b, text, cls) {
+    const s = $('[data-role=summary]', b.el);
+    s.textContent = text || '';
+    s.className = `ur-summary ${cls || ''}`;
+    $('[data-role=test]', b.el).classList.toggle('ur-hide', !b.code);
+  }
+
+  async function parse(b, input) {
+    try {
+      const res = await Homey.emit('parse', input);
+      b.code = res.code;
+      showSummary(b, res.summary + (res.note ? ` (${res.note})` : ''), 'ok');
+      fillManual(b, res.code);
+      // Etiket fra filnavnet, hvis brugeren ikke har skrevet en.
+      if (input.fileName && !$('[data-role=label]', b.el).value) {
+        $('[data-role=label]', b.el).value = input.fileName.replace(/\.sub$/i, '').replace(/[_-]+/g, ' ').trim();
+      }
+    } catch (err) {
+      b.code = null;
+      showSummary(b, err.message || String(err), 'err');
+    }
+  }
+
+  function updateManualFields(b) {
+    const name = $('[data-role=protocol]', b.el).value;
+    const p = ctx.protocols.find((x) => x.name === name);
+    $('[data-role=keyfields]', b.el).classList.toggle('ur-hide', name === 'RAW');
+    $('[data-role=rawfields]', b.el).classList.toggle('ur-hide', name !== 'RAW');
+    $('[data-role=tegroup]', b.el).classList.toggle('ur-hide', !(p && p.te));
+    return p;
+  }
+
+  function fillManual(b, code) {
+    $('[data-role=protocol]', b.el).value = code.pulses ? 'RAW' : code.protocol;
+    $('[data-role=key]', b.el).value = code.key || '';
+    $('[data-role=bits]', b.el).value = code.bits || '';
+    $('[data-role=te]', b.el).value = code.te || '';
+    $('[data-role=freq]', b.el).value = (code.frequency / 1e6).toFixed(2);
+    $('[data-role=raw]', b.el).value = code.pulses ? code.pulses.join(' ') : '';
+    updateManualFields(b);
+  }
+
+  function addButton(data) {
+    const el = $('#ur-btn-tpl').content.firstElementChild.cloneNode(true);
+    translate(el);
+    const b = { id: data && data.id, code: null, el };
+    buttons.push(b);
+    $('#ur-buttons').appendChild(el);
+    const label = $('[data-role=label]', el);
+    label.placeholder = t('remote.label_placeholder');
+    label.value = (data && data.label) || '';
+
+    el.querySelectorAll('[data-tab]').forEach((btn) => btn.addEventListener('click', () => {
+      el.querySelectorAll('[data-tab]').forEach((x) => x.classList.toggle('active', x === btn));
+      el.querySelectorAll('[data-pane]').forEach((p) => p.classList.toggle('ur-hide', p.dataset.pane !== btn.dataset.tab));
+    }));
+
+    $('[data-role=file]', el).addEventListener('change', (e) => {
+      const file = e.target.files && e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = () => parse(b, { sub: String(reader.result), fileName: file.name });
+      reader.readAsText(file);
+    });
+    $('[data-role=paste]', el).addEventListener('change', (e) => {
+      if (e.target.value.trim()) parse(b, { sub: e.target.value });
+    });
+
+    const sel = $('[data-role=protocol]', el);
+    for (const p of ctx.protocols) sel.add(new Option(p.name, p.name));
+    sel.add(new Option('RAW', 'RAW'));
+    sel.value = 'Princeton';
+    const setDefaults = () => {
+      const p = updateManualFields(b);
+      if (p) {
+        $('[data-role=bits]', el).value = p.bits;
+        $('[data-role=te]', el).value = p.te || '';
+      }
+    };
+    sel.addEventListener('change', setDefaults);
+    setDefaults();
+
+    $('[data-role=apply]', el).addEventListener('click', () => parse(b, {
+      protocol: sel.value,
+      key: $('[data-role=key]', el).value,
+      bits: $('[data-role=bits]', el).value,
+      te: $('[data-role=te]', el).value,
+      frequency: $('[data-role=freq]', el).value,
+      raw: $('[data-role=raw]', el).value,
+    }));
+
+    $('[data-role=test]', el).addEventListener('click', async (e) => {
+      const btn = e.currentTarget;
+      btn.disabled = true;
+      try {
+        await Homey.emit('test', { code: b.code, repetitions: $('#ur-rep').value });
+        btn.textContent = t('pair.sent');
+      } catch (err) {
+        Homey.alert(err.message || String(err));
+      } finally {
+        btn.disabled = false;
+        setTimeout(() => { btn.textContent = t('pair.test'); }, 2000);
+      }
+    });
+
+    const move = (dir) => {
+      const i = buttons.indexOf(b);
+      const j = i + dir;
+      if (j < 0 || j >= buttons.length) return;
+      [buttons[i], buttons[j]] = [buttons[j], buttons[i]];
+      buttons.forEach((x) => $('#ur-buttons').appendChild(x.el));
+      renumber();
+    };
+    $('[data-role=up]', el).addEventListener('click', () => move(-1));
+    $('[data-role=down]', el).addEventListener('click', () => move(1));
+    $('[data-role=remove]', el).addEventListener('click', () => {
+      buttons.splice(buttons.indexOf(b), 1);
+      el.remove();
+      renumber();
+    });
+
+    if (data && data.code) {
+      b.code = data.code;
+      fillManual(b, data.code);
+      parse(b, data.code); // oversigt fra serveren
+    }
+    renumber();
+    return b;
+  }
+
+  function renderIcons() {
+    const box = $('#ur-icons');
+    for (const ic of ctx.icons) {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.dataset.icon = ic.id;
+      btn.title = t(`remote.icons.${ic.id}`);
+      btn.innerHTML = `<img alt="${btn.title}" src="${ic.src}">`;
+      btn.addEventListener('click', () => select(ic.id));
+      box.appendChild(btn);
+    }
+    select(icon);
+  }
+
+  // Markér det valgte ikon og skriv navnet under.
+  function select(id) {
+    icon = id;
+    $('#ur-icons').querySelectorAll('button').forEach((x) => x.classList.toggle('active', x.dataset.icon === id));
+    $('#ur-icon-name').textContent =`${t('remote.selected')}: ${t(`remote.icons.${id}`)}`;
+  }
+
+  async function save() {
+    if (!buttons.length) return Homey.alert(t('remote.no_buttons'));
+    const bad = buttons.findIndex((b) => !$('[data-role=label]', b.el).value.trim() || !b.code);
+    if (bad >= 0) return Homey.alert(`${t('remote.button')} ${bad + 1}: ${t('remote.incomplete')}`);
+    const payload = {
+      name: $('#ur-name').value.trim(),
+      icon,
+      deviceClass: $('#ur-class').value,
+      repetitions: Math.max(1, Math.min(255, Number($('#ur-rep').value) || 10)),
+      buttons: buttons.map((b) => ({ id: b.id, label: $('[data-role=label]', b.el).value.trim(), code: b.code })),
+    };
+    const btn = $('#ur-save');
+    btn.disabled = true;
+    try {
+      if (ctx.mode === 'repair') {
+        await Homey.emit('save', payload);
+      } else {
+        const device = await Homey.emit('device', payload);
+        await Homey.createDevice(device);
+      }
+      Homey.done();
+    } catch (err) {
+      btn.disabled = false;
+      Homey.alert(err.message || String(err));
+    }
+  }
+
+  async function init() {
+    translate(document);
+    ctx = await Homey.emit('context');
+    icon = ctx.icon || 'remote';
+    $('#ur-name').value = ctx.name || '';
+    $('#ur-name').placeholder = t('remote.name_placeholder');
+    for (const c of ctx.classes) $('#ur-class').add(new Option(c.label, c.id));
+    $('#ur-class').value = ctx.deviceClass || 'remote';
+    if (ctx.repetitions) $('#ur-rep').value = ctx.repetitions;
+    // Ikonet kan kun vælges ved oprettelse (Homey kan ikke skifte en enheds ikon bagefter).
+    if (ctx.mode === 'repair') document.querySelectorAll('[data-role=pair-only]').forEach((e) => e.classList.add('ur-hide'));
+    else renderIcons();
+    $('#ur-save').textContent = t(ctx.mode === 'repair' ? 'pair.save' : 'pair.create');
+    $('#ur-save').addEventListener('click', save);
+    $('#ur-add').addEventListener('click', () => {
+      const b = addButton();
+      $('[data-role=label]', b.el).focus();
+    });
+    if (ctx.buttons.length) ctx.buttons.forEach(addButton);
+    else addButton();
+  }
+
+  init().catch((err) => Homey.alert(err.message || String(err)));
+})();
+</script>

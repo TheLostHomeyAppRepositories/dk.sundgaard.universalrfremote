@@ -1,0 +1,53 @@
+{
+  "lang": "da",
+  "pair": {
+    "name": "Navn",
+    "class": "Enhedstype",
+    "repetitions": "Gentagelser",
+    "repetitions_hint": "Hvor mange gange koden sendes pr. kommando (Flipper bruger 10).",
+    "tab_file": ".sub-fil",
+    "tab_manual": "Indtast",
+    "paste_hint": "… eller indsæt filens indhold:",
+    "protocol": "Protokol",
+    "key": "Nøgle (hex)",
+    "bits": "Bit",
+    "te": "TE (µs)",
+    "raw": "RAW_Data (µs, + = sender, − = pause)",
+    "frequency": "Frekvens (MHz)",
+    "apply": "Brug værdierne",
+    "test": "Test",
+    "sent": "Sendt",
+    "create": "Opret enhed",
+    "save": "Gem"
+  },
+  "error": {
+    "no_code": "Der er ingen kode til denne knap"
+  },
+  "remote": {
+    "title": "Fjernbetjening",
+    "intro": "Vælg navn og ikon, og tilføj en knap for hver kode. Giv hver knap en etiket (fx Ind, Ud, Stop) og indlæs dens .sub-fil fra Flipper (Sub-GHz → Saved), eller skriv værdierne ind.",
+    "icon": "Ikon",
+    "button": "Knap",
+    "add": "+ Tilføj knap",
+    "label_placeholder": "Etiket, fx Ind",
+    "name_placeholder": "Fx Markise",
+    "no_buttons": "Tilføj mindst én knap.",
+    "incomplete": "mangler etiket eller kode.",
+    "icons": {
+      "remote": "Fjernbetjening",
+      "awning": "Markise",
+      "blind": "Rullegardin",
+      "curtain": "Gardin",
+      "window": "Vindue",
+      "screen": "Lærred",
+      "garage": "Garageport",
+      "gate": "Låge",
+      "light": "Lys",
+      "socket": "Stikkontakt",
+      "fan": "Ventilator",
+      "bell": "Dørklokke",
+      "button": "Knap"
+    },
+    "selected": "Valgt"
+  }
+}
