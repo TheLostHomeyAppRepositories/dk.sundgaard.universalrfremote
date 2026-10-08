@@ -4,7 +4,7 @@
     "da": "Første version: fjernbetjeninger med egne knapper, koder fra Flipper Zero .sub-filer eller indtastet i hånden, 32 protokoller med faste koder samt RAW."
   },
   "1.0.1": {
-    "en": "New \"A button is pressed\" flow card, links to source code and issue tracker, and small fixes.",
-    "da": "Nyt flowkort \"Der trykkes på en knap\", links til kildekode og fejlrapportering samt små rettelser."
+    "en": "New \"A button is pressed\" flow card, simpler \"Send a 433 MHz code\" card, new device icon, links to source code and issue tracker, and small fixes.",
+    "da": "Nyt flowkort \"Der trykkes på en knap\", enklere kort \"Send en 433 MHz-kode\", nyt enhedsikon, links til kildekode og fejlrapportering samt små rettelser."
   }
 }

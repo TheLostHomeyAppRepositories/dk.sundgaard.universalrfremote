@@ -12,8 +12,8 @@
     "da": "Universal RF Remote"
   },
   "description": {
-    "en": "Turn remote codes captured with a Flipper Zero into buttons you can press and automate",
-    "da": "Gør fjernbetjeningskoder fra en Flipper Zero til knapper, du kan trykke på og automatisere"
+    "en": "Bring the remotes for your awning, gate and doorbell into your smart home",
+    "da": "Få fjernbetjeningerne til markise, port og dørklokke med i dit smarte hjem"
   },
   "category": [
     "tools"
@@ -131,12 +131,12 @@
           "da": "Send en 433 MHz-kode"
         },
         "titleFormatted": {
-          "en": "Send [[protocol]] code [[key]] with [[bits]] bits and TE [[te]] µs on [[frequency]] MHz [[repetitions]] times",
-          "da": "Send [[protocol]]-koden [[key]] med [[bits]] bit og TE [[te]] µs på [[frequency]] MHz [[repetitions]] gange"
+          "en": "Send [[protocol]] code [[key]], [[bits]] bits, TE [[te]], [[frequency]] MHz, [[repetitions]] times",
+          "da": "Send [[protocol]]-koden [[key]], [[bits]] bit, TE [[te]], [[frequency]] MHz, [[repetitions]] gange"
         },
         "hint": {
-          "en": "Enter the values the Flipper Zero shows for the code. TE is only used by Princeton, Holtek_HT12X, SMC5326 and Legrand.",
-          "da": "Indtast de værdier, Flipper Zero viser for koden. TE bruges kun af Princeton, Holtek_HT12X, SMC5326 og Legrand."
+          "en": "Enter the values from the .sub file. Bits, TE, frequency and repetitions are optional: bits and TE default to the protocol standard, frequency to 433.92 MHz and repetitions to 10. TE is only used by Princeton, Holtek_HT12X, SMC5326 and Legrand.",
+          "da": "Indtast værdierne fra .sub-filen. Bit, TE, frekvens og gentagelser er valgfrie: bit og TE følger protokollens standard, frekvensen er 433,92 MHz og gentagelser 10. TE bruges kun af Princeton, Holtek_HT12X, SMC5326 og Legrand."
         },
         "args": [
           {
@@ -175,7 +175,8 @@
             "placeholder": {
               "en": "24",
               "da": "24"
-            }
+            },
+            "required": false
           },
           {
             "type": "number",
@@ -189,7 +190,8 @@
             "placeholder": {
               "en": "400",
               "da": "400"
-            }
+            },
+            "required": false
           },
           {
             "type": "number",
@@ -204,7 +206,8 @@
             "placeholder": {
               "en": "433.92",
               "da": "433.92"
-            }
+            },
+            "required": false
           },
           {
             "type": "number",
@@ -218,7 +221,8 @@
             "placeholder": {
               "en": "10",
               "da": "10"
-            }
+            },
+            "required": false
           }
         ]
       },
@@ -246,7 +250,7 @@
               "da": "Knap"
             },
             "placeholder": {
-              "en": "Retract",
+              "en": "In",
               "da": "Ind"
             }
           }
@@ -269,8 +273,8 @@
           "da": "Der trykkes på [[button]]"
         },
         "hint": {
-          "en": "Runs when the button is pressed on the device or by a voice assistant, after its code has been sent. Pressing it with the Press a button flow card does not start this card.",
-          "da": "Kører når der trykkes på knappen på enheden eller via en stemmeassistent, efter koden er sendt. Tryk via flowkortet Tryk på en knap starter ikke dette kort."
+          "en": "Runs when the button is pressed on the device, after its code has been sent. Pressing it with the \"Press a button\" flow card does not start this card.",
+          "da": "Kører når der trykkes på knappen på enheden, efter koden er sendt. Tryk via flowkortet \"Tryk på en knap\" starter ikke dette kort."
         },
         "args": [
           {
@@ -286,7 +290,7 @@
               "da": "Knap"
             },
             "placeholder": {
-              "en": "Retract",
+              "en": "In",
               "da": "Ind"
             }
           }
@@ -306,7 +310,7 @@
         "email": "homey@uniteapps.dk"
       },
       {
-        "name": "Flipper Devices Inc. – Sub-GHz protocol encoders ported from flipperzero-firmware (GPL-3.0)"
+        "name": "flipperzero-firmware contributors – Sub-GHz protocol code adapted under GPL-3.0"
       }
     ]
   },

@@ -11,6 +11,14 @@ Send 433 MHz codes captured with a [Flipper Zero](https://flipperzero.one) from 
 - **Repair device** to add, remove, relabel and reorder buttons or change codes.
 - English and Danish.
 
+## Where to get codes
+
+- **Read your own remote** with a Flipper Zero (*Sub-GHz → Read*) and save it – this gives the `.sub` file.
+- **Download ready-made `.sub` files** from community collections, for example [UberGuidoZ/Flipper – Sub-GHz](https://github.com/UberGuidoZ/Flipper/tree/main/Sub-GHz), which has thousands of files sorted by device type and brand. Open the file on GitHub, copy its contents and paste them into the button on the pairing page.
+- **Type the values in** (protocol, key, bits, TE, frequency) if you know them, e.g. from a label or a manual.
+
+Codes from a download only work if your receiver was paired with exactly that code. For fixed-code devices that learn the code from a remote (many sockets, doorbells and awning motors), you can usually pair the receiver with a downloaded or invented code: put the receiver in learning mode and press *Test* on the pairing page.
+
 ## Limitations
 
 - Homey Pro (Early 2023) transmits on **433.00–433.99 MHz** with AM/OOK only. 868 MHz and FM/FSK recordings are not supported.
