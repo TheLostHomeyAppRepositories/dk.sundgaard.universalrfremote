@@ -1,14 +1,5 @@
-Bedien de 433 MHz-afstandsbedieningen die Homey zelf niet kan leren, zoals die van zonneschermen, rolgordijnen, stopcontacten, deurbellen en poorten.
-Universal RF Remote voegt een afstandsbediening aan Homey toe met je eigen knoppen, zoals In, Stop en Uit.
-Je kunt ze indrukken in de Homey-app en gebruiken in flows.
+Bedien de 433 MHz-afstandsbedieningen die Homey niet zelf kan leren, zoals die voor zonneschermen, jaloezieën, stopcontacten en poorten.
+Voeg een afstandsbediening met je eigen knoppen toe en geef elke knop zijn code door Homey naar de afstandsbediening te laten luisteren, uit een Flipper Zero-opname of door hem in te typen.
 
-Elke knop krijgt zijn code doordat Homey naar je afstandsbediening luistert, uit een Flipper Zero-opname (.sub-bestand) of uit waarden die je zelf invoert.
-Je kunt elke knop testen voordat je klaar bent.
-
-De app ondersteunt 32 protocollen voor afstandsbedieningen met een vaste code.
-Daaronder Princeton, dat in veel stopcontacten en deurbellen wordt gebruikt, en CAME, dat in veel poortopeners wordt gebruikt.
-Afstandsbedieningen die bij elke druk van code wisselen, kunnen niet worden gekopieerd.
-Dat geldt bijvoorbeeld voor Somfy-zonneschermen, autosleutels en veel nieuwere garagedeuren.
-
-Stapsgewijze handleiding en support in de Homey Community:
-https://community.homey.app/t/app-pro-universal-rf-remote-use-flipper-zero-sub-files/160781
+Geef de knoppen een functie zoals Omhoog, Stop en Omlaag of Aan en Uit, dan krijgt het apparaat de eigen bediening van Homey, werkt het met spraakassistenten en kan het een zonnescherm naar een positie sturen.
+Afstandsbedieningen die bij elke druk hun code wijzigen, zoals Somfy, kunnen niet worden gekopieerd.

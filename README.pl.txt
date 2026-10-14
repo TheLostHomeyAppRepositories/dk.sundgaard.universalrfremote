@@ -1,14 +1,5 @@
-Steruj pilotami 433 MHz, których Homey nie potrafi sam się nauczyć, na przykład od markiz, rolet, gniazdek, dzwonków i bram.
-Universal RF Remote dodaje do Homey pilota z własnymi przyciskami, na przykład Zwiń, Stop i Rozwiń.
-Możesz je naciskać w aplikacji Homey i używać we flow.
+Steruj pilotami 433 MHz, których Homey nie potrafi się sam nauczyć, np. do markiz, żaluzji, gniazdek i bram.
+Dodaj pilota z własnymi przyciskami i nadaj każdemu kod, pozwalając Homey nasłuchać pilota, z nagrania Flipper Zero albo wpisując go ręcznie.
 
-Każdy przycisk dostaje kod przez nasłuchanie pilota przez Homey, z nagrania Flipper Zero (plik .sub) albo z wartości wpisanych ręcznie.
-Każdy przycisk możesz przetestować przed zakończeniem.
-
-Aplikacja obsługuje 32 protokoły pilotów ze stałym kodem.
-Wśród nich są Princeton, używany w wielu gniazdkach i dzwonkach, oraz CAME, używany w wielu napędach bram.
-Pilotów, które zmieniają kod przy każdym naciśnięciu, nie da się skopiować.
-Dotyczy to na przykład markiz Somfy, kluczyków samochodowych i wielu nowszych bram garażowych.
-
-Instrukcja krok po kroku i wsparcie w Homey Community:
-https://community.homey.app/t/app-pro-universal-rf-remote-use-flipper-zero-sub-files/160781
+Przypisz przyciskom funkcję, np. Góra, Stop i Dół albo Włącz i Wyłącz, a urządzenie dostanie własne sterowanie Homey, będzie działać z asystentami głosowymi i ustawi markizę w wybranej pozycji.
+Pilotów, które zmieniają kod przy każdym naciśnięciu, np. Somfy, nie da się skopiować.
