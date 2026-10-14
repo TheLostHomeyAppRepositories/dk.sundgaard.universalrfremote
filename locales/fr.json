@@ -24,7 +24,9 @@
     "listen_start": "Commencer l'écoute",
     "listen_stop": "Arrêter",
     "listening": "Écoute en cours… appuyez maintenant sur le bouton de la télécommande.",
-    "heard": "Signal reçu, décodage…"
+    "heard": "Signal reçu, décodage…",
+    "role": "Fonction",
+    "role_hint": "Attribuez une fonction aux boutons (Monter, Stop, Descendre, Allumer, Éteindre) pour obtenir les commandes de Homey pour ce type d'appareil – elles fonctionnent aussi avec les assistants vocaux. Pour les stores et volets, réglez la durée de course dans les paramètres de l'appareil pour les amener à une position."
   },
   "error": {
     "no_code": "Ce bouton n'a pas de code"
@@ -100,6 +102,17 @@
     "decimal": ",",
     "listen_nothing": "Aucun signal capté. Rapprochez la télécommande de Homey et réessayez.",
     "listen_unknown": "Un signal a été capté mais n'a pas été reconnu. Il utilise peut-être un code tournant ou un protocole que l'app ne sait pas décoder – utilisez plutôt un fichier .sub d'un Flipper Zero.",
-    "listen_cancelled": "Écoute arrêtée."
+    "listen_cancelled": "Écoute arrêtée.",
+    "role_twice": "Les boutons {a} et {b} ont la même fonction – choisissez-la sur un seul bouton.",
+    "no_role": "Cette télécommande n'a pas de bouton pour cela – attribuez cette fonction à un bouton via Réparer l'appareil."
+  },
+  "roles": {
+    "none": "Aucune (bouton seul)",
+    "up": "Monter / rentrer / ouvrir",
+    "stop": "Stop",
+    "down": "Descendre / sortir / fermer",
+    "on": "Allumer",
+    "off": "Éteindre",
+    "toggle": "Basculer"
   }
 }

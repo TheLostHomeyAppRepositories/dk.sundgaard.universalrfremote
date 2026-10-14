@@ -24,7 +24,9 @@
     "listen_start": "Börja lyssna",
     "listen_stop": "Stopp",
     "listening": "Lyssnar… tryck på fjärrkontrollens knapp nu.",
-    "heard": "Signal mottagen, avkodar…"
+    "heard": "Signal mottagen, avkodar…",
+    "role": "Funktion",
+    "role_hint": "Ge knapparna en funktion (Upp, Stopp, Ned, På, Av) så får enheten Homeys egna kontroller för enhetstypen – de fungerar också med röstassistenter. För markiser och persienner kan du ställa in gångtiden i enhetens inställningar för att köra dem till ett läge."
   },
   "error": {
     "no_code": "Den här knappen har ingen kod"
@@ -100,6 +102,17 @@
     "decimal": ",",
     "listen_nothing": "Ingen signal hördes. Håll fjärrkontrollen närmare Homey och försök igen.",
     "listen_unknown": "En signal hördes men kändes inte igen. Den kan använda en rullande kod eller ett protokoll som appen inte kan avkoda – använd i stället en .sub-fil från en Flipper Zero.",
-    "listen_cancelled": "Lyssnandet stoppades."
+    "listen_cancelled": "Lyssnandet stoppades.",
+    "role_twice": "Knapp {a} och {b} har samma funktion – välj den bara på en knapp.",
+    "no_role": "Fjärrkontrollen har ingen knapp för det – ge en knapp den funktionen under Reparera enhet."
+  },
+  "roles": {
+    "none": "Ingen (bara knapp)",
+    "up": "Upp / in / öppna",
+    "stop": "Stopp",
+    "down": "Ned / ut / stäng",
+    "on": "På",
+    "off": "Av",
+    "toggle": "Växla"
   }
 }

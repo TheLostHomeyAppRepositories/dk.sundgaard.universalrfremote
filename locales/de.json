@@ -24,7 +24,9 @@
     "listen_start": "Zuhören starten",
     "listen_stop": "Stopp",
     "listening": "Hört zu … drücke jetzt die Taste der Fernbedienung.",
-    "heard": "Signal empfangen, wird dekodiert …"
+    "heard": "Signal empfangen, wird dekodiert …",
+    "role": "Funktion",
+    "role_hint": "Gib den Tasten eine Funktion (Hoch, Stopp, Runter, Ein, Aus), damit das Gerät Homeys eigene Steuerung für diesen Gerätetyp bekommt – sie funktioniert auch mit Sprachassistenten. Für Markisen und Jalousien kannst du in den Geräteeinstellungen die Laufzeit festlegen, um sie auf eine Position zu fahren."
   },
   "error": {
     "no_code": "Für diese Taste gibt es keinen Code"
@@ -100,6 +102,17 @@
     "decimal": ",",
     "listen_nothing": "Kein Signal empfangen. Halte die Fernbedienung näher an Homey und versuche es erneut.",
     "listen_unknown": "Es wurde ein Signal empfangen, aber nicht erkannt. Es verwendet vielleicht einen Rolling Code oder ein Protokoll, das die App nicht dekodieren kann – verwende stattdessen eine .sub-Datei von einem Flipper Zero.",
-    "listen_cancelled": "Zuhören beendet."
+    "listen_cancelled": "Zuhören beendet.",
+    "role_twice": "Taste {a} und {b} haben dieselbe Funktion – wähle sie nur bei einer Taste.",
+    "no_role": "Diese Fernbedienung hat dafür keine Taste – gib einer Taste diese Funktion unter Gerät reparieren."
+  },
+  "roles": {
+    "none": "Keine (nur Taste)",
+    "up": "Hoch / ein / öffnen",
+    "stop": "Stopp",
+    "down": "Runter / aus / schließen",
+    "on": "Ein",
+    "off": "Aus",
+    "toggle": "Umschalten"
   }
 }

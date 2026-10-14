@@ -1,6 +1,6 @@
 {
   "id": "dk.sundgaard.universalrfremote",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "compatibility": ">=12.3.0",
   "sdk": 3,
   "platforms": [
@@ -159,6 +159,63 @@
                 "pl": "Ile razy kod jest wysyłany na jedno polecenie. Zwiększ, jeśli urządzenie nie zawsze reaguje.",
                 "ko": "명령 한 번에 코드를 보내는 횟수입니다. 기기가 가끔 반응하지 않으면 늘리세요.",
                 "ar": "عدد مرات إرسال الرمز لكل أمر. زِد العدد إذا لم يستجب الجهاز دائمًا."
+              }
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Position",
+            "nl": "Positie",
+            "de": "Position",
+            "fr": "Position",
+            "it": "Posizione",
+            "sv": "Position",
+            "no": "Posisjon",
+            "es": "Posición",
+            "da": "Position",
+            "ru": "Положение",
+            "pl": "Pozycja",
+            "ko": "위치",
+            "ar": "الموضع"
+          },
+          "children": [
+            {
+              "id": "travel_time",
+              "type": "number",
+              "label": {
+                "en": "Travel time (seconds)",
+                "nl": "Looptijd (seconden)",
+                "de": "Laufzeit (Sekunden)",
+                "fr": "Durée de course (secondes)",
+                "it": "Tempo di corsa (secondi)",
+                "sv": "Gångtid (sekunder)",
+                "no": "Kjøretid (sekunder)",
+                "es": "Tiempo de recorrido (segundos)",
+                "da": "Køretid (sekunder)",
+                "ru": "Время хода (секунды)",
+                "pl": "Czas przejazdu (sekundy)",
+                "ko": "이동 시간(초)",
+                "ar": "زمن الحركة (ثوانٍ)"
+              },
+              "value": 0,
+              "min": 0,
+              "max": 300,
+              "hint": {
+                "en": "For awnings, blinds and curtains: the time from fully up/in to fully down/out. With buttons for Up, Stop and Down, Homey can then move it to a position. The position is estimated, so press Up or Down all the way now and then. 0 = off.",
+                "nl": "Voor zonneschermen, jaloezieën en gordijnen: de tijd van helemaal omhoog/in tot helemaal omlaag/uit. Met knoppen voor Omhoog, Stop en Omlaag kan Homey het dan naar een positie sturen. De positie is een schatting, dus laat het af en toe helemaal omhoog of omlaag lopen. 0 = uit.",
+                "de": "Für Markisen, Jalousien und Vorhänge: die Zeit von ganz oben/eingefahren bis ganz unten/ausgefahren. Mit Tasten für Hoch, Stopp und Runter kann Homey sie dann auf eine Position fahren. Die Position ist geschätzt, fahre also ab und zu ganz hoch oder runter. 0 = aus.",
+                "fr": "Pour les stores, volets et rideaux : le temps entre complètement en haut/rentré et complètement en bas/sorti. Avec des boutons Monter, Stop et Descendre, Homey peut alors les amener à une position. La position est estimée : faites de temps en temps une course complète vers le haut ou le bas. 0 = désactivé.",
+                "it": "Per tende da sole, tapparelle e tende: il tempo da completamente su/dentro a completamente giù/fuori. Con i pulsanti Su, Stop e Giù, Homey può portarle a una posizione. La posizione è stimata, quindi ogni tanto falle salire o scendere del tutto. 0 = disattivato.",
+                "sv": "För markiser, persienner och gardiner: tiden från helt uppe/inne till helt nere/ute. Med knappar för Upp, Stopp och Ned kan Homey köra den till ett läge. Läget är uppskattat, så kör ibland hela vägen upp eller ned. 0 = av.",
+                "no": "For markiser, persienner og gardiner: tiden fra helt oppe/inne til helt nede/ute. Med knapper for Opp, Stopp og Ned kan Homey da kjøre den til en posisjon. Posisjonen er et anslag, så kjør helt opp eller ned av og til. 0 = av.",
+                "es": "Para toldos, persianas y cortinas: el tiempo desde totalmente arriba/recogido hasta totalmente abajo/extendido. Con botones para Subir, Parar y Bajar, Homey puede llevarlos a una posición. La posición es estimada, así que de vez en cuando haz un recorrido completo hacia arriba o abajo. 0 = desactivado.",
+                "da": "Til markiser, persienner og gardiner: tiden fra helt oppe/inde til helt nede/ude. Med knapper til Op, Stop og Ned kan Homey så køre den til en position. Positionen er et skøn, så kør engang imellem helt op eller ned. 0 = fra.",
+                "ru": "Для маркиз, жалюзи и штор: время от полностью поднятого/сложенного до полностью опущенного/раскрытого положения. С кнопками «Вверх», «Стоп» и «Вниз» Homey сможет перемещать их в нужное положение. Положение рассчитывается приблизительно, поэтому время от времени поднимайте или опускайте их до конца. 0 = выкл.",
+                "pl": "Dla markiz, żaluzji i zasłon: czas od pełnego podniesienia/zwinięcia do pełnego opuszczenia/rozwinięcia. Z przyciskami Góra, Stop i Dół Homey może ustawić je w wybranej pozycji. Pozycja jest szacowana, więc co jakiś czas przejedź do końca w górę lub w dół. 0 = wyłączone.",
+                "ko": "차양, 블라인드, 커튼용: 완전히 올림/접힘에서 완전히 내림/펼침까지 걸리는 시간입니다. 위로, 정지, 아래로 버튼이 있으면 Homey가 원하는 위치로 움직일 수 있습니다. 위치는 추정값이므로 가끔 끝까지 올리거나 내리세요. 0 = 끄기.",
+                "ar": "للمظلات والستائر: الزمن من الأعلى/الطي الكامل إلى الأسفل/البسط الكامل. مع أزرار أعلى وإيقاف وأسفل يستطيع Homey تحريكها إلى موضع معيّن. الموضع تقديري، لذا حرّكها أحيانًا حتى النهاية للأعلى أو للأسفل. 0 = إيقاف."
               }
             }
           ]

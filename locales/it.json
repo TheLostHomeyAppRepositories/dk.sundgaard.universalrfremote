@@ -24,7 +24,9 @@
     "listen_start": "Avvia ascolto",
     "listen_stop": "Ferma",
     "listening": "In ascolto… premi ora il pulsante del telecomando.",
-    "heard": "Segnale ricevuto, decodifica in corso…"
+    "heard": "Segnale ricevuto, decodifica in corso…",
+    "role": "Funzione",
+    "role_hint": "Assegna una funzione ai pulsanti (Su, Stop, Giù, Accendi, Spegni) per ottenere i controlli di Homey per questo tipo di dispositivo – funzionano anche con gli assistenti vocali. Per tende da sole e tapparelle puoi impostare il tempo di corsa nelle impostazioni del dispositivo per portarle a una posizione."
   },
   "error": {
     "no_code": "Questo pulsante non ha un codice"
@@ -100,6 +102,17 @@
     "decimal": ",",
     "listen_nothing": "Nessun segnale ricevuto. Avvicina il telecomando a Homey e riprova.",
     "listen_unknown": "È stato ricevuto un segnale, ma non è stato riconosciuto. Potrebbe usare un codice variabile o un protocollo che l'app non sa decodificare – usa invece un file .sub di un Flipper Zero.",
-    "listen_cancelled": "Ascolto interrotto."
+    "listen_cancelled": "Ascolto interrotto.",
+    "role_twice": "I pulsanti {a} e {b} hanno la stessa funzione – sceglila su un solo pulsante.",
+    "no_role": "Questo telecomando non ha un pulsante per questo – assegna quella funzione a un pulsante in Ripara dispositivo."
+  },
+  "roles": {
+    "none": "Nessuna (solo pulsante)",
+    "up": "Su / dentro / apri",
+    "stop": "Stop",
+    "down": "Giù / fuori / chiudi",
+    "on": "Accendi",
+    "off": "Spegni",
+    "toggle": "Commuta"
   }
 }

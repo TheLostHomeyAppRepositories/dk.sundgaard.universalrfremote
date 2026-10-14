@@ -24,7 +24,9 @@
     "listen_start": "Empezar a escuchar",
     "listen_stop": "Detener",
     "listening": "Escuchando… pulsa ahora el botón del mando.",
-    "heard": "Señal recibida, descodificando…"
+    "heard": "Señal recibida, descodificando…",
+    "role": "Función",
+    "role_hint": "Asigna una función a los botones (Subir, Parar, Bajar, Encender, Apagar) para obtener los controles propios de Homey para este tipo de dispositivo; también funcionan con asistentes de voz. En toldos y persianas puedes ajustar el tiempo de recorrido en los ajustes del dispositivo para llevarlos a una posición."
   },
   "error": {
     "no_code": "Este botón no tiene código"
@@ -100,6 +102,17 @@
     "decimal": ",",
     "listen_nothing": "No se ha captado ninguna señal. Acerca el mando a Homey e inténtalo de nuevo.",
     "listen_unknown": "Se ha captado una señal, pero no se ha reconocido. Puede usar un código variable o un protocolo que la app no sabe descodificar; usa en su lugar un archivo .sub de un Flipper Zero.",
-    "listen_cancelled": "Escucha detenida."
+    "listen_cancelled": "Escucha detenida.",
+    "role_twice": "Los botones {a} y {b} tienen la misma función; elígela solo en un botón.",
+    "no_role": "Este mando no tiene un botón para eso; asigna esa función a un botón en Reparar dispositivo."
+  },
+  "roles": {
+    "none": "Ninguna (solo botón)",
+    "up": "Subir / recoger / abrir",
+    "stop": "Parar",
+    "down": "Bajar / extender / cerrar",
+    "on": "Encender",
+    "off": "Apagar",
+    "toggle": "Alternar"
   }
 }

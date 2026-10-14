@@ -24,7 +24,9 @@
     "listen_start": "Start met luisteren",
     "listen_stop": "Stop",
     "listening": "Aan het luisteren… druk nu op de knop van de afstandsbediening.",
-    "heard": "Signaal ontvangen, bezig met decoderen…"
+    "heard": "Signaal ontvangen, bezig met decoderen…",
+    "role": "Functie",
+    "role_hint": "Geef knoppen een functie (Omhoog, Stop, Omlaag, Aan, Uit) om de eigen bediening van Homey voor dit apparaattype te krijgen – die werkt ook met spraakassistenten. Voor zonneschermen en jaloezieën kun je de looptijd in de apparaatinstellingen instellen om ze naar een positie te sturen."
   },
   "error": {
     "no_code": "Er is geen code voor deze knop"
@@ -100,6 +102,17 @@
     "decimal": ",",
     "listen_nothing": "Geen signaal gehoord. Houd de afstandsbediening dichter bij Homey en probeer het opnieuw.",
     "listen_unknown": "Er is een signaal gehoord, maar het werd niet herkend. Het gebruikt mogelijk een rolling code of een protocol dat de app niet kan decoderen – gebruik in plaats daarvan een .sub-bestand van een Flipper Zero.",
-    "listen_cancelled": "Luisteren gestopt."
+    "listen_cancelled": "Luisteren gestopt.",
+    "role_twice": "Knop {a} en {b} hebben dezelfde functie – kies die op maar één knop.",
+    "no_role": "Deze afstandsbediening heeft daar geen knop voor – geef een knop die functie via Apparaat repareren."
+  },
+  "roles": {
+    "none": "Geen (alleen knop)",
+    "up": "Omhoog / in / open",
+    "stop": "Stop",
+    "down": "Omlaag / uit / dicht",
+    "on": "Aan",
+    "off": "Uit",
+    "toggle": "Wisselen"
   }
 }

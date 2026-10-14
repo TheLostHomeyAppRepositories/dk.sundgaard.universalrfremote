@@ -185,6 +185,66 @@ setLanguage('da');
   assert.strictEqual(decodeFrames([one]), null);
 }
 
+// Knapfunktioner -> Homeys egne kontroller
+{
+  const { rolesFor, roleMap, roleCapabilities } = require('../lib/roles');
+  const btn = (id, role) => ({ id, label: id, role });
+  const cover = [btn('b1', 'up'), btn('b2', 'stop'), btn('b3', 'down')];
+  assert.deepStrictEqual(rolesFor('remote'), []);
+  assert.ok(rolesFor('sunshade').includes('stop') && rolesFor('socket').includes('toggle'));
+  assert.deepStrictEqual(roleMap('sunshade', cover), { up: 'b1', stop: 'b2', down: 'b3' });
+  assert.deepStrictEqual(roleMap('socket', cover), {}); // funktioner, der ikke passer til typen, tæller ikke
+  assert.deepStrictEqual(roleCapabilities('sunshade', cover), ['windowcoverings_state']);
+  assert.deepStrictEqual(roleCapabilities('blinds', cover, 20), ['windowcoverings_state', 'windowcoverings_set']);
+  assert.deepStrictEqual(roleCapabilities('blinds', cover.slice(0, 1).concat(cover[2]), 20), ['windowcoverings_state']); // ingen Stop -> ingen position
+  assert.deepStrictEqual(roleCapabilities('garagedoor', [btn('b1', 'toggle')]), ['garagedoor_closed']);
+  assert.deepStrictEqual(roleCapabilities('light', [btn('b1', 'on'), btn('b2', 'off')]), ['onoff']);
+  assert.deepStrictEqual(roleCapabilities('remote', cover, 20), []);
+  assert.deepStrictEqual(roleCapabilities('socket', [btn('b1')]), []);
+}
+
+// Position ud fra køretid (20 s): 1 = oppe/inde, 0 = nede/ude
+{
+  const { CoverModel } = require('../lib/cover');
+  const m = new CoverModel(20000, 1);
+  assert.deepStrictEqual(m.plan(1, 0), null);
+  assert.deepStrictEqual(m.plan(0.5, 0), { dir: -1, ms: 10000 });
+  m.start(-1, 0);
+  assert.strictEqual(m.at(5000), 0.75);
+  m.stop(5000);
+  assert.strictEqual(m.at(60000), 0.75); // står stille efter Stop
+  assert.deepStrictEqual(m.plan(1, 60000), { dir: 1, ms: null }); // helt op: ingen Stop
+  assert.deepStrictEqual(m.plan(0.995, 60000), { dir: 1, ms: null });
+  assert.deepStrictEqual(m.plan(0.25, 60000), { dir: -1, ms: 10000 });
+  assert.deepStrictEqual(m.plan(0.76, 60000), null); // allerede der
+  m.start(-1, 60000);
+  assert.strictEqual(m.at(200000), 0); // stopper i bunden
+  m.settle(200000);
+  assert.strictEqual(m.motion, null);
+  assert.deepStrictEqual(m.plan(0, 200000), null);
+  // Gem/fortryd og ny køretid undervejs
+  const k = new CoverModel(20000, 1);
+  const saved = k.snapshot();
+  k.start(-1, 0);
+  k.restore(saved); // udsendelsen fejlede
+  assert.strictEqual(k.motion, null);
+  assert.strictEqual(k.at(10000), 1);
+  k.start(-1, 0);
+  const json = JSON.parse(JSON.stringify(k.snapshot())); // overlever en genstart
+  const r = new CoverModel(20000);
+  r.restore(json);
+  assert.strictEqual(r.at(5000), 0.75);
+  r.retime(10000, 5000); // køretiden ændres til 10 s midt i bevægelsen
+  assert.strictEqual(r.at(5000), 0.75);
+  assert.strictEqual(r.at(7500), 0.5);
+  assert.strictEqual(r.motion.dir, -1);
+  // Markise: 100 % på skyderen = helt ude (intern 0); persienne: 100 % = helt oppe
+  const { slider } = require('../lib/cover');
+  assert.strictEqual(slider('sunshade', 1), 0);
+  assert.strictEqual(slider('sunshade', 0.25), 0.75);
+  assert.strictEqual(slider('blinds', 0.25), 0.25);
+}
+
 // Sprog: alle 13 sprog har samme nøgler og pladsholdere som engelsk – i locales/, app.json og changelog
 {
   const fs = require('fs');

@@ -24,7 +24,9 @@
     "listen_start": "Start lytning",
     "listen_stop": "Stop",
     "listening": "Lytter… tryk på fjernbetjeningens knap nu.",
-    "heard": "Signal modtaget, dekoder…"
+    "heard": "Signal modtaget, dekoder…",
+    "role": "Funktion",
+    "role_hint": "Giv knapperne en funktion (Op, Stop, Ned, Tænd, Sluk), så enheden får Homeys egne kontroller for typen – de virker også med stemmeassistenter. For markiser og persienner kan du sætte køretiden i enhedens indstillinger og køre dem til en bestemt position."
   },
   "error": {
     "no_code": "Der er ingen kode til denne knap"
@@ -100,6 +102,17 @@
     "decimal": ",",
     "listen_nothing": "Intet signal hørt. Hold fjernbetjeningen tættere på Homey, og prøv igen.",
     "listen_unknown": "Der blev hørt et signal, men det blev ikke genkendt. Det kan bruge en rullende kode eller en protokol, appen ikke kan dekode – brug i stedet en .sub-fil fra en Flipper Zero.",
-    "listen_cancelled": "Lytning stoppet."
+    "listen_cancelled": "Lytning stoppet.",
+    "role_twice": "Knap {a} og {b} har samme funktion – vælg den kun på én knap.",
+    "no_role": "Fjernbetjeningen har ingen knap til det – giv en knap den funktion under Reparér enhed."
+  },
+  "roles": {
+    "none": "Ingen (kun knap)",
+    "up": "Op / ind / åbn",
+    "stop": "Stop",
+    "down": "Ned / ud / luk",
+    "on": "Tænd",
+    "off": "Sluk",
+    "toggle": "Skift (tænd/sluk)"
   }
 }

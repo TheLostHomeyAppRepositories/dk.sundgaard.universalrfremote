@@ -24,7 +24,9 @@
     "listen_start": "Zacznij słuchać",
     "listen_stop": "Zatrzymaj",
     "listening": "Nasłuchiwanie… naciśnij teraz przycisk na pilocie.",
-    "heard": "Odebrano sygnał, dekodowanie…"
+    "heard": "Odebrano sygnał, dekodowanie…",
+    "role": "Funkcja",
+    "role_hint": "Przypisz przyciskom funkcje (Góra, Stop, Dół, Włącz, Wyłącz), a urządzenie dostanie własne sterowanie Homey dla tego typu – działa ono też z asystentami głosowymi. W przypadku markiz i żaluzji możesz ustawić czas przejazdu w ustawieniach urządzenia, aby ustawiać je w wybranej pozycji."
   },
   "error": {
     "no_code": "Ten przycisk nie ma kodu"
@@ -100,6 +102,17 @@
     "decimal": ",",
     "listen_nothing": "Nie wykryto sygnału. Przybliż pilota do Homey i spróbuj ponownie.",
     "listen_unknown": "Odebrano sygnał, ale go nie rozpoznano. Może używać kodu zmiennego lub protokołu, którego aplikacja nie umie zdekodować – zamiast tego użyj pliku .sub z Flipper Zero.",
-    "listen_cancelled": "Nasłuchiwanie zatrzymane."
+    "listen_cancelled": "Nasłuchiwanie zatrzymane.",
+    "role_twice": "Przyciski {a} i {b} mają tę samą funkcję – wybierz ją tylko dla jednego przycisku.",
+    "no_role": "Ten pilot nie ma do tego przycisku – przypisz tę funkcję przyciskowi w Napraw urządzenie."
+  },
+  "roles": {
+    "none": "Brak (tylko przycisk)",
+    "up": "Góra / zwiń / otwórz",
+    "stop": "Stop",
+    "down": "Dół / rozwiń / zamknij",
+    "on": "Włącz",
+    "off": "Wyłącz",
+    "toggle": "Przełącz"
   }
 }

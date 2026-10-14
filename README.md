@@ -8,6 +8,7 @@ Send 433 MHz codes captured with a [Flipper Zero](https://flipperzero.one) from 
 - **Listen:** Homey listens to your remote and decodes the code itself (18 protocols on 433.92 MHz, see below).
 - **Codes from Flipper Zero `.sub` files** (Key, RAW and BinRAW) or entered by hand, each with a *Test* button during pairing.
 - **32 fixed-code protocols** rebuilt from the decoded values the same way the Flipper does: Princeton, CAME, Nice FLO, Holtek, Holtek_HT12X, Linear, LinearDelta3, GateTX, Cham_Code, MegaCode, Ansonic, SMC5326, Phoenix_V2, Power Smart, BETT, Doitrand, Intertechno_V3, Clemsa, Dooya, Hormann HSM, Marantec, Marantec24, Mastercode, Legrand, Dickert_MAHS, Magellan, Feron, Nero Radio, Nero Sketch, Honeywell, Elplast and Roger.
+- **Real device types:** give buttons a function (Up, Stop, Down, On, Off, Toggle) and the device gets Homey's own controls – window covering for awnings, blinds and curtains, garage door, or on/off for lights, sockets and fans. They work in the Homey app, in zones and with voice assistants. With a *travel time* in the device settings, Homey estimates the position and can move an awning or blind to e.g. 50 % (for awnings 100 % means fully out, for blinds and curtains fully open).
 - **Flow cards:** *Press a button*, *A button is pressed* and *Send a 433 MHz code*.
 - **Repair device** to add, remove, relabel and reorder buttons or change codes.
 - 13 languages: English, Dutch, German, French, Italian, Swedish, Norwegian, Spanish, Danish, Russian, Polish, Korean and Arabic.
@@ -68,8 +69,9 @@ A downloaded code only works if your receiver uses exactly that code. Many fixed
    - **.sub file** tab: paste the file contents into the box below the file picker.
    - **● Listen** tab: tap **Start listening**, hold the remote close to Homey and press its button a few times. When the code is decoded, the page switches to **Enter** with the values filled in.
    - **Enter** tab: pick the protocol and type the key, bits, TE and frequency as the Flipper showed them, then tap **Use these values**. The key may be written as `0x5A3C91`, `5A3C91` or `00 00 00 00 00 5A 3C 91`. For RAW, paste the `RAW_Data` numbers instead.
-5. Tap **Test** next to each button and check that the device reacts. If it does not, try more *Repetitions*.
-6. Finish with **Add device**.
+5. Optional: choose a device type such as *Awning*, *Socket* or *Light* and give each button its **Function** (e.g. *In* → Up, *Stop* → Stop, *Out* → Down). For position control, set **Travel time** in the device settings afterwards (time from fully in to fully out).
+6. Tap **Test** next to each button and check that the device reacts. If it does not, try more *Repetitions*.
+7. Finish with **Add device**.
 
 Use the buttons on the device tile or in flows (*Press a button*, *A button is pressed*). To add, remove, relabel or reorder buttons or change codes later, open the device settings and choose **Repair device**.
 

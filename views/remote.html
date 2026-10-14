@@ -53,6 +53,7 @@
   <div class="homey-form-group">
     <label class="homey-form-label" for="ur-class" data-i18n="pair.class"></label>
     <select class="homey-form-select" id="ur-class"></select>
+    <div class="ur-small ur-hide" id="ur-role-hint" data-i18n="pair.role_hint"></div>
   </div>
   <div class="homey-form-group">
     <label class="homey-form-label" for="ur-rep" data-i18n="pair.repetitions"></label>
@@ -73,6 +74,10 @@
       <button type="button" class="ur-icon-btn" data-role="up" title="↑">↑</button>
       <button type="button" class="ur-icon-btn" data-role="down" title="↓">↓</button>
       <button type="button" class="ur-icon-btn" data-role="remove" title="✕">✕</button>
+    </div>
+    <div class="homey-form-group ur-hide" data-role="rolegroup">
+      <label class="homey-form-label" data-i18n="pair.role"></label>
+      <select class="homey-form-select" data-role="role"></select>
     </div>
 
     <div class="ur-tabs">
@@ -253,16 +258,46 @@
     Homey.emit('listen_stop').catch(() => {});
   }
 
+  // Funktion (Op, Stop, Tænd …) afhænger af enhedstypen; uden funktioner skjules feltet.
+  // b.role er knappens valgte funktion. Den bevares, når typen skiftes frem og tilbage, men vises
+  // kun, når den passer til typen.
+  function renderRoles(b) {
+    const sel = $('[data-role=role]', b.el);
+    const roles = ctx.roles[$('#ur-class').value] || [];
+    const cur = b.role || '';
+    sel.innerHTML = '';
+    sel.add(new Option(t('roles.none'), ''));
+    for (const r of roles) sel.add(new Option(t(`roles.${r}`), r));
+    sel.value = roles.includes(cur) ? cur : '';
+    $('[data-role=rolegroup]', b.el).classList.toggle('ur-hide', !roles.length);
+  }
+
+  function renderAllRoles() {
+    buttons.forEach(renderRoles);
+    $('#ur-role-hint').classList.toggle('ur-hide', !(ctx.roles[$('#ur-class').value] || []).length);
+  }
+
   function addButton(data) {
     const el = $('#ur-btn-tpl').content.firstElementChild.cloneNode(true);
     translate(el);
-    const b = { id: data && data.id, code: null, el };
+    const b = { id: data && data.id, role: data && data.role, code: null, el };
     buttons.push(b);
     $('#ur-buttons').appendChild(el);
     const label = $('[data-role=label]', el);
     label.placeholder = t('remote.label_placeholder');
     label.value = (data && data.label) || '';
 
+    // Samme funktion kan kun ligge på én knap: vælges den her, fjernes den fra de andre.
+    $('[data-role=role]', el).addEventListener('change', (e) => {
+      b.role = e.target.value;
+      if (!b.role) return;
+      buttons.forEach((x) => {
+        if (x !== b && x.role === b.role) {
+          x.role = '';
+          $('[data-role=role]', x.el).value = '';
+        }
+      });
+    });
     el.querySelectorAll('[data-tab]').forEach((btn) => btn.addEventListener('click', () => showTab(b, btn.dataset.tab)));
     $('[data-role=listen]', el).addEventListener('click', () => (listener === b ? stopListening() : listen(b)));
 
@@ -331,6 +366,7 @@
       renumber();
     });
 
+    renderRoles(b);
     if (data && data.code) {
       b.code = data.code;
       fillManual(b, data.code);
@@ -370,7 +406,9 @@
       icon,
       deviceClass: $('#ur-class').value,
       repetitions: Math.max(1, Math.min(255, Number($('#ur-rep').value) || 10)),
-      buttons: buttons.map((b) => ({ id: b.id, label: $('[data-role=label]', b.el).value.trim(), code: b.code })),
+      buttons: buttons.map((b) => ({
+        id: b.id, label: $('[data-role=label]', b.el).value.trim(), code: b.code, role: $('[data-role=role]', b.el).value || undefined,
+      })),
     };
     const btn = $('#ur-save');
     btn.disabled = true;
@@ -399,6 +437,7 @@
     $('#ur-name').placeholder = t('remote.name_placeholder');
     for (const c of ctx.classes) $('#ur-class').add(new Option(c.label, c.id));
     $('#ur-class').value = ctx.deviceClass || 'remote';
+    $('#ur-class').addEventListener('change', renderAllRoles);
     if (ctx.repetitions) $('#ur-rep').value = ctx.repetitions;
     // Ikonet kan kun vælges ved oprettelse (Homey kan ikke skifte en enheds ikon bagefter).
     if (ctx.mode === 'repair') document.querySelectorAll('[data-role=pair-only]').forEach((e) => e.classList.add('ur-hide'));
@@ -411,6 +450,7 @@
     });
     if (ctx.buttons.length) ctx.buttons.forEach(addButton);
     else addButton();
+    renderAllRoles();
   }
 
   init().catch((err) => Homey.alert(err.message || String(err)));

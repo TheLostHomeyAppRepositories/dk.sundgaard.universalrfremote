@@ -24,7 +24,9 @@
     "listen_start": "Start listening",
     "listen_stop": "Stop",
     "listening": "Listening… press the button on the remote now.",
-    "heard": "Signal received, decoding…"
+    "heard": "Signal received, decoding…",
+    "role": "Function",
+    "role_hint": "Give buttons a function (Up, Stop, Down, On, Off) to get Homey's own controls for this device type – they also work with voice assistants. For awnings and blinds you can set the travel time in the device settings to move them to a position."
   },
   "error": {
     "no_code": "There is no code for this button"
@@ -100,6 +102,17 @@
     "decimal": ".",
     "listen_nothing": "No signal heard. Hold the remote closer to Homey and try again.",
     "listen_unknown": "A signal was heard but not recognised. It may use a rolling code or a protocol the app can't decode – use a .sub file from a Flipper Zero instead.",
-    "listen_cancelled": "Listening stopped."
+    "listen_cancelled": "Listening stopped.",
+    "role_twice": "Button {a} and {b} have the same function – choose it on one button only.",
+    "no_role": "This remote has no button for that – give a button that function under Repair device."
+  },
+  "roles": {
+    "none": "None (button only)",
+    "up": "Up / in / open",
+    "stop": "Stop",
+    "down": "Down / out / close",
+    "on": "On",
+    "off": "Off",
+    "toggle": "Toggle"
   }
 }
