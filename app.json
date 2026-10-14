@@ -1,6 +1,6 @@
 {
   "id": "dk.sundgaard.universalrfremote",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "compatibility": ">=12.3.0",
   "sdk": 3,
   "platforms": [
@@ -9,11 +9,33 @@
   "runtime": "nodejs",
   "name": {
     "en": "Universal RF Remote",
-    "da": "Universal RF Remote"
+    "nl": "Universal RF Remote",
+    "de": "Universal RF Remote",
+    "fr": "Universal RF Remote",
+    "it": "Universal RF Remote",
+    "sv": "Universal RF Remote",
+    "no": "Universal RF Remote",
+    "es": "Universal RF Remote",
+    "da": "Universal RF Remote",
+    "ru": "Universal RF Remote",
+    "pl": "Universal RF Remote",
+    "ko": "Universal RF Remote",
+    "ar": "Universal RF Remote"
   },
   "description": {
     "en": "Bring the remotes for your awning, gate and doorbell into your smart home",
-    "da": "Få fjernbetjeningerne til markise, port og dørklokke med i dit smarte hjem"
+    "nl": "Haal de afstandsbedieningen van je zonnescherm, poort en deurbel in je slimme huis",
+    "de": "Hol die Fernbedienungen von Markise, Tor und Türklingel in dein Smart Home",
+    "fr": "Intégrez les télécommandes de votre store, portail et sonnette à votre maison connectée",
+    "it": "Porta i telecomandi di tenda da sole, cancello e campanello nella tua casa smart",
+    "sv": "Ta med fjärrkontrollerna till markis, grind och dörrklocka i ditt smarta hem",
+    "no": "Få fjernkontrollene til markise, port og dørklokke med i det smarte hjemmet",
+    "es": "Lleva los mandos del toldo, el portón y el timbre a tu casa inteligente",
+    "da": "Få fjernbetjeningerne til markise, port og dørklokke med i dit smarte hjem",
+    "ru": "Добавьте пульты маркизы, ворот и дверного звонка в свой умный дом",
+    "pl": "Włącz piloty do markizy, bramy i dzwonka do swojego inteligentnego domu",
+    "ko": "어닝, 대문, 초인종 리모컨을 스마트홈으로 가져오세요",
+    "ar": "أضف أجهزة التحكم في المظلة والبوابة وجرس الباب إلى منزلك الذكي"
   },
   "category": [
     "tools"
@@ -47,7 +69,18 @@
       "id": "remote",
       "name": {
         "en": "Remote control",
-        "da": "Fjernbetjening"
+        "nl": "Afstandsbediening",
+        "de": "Fernbedienung",
+        "fr": "Télécommande",
+        "it": "Telecomando",
+        "sv": "Fjärrkontroll",
+        "no": "Fjernkontroll",
+        "es": "Mando a distancia",
+        "da": "Fjernbetjening",
+        "ru": "Пульт",
+        "pl": "Pilot",
+        "ko": "리모컨",
+        "ar": "جهاز تحكم عن بعد"
       },
       "class": "remote",
       "capabilities": [],
@@ -72,7 +105,18 @@
           "type": "group",
           "label": {
             "en": "Sending",
-            "da": "Afsendelse"
+            "nl": "Verzenden",
+            "de": "Senden",
+            "fr": "Émission",
+            "it": "Invio",
+            "sv": "Sändning",
+            "no": "Sending",
+            "es": "Envío",
+            "da": "Afsendelse",
+            "ru": "Отправка",
+            "pl": "Wysyłanie",
+            "ko": "송신",
+            "ar": "الإرسال"
           },
           "children": [
             {
@@ -80,14 +124,36 @@
               "type": "number",
               "label": {
                 "en": "Repetitions",
-                "da": "Gentagelser"
+                "nl": "Herhalingen",
+                "de": "Wiederholungen",
+                "fr": "Répétitions",
+                "it": "Ripetizioni",
+                "sv": "Upprepningar",
+                "no": "Gjentakelser",
+                "es": "Repeticiones",
+                "da": "Gentagelser",
+                "ru": "Повторы",
+                "pl": "Powtórzenia",
+                "ko": "반복 횟수",
+                "ar": "عدد التكرارات"
               },
               "value": 10,
               "min": 1,
               "max": 255,
               "hint": {
                 "en": "How many times the code is sent per command. Raise it if the device does not always react.",
-                "da": "Hvor mange gange koden sendes pr. kommando. Hæv tallet, hvis enheden ikke altid reagerer."
+                "nl": "Hoe vaak de code per opdracht wordt verzonden. Verhoog dit als het apparaat niet altijd reageert.",
+                "de": "Wie oft der Code pro Befehl gesendet wird. Erhöhe den Wert, wenn das Gerät nicht immer reagiert.",
+                "fr": "Nombre d'envois du code par commande. Augmentez-le si l'appareil ne réagit pas toujours.",
+                "it": "Quante volte il codice viene inviato per comando. Aumentalo se il dispositivo non reagisce sempre.",
+                "sv": "Hur många gånger koden skickas per kommando. Öka om enheten inte alltid reagerar.",
+                "no": "Hvor mange ganger koden sendes per kommando. Øk hvis enheten ikke alltid reagerer.",
+                "es": "Cuántas veces se envía el código por orden. Auméntalo si el dispositivo no siempre reacciona.",
+                "da": "Hvor mange gange koden sendes pr. kommando. Hæv tallet, hvis enheden ikke altid reagerer.",
+                "ru": "Сколько раз код отправляется за одну команду. Увеличьте, если устройство срабатывает не всегда.",
+                "pl": "Ile razy kod jest wysyłany na jedno polecenie. Zwiększ, jeśli urządzenie nie zawsze reaguje.",
+                "ko": "명령 한 번에 코드를 보내는 횟수입니다. 기기가 가끔 반응하지 않으면 늘리세요.",
+                "ar": "عدد مرات إرسال الرمز لكل أمر. زِد العدد إذا لم يستجب الجهاز دائمًا."
               }
             }
           ]
@@ -96,7 +162,18 @@
           "type": "group",
           "label": {
             "en": "Codes",
-            "da": "Koder"
+            "nl": "Codes",
+            "de": "Codes",
+            "fr": "Codes",
+            "it": "Codici",
+            "sv": "Koder",
+            "no": "Koder",
+            "es": "Códigos",
+            "da": "Koder",
+            "ru": "Коды",
+            "pl": "Kody",
+            "ko": "코드",
+            "ar": "الرموز"
           },
           "children": [
             {
@@ -104,12 +181,34 @@
               "type": "label",
               "label": {
                 "en": "Saved codes",
-                "da": "Gemte koder"
+                "nl": "Opgeslagen codes",
+                "de": "Gespeicherte Codes",
+                "fr": "Codes enregistrés",
+                "it": "Codici salvati",
+                "sv": "Sparade koder",
+                "no": "Lagrede koder",
+                "es": "Códigos guardados",
+                "da": "Gemte koder",
+                "ru": "Сохранённые коды",
+                "pl": "Zapisane kody",
+                "ko": "저장된 코드",
+                "ar": "الرموز المحفوظة"
               },
               "value": "-",
               "hint": {
                 "en": "Change the codes with Repair device.",
-                "da": "Skift koderne med Reparér enhed."
+                "nl": "Wijzig de codes met Apparaat repareren.",
+                "de": "Ändere die Codes mit „Gerät reparieren“.",
+                "fr": "Modifiez les codes avec « Réparer l'appareil ».",
+                "it": "Modifica i codici con \"Ripara dispositivo\".",
+                "sv": "Ändra koderna med Reparera enhet.",
+                "no": "Endre kodene med Reparer enhet.",
+                "es": "Cambia los códigos con \"Reparar dispositivo\".",
+                "da": "Skift koderne med Reparér enhed.",
+                "ru": "Коды меняются через «Восстановить устройство».",
+                "pl": "Zmień kody za pomocą „Napraw urządzenie”.",
+                "ko": "코드는 기기 복구에서 변경할 수 있습니다.",
+                "ar": "غيّر الرموز من خلال \"إصلاح الجهاز\"."
               }
             }
           ]
@@ -128,15 +227,48 @@
         "id": "send_code",
         "title": {
           "en": "Send a 433 MHz code",
-          "da": "Send en 433 MHz-kode"
+          "nl": "Verstuur een 433 MHz-code",
+          "de": "Einen 433-MHz-Code senden",
+          "fr": "Envoyer un code 433 MHz",
+          "it": "Invia un codice a 433 MHz",
+          "sv": "Skicka en 433 MHz-kod",
+          "no": "Send en 433 MHz-kode",
+          "es": "Enviar un código de 433 MHz",
+          "da": "Send en 433 MHz-kode",
+          "ru": "Отправить код 433 МГц",
+          "pl": "Wyślij kod 433 MHz",
+          "ko": "433 MHz 코드 보내기",
+          "ar": "إرسال رمز 433 ميغاهرتز"
         },
         "titleFormatted": {
           "en": "Send [[protocol]] code [[key]], [[bits]] bits, TE [[te]], [[frequency]] MHz, [[repetitions]] times",
-          "da": "Send [[protocol]]-koden [[key]], [[bits]] bit, TE [[te]], [[frequency]] MHz, [[repetitions]] gange"
+          "nl": "Verstuur [[protocol]]-code [[key]], [[bits]] bits, TE [[te]], [[frequency]] MHz, [[repetitions]] keer",
+          "de": "[[protocol]]-Code [[key]] senden, [[bits]] Bits, TE [[te]], [[frequency]] MHz, [[repetitions]]-mal",
+          "fr": "Envoyer le code [[protocol]] [[key]], [[bits]] bits, TE [[te]], [[frequency]] MHz, [[repetitions]] fois",
+          "it": "Invia il codice [[protocol]] [[key]], [[bits]] bit, TE [[te]], [[frequency]] MHz, [[repetitions]] volte",
+          "sv": "Skicka [[protocol]]-kod [[key]], [[bits]] bitar, TE [[te]], [[frequency]] MHz, [[repetitions]] gånger",
+          "no": "Send [[protocol]]-kode [[key]], [[bits]] bit, TE [[te]], [[frequency]] MHz, [[repetitions]] ganger",
+          "es": "Enviar código [[protocol]] [[key]], [[bits]] bits, TE [[te]], [[frequency]] MHz, [[repetitions]] veces",
+          "da": "Send [[protocol]]-koden [[key]], [[bits]] bit, TE [[te]], [[frequency]] MHz, [[repetitions]] gange",
+          "ru": "Отправить код [[protocol]] [[key]], [[bits]] бит, TE [[te]], [[frequency]] МГц, [[repetitions]] раз",
+          "pl": "Wyślij kod [[protocol]] [[key]], [[bits]] bitów, TE [[te]], [[frequency]] MHz, [[repetitions]] razy",
+          "ko": "[[protocol]] 코드 [[key]] 보내기, [[bits]]비트, TE [[te]], [[frequency]] MHz, [[repetitions]]회",
+          "ar": "إرسال رمز [[protocol]] [[key]]، [[bits]] بت، TE [[te]]، [[frequency]] ميغاهرتز، [[repetitions]] مرة"
         },
         "hint": {
           "en": "Enter the values from the .sub file. Bits, TE, frequency and repetitions are optional: bits and TE default to the protocol standard, frequency to 433.92 MHz and repetitions to 10. TE is only used by Princeton, Holtek_HT12X, SMC5326 and Legrand.",
-          "da": "Indtast værdierne fra .sub-filen. Bit, TE, frekvens og gentagelser er valgfrie: bit og TE følger protokollens standard, frekvensen er 433,92 MHz og gentagelser 10. TE bruges kun af Princeton, Holtek_HT12X, SMC5326 og Legrand."
+          "nl": "Vul de waarden uit het .sub-bestand in. Bits, TE, frequentie en herhalingen zijn optioneel: bits en TE gebruiken de standaard van het protocol, de frequentie 433.92 MHz en de herhalingen 10. TE wordt alleen gebruikt door Princeton, Holtek_HT12X, SMC5326 en Legrand.",
+          "de": "Gib die Werte aus der .sub-Datei ein. Bits, TE, Frequenz und Wiederholungen sind optional: Bits und TE nutzen den Standard des Protokolls, die Frequenz 433.92 MHz und die Wiederholungen 10. TE wird nur von Princeton, Holtek_HT12X, SMC5326 und Legrand verwendet.",
+          "fr": "Saisissez les valeurs du fichier .sub. Bits, TE, fréquence et répétitions sont facultatifs : bits et TE prennent la valeur standard du protocole, la fréquence 433.92 MHz et les répétitions 10. TE n'est utilisé que par Princeton, Holtek_HT12X, SMC5326 et Legrand.",
+          "it": "Inserisci i valori del file .sub. Bit, TE, frequenza e ripetizioni sono facoltativi: bit e TE usano lo standard del protocollo, la frequenza 433.92 MHz e le ripetizioni 10. TE è usato solo da Princeton, Holtek_HT12X, SMC5326 e Legrand.",
+          "sv": "Ange värdena från .sub-filen. Bitar, TE, frekvens och upprepningar är valfria: bitar och TE får protokollets standard, frekvensen 433.92 MHz och upprepningarna 10. TE används bara av Princeton, Holtek_HT12X, SMC5326 och Legrand.",
+          "no": "Skriv inn verdiene fra .sub-filen. Bit, TE, frekvens og gjentakelser er valgfrie: bit og TE får protokollens standard, frekvensen 433.92 MHz og gjentakelsene 10. TE brukes bare av Princeton, Holtek_HT12X, SMC5326 og Legrand.",
+          "es": "Introduce los valores del archivo .sub. Bits, TE, frecuencia y repeticiones son opcionales: bits y TE usan el estándar del protocolo, la frecuencia 433.92 MHz y las repeticiones 10. TE solo lo usan Princeton, Holtek_HT12X, SMC5326 y Legrand.",
+          "da": "Indtast værdierne fra .sub-filen. Bit, TE, frekvens og gentagelser er valgfrie: bit og TE følger protokollens standard, frekvensen er 433,92 MHz og gentagelser 10. TE bruges kun af Princeton, Holtek_HT12X, SMC5326 og Legrand.",
+          "ru": "Введите значения из файла .sub. Биты, TE, частота и повторы необязательны: биты и TE берутся из стандарта протокола, частота — 433.92 МГц, повторы — 10. TE используется только в Princeton, Holtek_HT12X, SMC5326 и Legrand.",
+          "pl": "Wpisz wartości z pliku .sub. Bity, TE, częstotliwość i powtórzenia są opcjonalne: bity i TE przyjmują standard protokołu, częstotliwość 433.92 MHz, a powtórzenia 10. TE jest używane tylko przez Princeton, Holtek_HT12X, SMC5326 i Legrand.",
+          "ko": ".sub 파일의 값을 입력하세요. 비트, TE, 주파수, 반복 횟수는 선택 사항입니다. 비트와 TE는 프로토콜 기본값, 주파수는 433.92 MHz, 반복 횟수는 10회가 기본입니다. TE는 Princeton, Holtek_HT12X, SMC5326, Legrand에서만 사용됩니다.",
+          "ar": "أدخل القيم من ملف .sub. البتات وTE والتردد والتكرارات اختيارية: تأخذ البتات وTE القيمة القياسية للبروتوكول، والتردد 433.92 ميغاهرتز، والتكرارات 10. تُستخدم TE فقط في Princeton وHoltek_HT12X وSMC5326 وLegrand."
         },
         "args": [
           {
@@ -144,11 +276,33 @@
             "name": "protocol",
             "title": {
               "en": "Protocol",
-              "da": "Protokol"
+              "nl": "Protocol",
+              "de": "Protokoll",
+              "fr": "Protocole",
+              "it": "Protocollo",
+              "sv": "Protokoll",
+              "no": "Protokoll",
+              "es": "Protocolo",
+              "da": "Protokol",
+              "ru": "Протокол",
+              "pl": "Protokół",
+              "ko": "프로토콜",
+              "ar": "البروتوكول"
             },
             "placeholder": {
               "en": "Princeton",
-              "da": "Princeton"
+              "nl": "Princeton",
+              "de": "Princeton",
+              "fr": "Princeton",
+              "it": "Princeton",
+              "sv": "Princeton",
+              "no": "Princeton",
+              "es": "Princeton",
+              "da": "Princeton",
+              "ru": "Princeton",
+              "pl": "Princeton",
+              "ko": "Princeton",
+              "ar": "Princeton"
             }
           },
           {
@@ -156,11 +310,33 @@
             "name": "key",
             "title": {
               "en": "Key",
-              "da": "Nøgle"
+              "nl": "Sleutel",
+              "de": "Schlüssel",
+              "fr": "Clé",
+              "it": "Chiave",
+              "sv": "Nyckel",
+              "no": "Nøkkel",
+              "es": "Clave",
+              "da": "Nøgle",
+              "ru": "Ключ",
+              "pl": "Klucz",
+              "ko": "키",
+              "ar": "المفتاح"
             },
             "placeholder": {
               "en": "00 00 00 00 00 5A 3C 94",
-              "da": "00 00 00 00 00 5A 3C 94"
+              "nl": "00 00 00 00 00 5A 3C 94",
+              "de": "00 00 00 00 00 5A 3C 94",
+              "fr": "00 00 00 00 00 5A 3C 94",
+              "it": "00 00 00 00 00 5A 3C 94",
+              "sv": "00 00 00 00 00 5A 3C 94",
+              "no": "00 00 00 00 00 5A 3C 94",
+              "es": "00 00 00 00 00 5A 3C 94",
+              "da": "00 00 00 00 00 5A 3C 94",
+              "ru": "00 00 00 00 00 5A 3C 94",
+              "pl": "00 00 00 00 00 5A 3C 94",
+              "ko": "00 00 00 00 00 5A 3C 94",
+              "ar": "00 00 00 00 00 5A 3C 94"
             }
           },
           {
@@ -168,13 +344,35 @@
             "name": "bits",
             "title": {
               "en": "Bits",
-              "da": "Bit"
+              "nl": "Bits",
+              "de": "Bits",
+              "fr": "Bits",
+              "it": "Bit",
+              "sv": "Bitar",
+              "no": "Bit",
+              "es": "Bits",
+              "da": "Bit",
+              "ru": "Биты",
+              "pl": "Bity",
+              "ko": "비트",
+              "ar": "البتات"
             },
             "min": 1,
             "max": 64,
             "placeholder": {
               "en": "24",
-              "da": "24"
+              "nl": "24",
+              "de": "24",
+              "fr": "24",
+              "it": "24",
+              "sv": "24",
+              "no": "24",
+              "es": "24",
+              "da": "24",
+              "ru": "24",
+              "pl": "24",
+              "ko": "24",
+              "ar": "24"
             },
             "required": false
           },
@@ -183,13 +381,35 @@
             "name": "te",
             "title": {
               "en": "TE",
-              "da": "TE"
+              "nl": "TE",
+              "de": "TE",
+              "fr": "TE",
+              "it": "TE",
+              "sv": "TE",
+              "no": "TE",
+              "es": "TE",
+              "da": "TE",
+              "ru": "TE",
+              "pl": "TE",
+              "ko": "TE",
+              "ar": "TE"
             },
             "min": 0,
             "max": 5000,
             "placeholder": {
               "en": "400",
-              "da": "400"
+              "nl": "400",
+              "de": "400",
+              "fr": "400",
+              "it": "400",
+              "sv": "400",
+              "no": "400",
+              "es": "400",
+              "da": "400",
+              "ru": "400",
+              "pl": "400",
+              "ko": "400",
+              "ar": "400"
             },
             "required": false
           },
@@ -198,14 +418,36 @@
             "name": "frequency",
             "title": {
               "en": "Frequency",
-              "da": "Frekvens"
+              "nl": "Frequentie",
+              "de": "Frequenz",
+              "fr": "Fréquence",
+              "it": "Frequenza",
+              "sv": "Frekvens",
+              "no": "Frekvens",
+              "es": "Frecuencia",
+              "da": "Frekvens",
+              "ru": "Частота",
+              "pl": "Częstotliwość",
+              "ko": "주파수",
+              "ar": "التردد"
             },
             "min": 433,
             "max": 433.99,
             "step": 0.01,
             "placeholder": {
               "en": "433.92",
-              "da": "433.92"
+              "nl": "433.92",
+              "de": "433.92",
+              "fr": "433.92",
+              "it": "433.92",
+              "sv": "433.92",
+              "no": "433.92",
+              "es": "433.92",
+              "da": "433.92",
+              "ru": "433.92",
+              "pl": "433.92",
+              "ko": "433.92",
+              "ar": "433.92"
             },
             "required": false
           },
@@ -214,13 +456,35 @@
             "name": "repetitions",
             "title": {
               "en": "Repetitions",
-              "da": "Gentagelser"
+              "nl": "Herhalingen",
+              "de": "Wiederholungen",
+              "fr": "Répétitions",
+              "it": "Ripetizioni",
+              "sv": "Upprepningar",
+              "no": "Gjentakelser",
+              "es": "Repeticiones",
+              "da": "Gentagelser",
+              "ru": "Повторы",
+              "pl": "Powtórzenia",
+              "ko": "반복 횟수",
+              "ar": "التكرارات"
             },
             "min": 1,
             "max": 255,
             "placeholder": {
               "en": "10",
-              "da": "10"
+              "nl": "10",
+              "de": "10",
+              "fr": "10",
+              "it": "10",
+              "sv": "10",
+              "no": "10",
+              "es": "10",
+              "da": "10",
+              "ru": "10",
+              "pl": "10",
+              "ko": "10",
+              "ar": "10"
             },
             "required": false
           }
@@ -230,11 +494,33 @@
         "id": "press_button",
         "title": {
           "en": "Press a button",
-          "da": "Tryk på en knap"
+          "nl": "Druk op een knop",
+          "de": "Eine Taste drücken",
+          "fr": "Appuyer sur un bouton",
+          "it": "Premi un pulsante",
+          "sv": "Tryck på en knapp",
+          "no": "Trykk på en knapp",
+          "es": "Pulsar un botón",
+          "da": "Tryk på en knap",
+          "ru": "Нажать кнопку",
+          "pl": "Naciśnij przycisk",
+          "ko": "버튼 누르기",
+          "ar": "اضغط على زر"
         },
         "titleFormatted": {
           "en": "Press [[button]]",
-          "da": "Tryk på [[button]]"
+          "nl": "Druk op [[button]]",
+          "de": "[[button]] drücken",
+          "fr": "Appuyer sur [[button]]",
+          "it": "Premi [[button]]",
+          "sv": "Tryck på [[button]]",
+          "no": "Trykk på [[button]]",
+          "es": "Pulsar [[button]]",
+          "da": "Tryk på [[button]]",
+          "ru": "Нажать [[button]]",
+          "pl": "Naciśnij [[button]]",
+          "ko": "[[button]] 누르기",
+          "ar": "اضغط على [[button]]"
         },
         "args": [
           {
@@ -247,17 +533,50 @@
             "name": "button",
             "title": {
               "en": "Button",
-              "da": "Knap"
+              "nl": "Knop",
+              "de": "Taste",
+              "fr": "Bouton",
+              "it": "Pulsante",
+              "sv": "Knapp",
+              "no": "Knapp",
+              "es": "Botón",
+              "da": "Knap",
+              "ru": "Кнопка",
+              "pl": "Przycisk",
+              "ko": "버튼",
+              "ar": "الزر"
             },
             "placeholder": {
               "en": "In",
-              "da": "Ind"
+              "nl": "In",
+              "de": "Ein",
+              "fr": "Rentrer",
+              "it": "Dentro",
+              "sv": "In",
+              "no": "Inn",
+              "es": "Recoger",
+              "da": "Ind",
+              "ru": "Втянуть",
+              "pl": "Zwiń",
+              "ko": "접기",
+              "ar": "طي"
             }
           }
         ],
         "hint": {
           "en": "Sends the code stored for the chosen button.",
-          "da": "Sender den kode, der er gemt til den valgte knap."
+          "nl": "Verstuurt de code die voor de gekozen knop is opgeslagen.",
+          "de": "Sendet den für die gewählte Taste gespeicherten Code.",
+          "fr": "Envoie le code enregistré pour le bouton choisi.",
+          "it": "Invia il codice salvato per il pulsante scelto.",
+          "sv": "Skickar koden som är sparad för den valda knappen.",
+          "no": "Sender koden som er lagret for den valgte knappen.",
+          "es": "Envía el código guardado para el botón elegido.",
+          "da": "Sender den kode, der er gemt til den valgte knap.",
+          "ru": "Отправляет код, сохранённый для выбранной кнопки.",
+          "pl": "Wysyła kod zapisany dla wybranego przycisku.",
+          "ko": "선택한 버튼에 저장된 코드를 보냅니다.",
+          "ar": "يرسل الرمز المحفوظ للزر المختار."
         }
       }
     ],
@@ -266,15 +585,48 @@
         "id": "button_pressed",
         "title": {
           "en": "A button is pressed",
-          "da": "Der trykkes på en knap"
+          "nl": "Er wordt op een knop gedrukt",
+          "de": "Eine Taste wird gedrückt",
+          "fr": "Un bouton est pressé",
+          "it": "Viene premuto un pulsante",
+          "sv": "En knapp trycks",
+          "no": "En knapp trykkes",
+          "es": "Se pulsa un botón",
+          "da": "Der trykkes på en knap",
+          "ru": "Нажата кнопка",
+          "pl": "Naciśnięto przycisk",
+          "ko": "버튼이 눌렸을 때",
+          "ar": "تم الضغط على زر"
         },
         "titleFormatted": {
           "en": "[[button]] is pressed",
-          "da": "Der trykkes på [[button]]"
+          "nl": "Er wordt op [[button]] gedrukt",
+          "de": "[[button]] wird gedrückt",
+          "fr": "[[button]] est pressé",
+          "it": "Viene premuto [[button]]",
+          "sv": "[[button]] trycks",
+          "no": "[[button]] trykkes",
+          "es": "Se pulsa [[button]]",
+          "da": "Der trykkes på [[button]]",
+          "ru": "Нажата [[button]]",
+          "pl": "Naciśnięto [[button]]",
+          "ko": "[[button]] 버튼이 눌렸을 때",
+          "ar": "تم الضغط على [[button]]"
         },
         "hint": {
           "en": "Runs when the button is pressed on the device, after its code has been sent. Pressing it with the \"Press a button\" flow card does not start this card.",
-          "da": "Kører når der trykkes på knappen på enheden, efter koden er sendt. Tryk via flowkortet \"Tryk på en knap\" starter ikke dette kort."
+          "nl": "Wordt uitgevoerd als de knop op het apparaat wordt ingedrukt, nadat de code is verzonden. Indrukken met de flowkaart \"Druk op een knop\" start deze kaart niet.",
+          "de": "Wird ausgeführt, wenn die Taste am Gerät gedrückt wird, nachdem ihr Code gesendet wurde. Drücken mit der Flow-Karte „Eine Taste drücken“ startet diese Karte nicht.",
+          "fr": "S'exécute quand le bouton est pressé sur l'appareil, après l'envoi de son code. Appuyer avec la carte de flow « Appuyer sur un bouton » ne déclenche pas cette carte.",
+          "it": "Viene eseguito quando il pulsante viene premuto sul dispositivo, dopo l'invio del codice. Premerlo con la scheda flow \"Premi un pulsante\" non avvia questa scheda.",
+          "sv": "Körs när knappen trycks på enheten, efter att dess kod har skickats. Tryck med flödeskortet \"Tryck på en knapp\" startar inte det här kortet.",
+          "no": "Kjører når knappen trykkes på enheten, etter at koden er sendt. Trykk med flytkortet \"Trykk på en knapp\" starter ikke dette kortet.",
+          "es": "Se ejecuta cuando se pulsa el botón en el dispositivo, después de enviar su código. Pulsarlo con la tarjeta de flujo \"Pulsar un botón\" no inicia esta tarjeta.",
+          "da": "Kører når der trykkes på knappen på enheden, efter koden er sendt. Tryk via flowkortet \"Tryk på en knap\" starter ikke dette kort.",
+          "ru": "Срабатывает, когда кнопку нажимают на устройстве, после отправки её кода. Нажатие картой потока «Нажать кнопку» не запускает эту карту.",
+          "pl": "Uruchamia się po naciśnięciu przycisku na urządzeniu, po wysłaniu jego kodu. Naciśnięcie kartą flow „Naciśnij przycisk” nie uruchamia tej karty.",
+          "ko": "기기에서 버튼을 눌러 코드가 전송된 후 실행됩니다. \"버튼 누르기\" 플로우 카드로 누른 경우에는 실행되지 않습니다.",
+          "ar": "يعمل عند الضغط على الزر في الجهاز بعد إرسال رمزه. الضغط باستخدام بطاقة التدفق \"اضغط على زر\" لا يشغّل هذه البطاقة."
         },
         "args": [
           {
@@ -287,11 +639,33 @@
             "name": "button",
             "title": {
               "en": "Button",
-              "da": "Knap"
+              "nl": "Knop",
+              "de": "Taste",
+              "fr": "Bouton",
+              "it": "Pulsante",
+              "sv": "Knapp",
+              "no": "Knapp",
+              "es": "Botón",
+              "da": "Knap",
+              "ru": "Кнопка",
+              "pl": "Przycisk",
+              "ko": "버튼",
+              "ar": "الزر"
             },
             "placeholder": {
               "en": "In",
-              "da": "Ind"
+              "nl": "In",
+              "de": "Ein",
+              "fr": "Rentrer",
+              "it": "Dentro",
+              "sv": "In",
+              "no": "Inn",
+              "es": "Recoger",
+              "da": "Ind",
+              "ru": "Втянуть",
+              "pl": "Zwiń",
+              "ko": "접기",
+              "ar": "طي"
             }
           }
         ]

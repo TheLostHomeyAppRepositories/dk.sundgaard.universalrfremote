@@ -49,5 +49,48 @@
       "button": "Knap"
     },
     "selected": "Valgt"
+  },
+  "classes": {
+    "remote": "Fjernbetjening",
+    "sunshade": "Markise",
+    "blinds": "Rullegardin / persienne",
+    "curtain": "Gardiner",
+    "garagedoor": "Garageport / låge",
+    "light": "Lys",
+    "socket": "Stikkontakt",
+    "fan": "Ventilator",
+    "doorbell": "Dørklokke",
+    "other": "Andet"
+  },
+  "lib": {
+    "empty_file": "Filen er tom",
+    "not_flipper": "Ikke en Flipper Sub-GHz-fil",
+    "raw_invalid": "RAW_Data mangler eller er ugyldig",
+    "bad_key": "Ugyldig nøgle: {key}",
+    "binraw_invalid": "BinRAW mangler TE eller Data_RAW",
+    "raw_short": "RAW-optagelsen er for kort",
+    "raw_nothing": "Fandt intet brugbart signal i RAW-optagelsen",
+    "bad_raw_value": "Ugyldig RAW-værdi: {value}",
+    "raw_empty": "RAW-koden er tom",
+    "fsk": "Koden er optaget med FM/FSK – Homey kan kun sende AM/OOK",
+    "no_pulses": "Signalet indeholder ingen pulser",
+    "frequency": "Homey kan kun sende på 433,00–433,99 MHz (koden er {mhz} MHz)",
+    "too_long": "Signalet er for langt til Homey ({n} intervaller, højst {max})",
+    "missing_signal": "Signalet {id} mangler i app.json",
+    "rolling": "{protocol} bruger rullende koder og kan ikke sendes igen",
+    "unsupported": "{protocol} understøttes ikke endnu – optag knappen som RAW i Flipper",
+    "unknown_protocol": "Ukendt protokol: {protocol}",
+    "bits": "{protocol} kræver {bits} bit (fik {got})",
+    "or": "eller",
+    "te_range": "TE {te} µs er uden for {min}–{max} µs",
+    "note_raw": "RAW: {n} gentagelse(r) fundet",
+    "note_grid": "afrundet til tabel",
+    "no_buttons": "Tilføj mindst én knap",
+    "max_buttons": "Højst {max} knapper",
+    "no_label": "Knap {n} mangler en etiket",
+    "pulses": "pulser",
+    "no_code": "Knappen \"{label}\" mangler en kode",
+    "bit": "bit",
+    "decimal": ","
   }
 }

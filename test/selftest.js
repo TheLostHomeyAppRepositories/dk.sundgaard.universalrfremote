@@ -107,4 +107,57 @@ assert.throws(() => encode({ protocol: 'KeeLoq', bits: 64, key: '1' }), /rolling
 assert.throws(() => plan({ ...c, frequency: 868350000 }, catalog), /433.00–433.99 MHz/);
 setLanguage('da');
 
+// Sprog: alle 13 sprog har samme nøgler og pladsholdere som engelsk – i locales/, app.json og changelog
+{
+  const fs = require('fs');
+  const path = require('path');
+  const i18n = require('../lib/i18n');
+  const root = path.join(__dirname, '..');
+  const LANGS = ['en', 'nl', 'de', 'fr', 'it', 'sv', 'no', 'es', 'da', 'ru', 'pl', 'ko', 'ar'];
+  const holders = (s) => (String(s).match(/\{\w+\}|\[\[\w+\]\]/g) || []).sort().join(' ');
+  const flat = (o, p = '') => Object.entries(o).flatMap(([k, v]) => (v && typeof v === 'object' ? flat(v, `${p}${k}.`) : [[`${p}${k}`, v]]));
+
+  assert.deepStrictEqual(i18n.broken, [], 'ødelagte sprogfiler');
+  const en = new Map(flat(JSON.parse(fs.readFileSync(path.join(root, 'locales/en.json'), 'utf8'))));
+  for (const l of LANGS) {
+    const loc = new Map(flat(JSON.parse(fs.readFileSync(path.join(root, `locales/${l}.json`), 'utf8'))));
+    assert.deepStrictEqual([...loc.keys()].sort(), [...en.keys()].sort(), `locales/${l}.json har andre nøgler end en`);
+    for (const [k, v] of en) {
+      if (k === 'lang') continue;
+      assert.ok(String(loc.get(k)).trim(), `locales/${l}.json: ${k} er tom`);
+      assert.strictEqual(holders(loc.get(k)), holders(v), `locales/${l}.json: ${k} har andre pladsholdere`);
+    }
+    assert.ok([',', '.'].includes(loc.get('lib.decimal')), `locales/${l}.json: decimal skal være , eller .`);
+    assert.ok(fs.existsSync(path.join(root, l === 'en' ? 'README.txt' : `README.${l}.txt`)), `README for ${l} mangler`);
+  }
+
+  const texts = [];
+  const walk = (o, p) => {
+    if (!o || typeof o !== 'object') return;
+    if (typeof o.en === 'string') { texts.push([p, o]); return; }
+    for (const k of Object.keys(o)) walk(o[k], `${p}.${k}`);
+  };
+  const { signals, ...app } = JSON.parse(fs.readFileSync(path.join(root, 'app.json'), 'utf8'));
+  walk(app, 'app.json');
+  walk(JSON.parse(fs.readFileSync(path.join(root, '.homeychangelog.json'), 'utf8')), 'changelog');
+  for (const [p, o] of texts) {
+    assert.deepStrictEqual(Object.keys(o).sort(), [...LANGS].sort(), `${p} mangler sprog`);
+    for (const l of LANGS) assert.strictEqual(holders(o[l]), holders(o.en), `${p}.${l} har andre pladsholdere`);
+  }
+
+  // Ukendt sprog → engelsk; sprogkilden (Homeys aktuelle sprog) vinder over setLanguage; komma pr. sprog
+  setLanguage('xx');
+  assert.strictEqual(i18n.msg('or'), 'or');
+  let homeyLang = 'de';
+  i18n.setLanguageSource(() => homeyLang);
+  assert.strictEqual(i18n.msg('or'), 'oder');
+  assert.strictEqual(i18n.num('433.92'), '433,92');
+  homeyLang = 'ko';
+  assert.strictEqual(i18n.num('433.92'), '433.92');
+  homeyLang = 'zz';
+  assert.strictEqual(i18n.msg('or'), 'or');
+  i18n.setLanguageSource(null);
+  setLanguage('da');
+}
+
 console.log('OK – alle selvtest bestået');

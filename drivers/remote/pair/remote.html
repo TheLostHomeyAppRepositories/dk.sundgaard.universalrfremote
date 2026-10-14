@@ -24,7 +24,8 @@
   .ur-summary.ok::before { content: "✓ "; }
   .ur-summary.err { color: #d9534f; opacity: 1; }
   .ur-small { font-size: .85em; opacity: .7; }
-  textarea.homey-form-input { min-height: 4.5em; font-family: monospace; font-size: .85em; }
+  /* Homeys stylesheet giver tekstfelter en fast bredde – fyld hele bredden. */
+  textarea.homey-form-input { display: block; width: 100% !important; max-width: none !important; box-sizing: border-box; min-height: 4.5em; font-family: monospace; font-size: .85em; resize: vertical; }
   .ur-actions { display: flex; gap: .5em; margin-top: .4em; }
   .ur-actions button { flex: 1; }
   #ur-add { margin-bottom: 1em; }
@@ -184,7 +185,7 @@
     $('[data-role=key]', b.el).value = code.key || '';
     $('[data-role=bits]', b.el).value = code.bits || '';
     $('[data-role=te]', b.el).value = code.te || '';
-    $('[data-role=freq]', b.el).value = (code.frequency / 1e6).toFixed(2);
+    $('[data-role=freq]', b.el).value = (code.frequency / 1e6).toFixed(2).replace('.', Homey.__('lib.decimal') === ',' ? ',' : '.');
     $('[data-role=raw]', b.el).value = code.pulses ? code.pulses.join(' ') : '';
     updateManualFields(b);
   }

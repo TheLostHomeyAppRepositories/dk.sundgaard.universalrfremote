@@ -1,10 +1,47 @@
 {
   "1.0.0": {
     "en": "First version: remote controls with your own buttons, codes from Flipper Zero .sub files or entered by hand, 32 fixed-code protocols plus RAW.",
-    "da": "Første version: fjernbetjeninger med egne knapper, koder fra Flipper Zero .sub-filer eller indtastet i hånden, 32 protokoller med faste koder samt RAW."
+    "nl": "Eerste versie: afstandsbedieningen met je eigen knoppen, codes uit Flipper Zero .sub-bestanden of handmatig ingevoerd, 32 protocollen met vaste codes plus RAW.",
+    "de": "Erste Version: Fernbedienungen mit eigenen Tasten, Codes aus Flipper-Zero-.sub-Dateien oder von Hand eingegeben, 32 Protokolle mit festen Codes plus RAW.",
+    "fr": "Première version : télécommandes avec vos propres boutons, codes issus de fichiers .sub du Flipper Zero ou saisis à la main, 32 protocoles à code fixe plus RAW.",
+    "it": "Prima versione: telecomandi con i tuoi pulsanti, codici da file .sub del Flipper Zero o inseriti a mano, 32 protocolli a codice fisso più RAW.",
+    "sv": "Första versionen: fjärrkontroller med egna knappar, koder från Flipper Zero .sub-filer eller inmatade för hand, 32 protokoll med fasta koder samt RAW.",
+    "no": "Første versjon: fjernkontroller med egne knapper, koder fra Flipper Zero .sub-filer eller skrevet inn for hånd, 32 protokoller med faste koder pluss RAW.",
+    "es": "Primera versión: mandos con tus propios botones, códigos de archivos .sub del Flipper Zero o introducidos a mano, 32 protocolos de código fijo más RAW.",
+    "da": "Første version: fjernbetjeninger med egne knapper, koder fra Flipper Zero .sub-filer eller indtastet i hånden, 32 protokoller med faste koder samt RAW.",
+    "ru": "Первая версия: пульты со своими кнопками, коды из файлов .sub Flipper Zero или введённые вручную, 32 протокола с фиксированным кодом и RAW.",
+    "pl": "Pierwsza wersja: piloty z własnymi przyciskami, kody z plików .sub Flipper Zero lub wpisane ręcznie, 32 protokoły ze stałym kodem oraz RAW.",
+    "ko": "첫 버전: 나만의 버튼이 있는 리모컨, Flipper Zero .sub 파일 또는 직접 입력한 코드, 고정 코드 프로토콜 32종과 RAW 지원.",
+    "ar": "الإصدار الأول: أجهزة تحكم بأزرارك الخاصة، ورموز من ملفات .sub من Flipper Zero أو مُدخلة يدويًا، و32 بروتوكولًا بالرموز الثابتة إضافة إلى RAW."
   },
   "1.0.1": {
     "en": "New \"A button is pressed\" flow card, simpler \"Send a 433 MHz code\" card, new device icon, links to source code and issue tracker, and small fixes.",
-    "da": "Nyt flowkort \"Der trykkes på en knap\", enklere kort \"Send en 433 MHz-kode\", nyt enhedsikon, links til kildekode og fejlrapportering samt små rettelser."
+    "nl": "Nieuwe flowkaart \"Er wordt op een knop gedrukt\", eenvoudigere kaart \"Verstuur een 433 MHz-code\", nieuw apparaatpictogram, links naar broncode en probleemmeldingen, en kleine verbeteringen.",
+    "de": "Neue Flow-Karte „Eine Taste wird gedrückt“, einfachere Karte „Einen 433-MHz-Code senden“, neues Gerätesymbol, Links zu Quellcode und Fehlermeldungen sowie kleine Korrekturen.",
+    "fr": "Nouvelle carte de flow « Un bouton est pressé », carte « Envoyer un code 433 MHz » simplifiée, nouvelle icône d'appareil, liens vers le code source et le suivi des problèmes, et petites corrections.",
+    "it": "Nuova scheda flow \"Viene premuto un pulsante\", scheda \"Invia un codice a 433 MHz\" semplificata, nuova icona del dispositivo, link al codice sorgente e alla segnalazione di problemi, e piccole correzioni.",
+    "sv": "Nytt flödeskort \"En knapp trycks\", enklare kort \"Skicka en 433 MHz-kod\", ny enhetsikon, länkar till källkod och felrapportering samt små rättelser.",
+    "no": "Nytt flytkort \"En knapp trykkes\", enklere kort \"Send en 433 MHz-kode\", nytt enhetsikon, lenker til kildekode og feilrapportering samt små rettelser.",
+    "es": "Nueva tarjeta de flujo \"Se pulsa un botón\", tarjeta \"Enviar un código de 433 MHz\" más sencilla, nuevo icono de dispositivo, enlaces al código fuente y al registro de incidencias, y pequeñas correcciones.",
+    "da": "Nyt flowkort \"Der trykkes på en knap\", enklere kort \"Send en 433 MHz-kode\", nyt enhedsikon, links til kildekode og fejlrapportering samt små rettelser.",
+    "ru": "Новая карта потока «Нажата кнопка», упрощённая карта «Отправить код 433 МГц», новый значок устройства, ссылки на исходный код и трекер ошибок, мелкие исправления.",
+    "pl": "Nowa karta flow „Naciśnięto przycisk”, prostsza karta „Wyślij kod 433 MHz”, nowa ikona urządzenia, linki do kodu źródłowego i zgłaszania błędów oraz drobne poprawki.",
+    "ko": "새 플로우 카드 \"버튼이 눌렸을 때\", 더 간단해진 \"433 MHz 코드 보내기\" 카드, 새 기기 아이콘, 소스 코드 및 이슈 트래커 링크, 소소한 수정.",
+    "ar": "بطاقة تدفق جديدة \"تم الضغط على زر\"، وبطاقة \"إرسال رمز 433 ميغاهرتز\" أبسط، وأيقونة جهاز جديدة، وروابط إلى الشيفرة المصدرية وتتبع المشكلات، وإصلاحات صغيرة."
+  },
+  "1.1.0": {
+    "en": "Now in 13 languages. New app description with a guide to reading, testing and downloading codes with a Flipper Zero. Frequencies are shown with your local decimal separator.",
+    "nl": "Nu in 13 talen. Nieuwe appbeschrijving met een handleiding voor het lezen, testen en downloaden van codes met een Flipper Zero. Frequenties worden getoond met je eigen decimaalteken.",
+    "de": "Jetzt in 13 Sprachen. Neue App-Beschreibung mit einer Anleitung zum Auslesen, Testen und Herunterladen von Codes mit einem Flipper Zero. Frequenzen werden mit deinem Dezimaltrennzeichen angezeigt.",
+    "fr": "Désormais en 13 langues. Nouvelle description de l'application avec un guide pour lire, tester et télécharger des codes avec un Flipper Zero. Les fréquences s'affichent avec votre séparateur décimal.",
+    "it": "Ora in 13 lingue. Nuova descrizione dell'app con una guida per leggere, provare e scaricare codici con un Flipper Zero. Le frequenze sono mostrate con il tuo separatore decimale.",
+    "sv": "Nu på 13 språk. Ny appbeskrivning med en guide till att läsa, testa och ladda ner koder med en Flipper Zero. Frekvenser visas med ditt decimaltecken.",
+    "no": "Nå på 13 språk. Ny appbeskrivelse med en veiledning i å lese, teste og laste ned koder med en Flipper Zero. Frekvenser vises med ditt desimaltegn.",
+    "es": "Ahora en 13 idiomas. Nueva descripción de la app con una guía para leer, probar y descargar códigos con un Flipper Zero. Las frecuencias se muestran con tu separador decimal.",
+    "da": "Nu på 13 sprog. Ny appbeskrivelse med en vejledning i at læse, teste og hente koder med en Flipper Zero. Frekvenser vises med dit decimaltegn.",
+    "ru": "Теперь на 13 языках. Новое описание приложения с инструкцией по считыванию, проверке и загрузке кодов с помощью Flipper Zero. Частоты отображаются с вашим десятичным разделителем.",
+    "pl": "Teraz w 13 językach. Nowy opis aplikacji z instrukcją odczytywania, testowania i pobierania kodów za pomocą Flipper Zero. Częstotliwości są wyświetlane z Twoim separatorem dziesiętnym.",
+    "ko": "이제 13개 언어를 지원합니다. Flipper Zero로 코드를 읽고, 테스트하고, 내려받는 방법을 담은 새 앱 설명. 주파수가 지역 소수점 형식으로 표시됩니다.",
+    "ar": "متوفر الآن بـ 13 لغة. وصف جديد للتطبيق مع دليل لقراءة الرموز واختبارها وتنزيلها باستخدام Flipper Zero. تُعرض الترددات بفاصل الكسور العشرية المحلي."
   }
 }

@@ -49,5 +49,48 @@
       "button": "Button"
     },
     "selected": "Selected"
+  },
+  "classes": {
+    "remote": "Remote control",
+    "sunshade": "Awning",
+    "blinds": "Blinds",
+    "curtain": "Curtains",
+    "garagedoor": "Garage door / gate",
+    "light": "Light",
+    "socket": "Socket",
+    "fan": "Fan",
+    "doorbell": "Doorbell",
+    "other": "Other"
+  },
+  "lib": {
+    "empty_file": "The file is empty",
+    "not_flipper": "Not a Flipper Sub-GHz file",
+    "raw_invalid": "RAW_Data is missing or invalid",
+    "bad_key": "Invalid key: {key}",
+    "binraw_invalid": "BinRAW is missing TE or Data_RAW",
+    "raw_short": "The RAW recording is too short",
+    "raw_nothing": "No usable signal found in the RAW recording",
+    "bad_raw_value": "Invalid RAW value: {value}",
+    "raw_empty": "The RAW code is empty",
+    "fsk": "The code was recorded with FM/FSK – Homey can only send AM/OOK",
+    "no_pulses": "The signal contains no pulses",
+    "frequency": "Homey can only send on 433.00–433.99 MHz (the code is {mhz} MHz)",
+    "too_long": "The signal is too long for Homey ({n} intervals, at most {max})",
+    "missing_signal": "The signal {id} is missing in app.json",
+    "rolling": "{protocol} uses rolling codes and cannot be replayed",
+    "unsupported": "{protocol} is not supported yet – record the button as RAW on the Flipper",
+    "unknown_protocol": "Unknown protocol: {protocol}",
+    "bits": "{protocol} needs {bits} bits (got {got})",
+    "or": "or",
+    "te_range": "TE {te} µs is outside {min}–{max} µs",
+    "note_raw": "RAW: {n} repetition(s) found",
+    "note_grid": "rounded to table",
+    "no_buttons": "Add at least one button",
+    "max_buttons": "At most {max} buttons",
+    "no_label": "Button {n} has no label",
+    "pulses": "pulses",
+    "no_code": "The button \"{label}\" has no code",
+    "bit": "bit",
+    "decimal": "."
   }
 }

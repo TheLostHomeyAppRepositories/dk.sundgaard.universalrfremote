@@ -5,3 +5,4 @@ views/
 scripts/
 .gitignore
 AGENTS.md
+.claude/

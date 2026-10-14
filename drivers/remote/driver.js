@@ -12,18 +12,8 @@ const Homey = require('homey');
 const { protocolList, prepareCode, describe } = require('../../lib/codes');
 
 const ICONS = ['remote', 'awning', 'blind', 'curtain', 'window', 'screen', 'garage', 'gate', 'light', 'socket', 'fan', 'bell', 'button'];
-const CLASSES = [
-  { id: 'remote', label: { en: 'Remote control', da: 'Fjernbetjening' } },
-  { id: 'sunshade', label: { en: 'Awning', da: 'Markise' } },
-  { id: 'blinds', label: { en: 'Blinds', da: 'Rullegardin / persienne' } },
-  { id: 'curtain', label: { en: 'Curtains', da: 'Gardiner' } },
-  { id: 'garagedoor', label: { en: 'Garage door / gate', da: 'Garageport / låge' } },
-  { id: 'light', label: { en: 'Light', da: 'Lys' } },
-  { id: 'socket', label: { en: 'Socket', da: 'Stikkontakt' } },
-  { id: 'fan', label: { en: 'Fan', da: 'Ventilator' } },
-  { id: 'doorbell', label: { en: 'Doorbell', da: 'Dørklokke' } },
-  { id: 'other', label: { en: 'Other', da: 'Andet' } },
-];
+// Enhedstyper på parringssiden; teksterne står under 'classes' i locales/<sprog>.json.
+const CLASSES = ['remote', 'sunshade', 'blinds', 'curtain', 'garagedoor', 'light', 'socket', 'fan', 'doorbell', 'other'];
 const MAX_BUTTONS = 16;
 
 // Knapper fra siden -> rene knapper med stabile id'er (b1, b2, …).
@@ -75,10 +65,6 @@ class RemoteDriver extends Homey.Driver {
     this._pressedCard.trigger(device, {}, { id }).catch((e) => this.error(e));
   }
 
-  _lang() {
-    return this.homey.i18n.getLanguage() === 'da' ? 'da' : 'en';
-  }
-
   _register(session, context) {
     session.setHandler('context', async () => context);
     session.setHandler('parse', async (input) => {
@@ -90,10 +76,9 @@ class RemoteDriver extends Homey.Driver {
   }
 
   _context(extra) {
-    const lang = this._lang();
     return {
       icons: this._icons(),
-      classes: CLASSES.map((c) => ({ id: c.id, label: c.label[lang] })),
+      classes: CLASSES.map((id) => ({ id, label: this.homey.__(`classes.${id}`) })),
       protocols: protocolList(),
       maxButtons: MAX_BUTTONS,
       ...extra,
@@ -107,10 +92,10 @@ class RemoteDriver extends Homey.Driver {
     session.setHandler('device', async ({ name, icon, deviceClass, repetitions, buttons }) => {
       const { list, nextId } = cleanButtons(buttons);
       return {
-        name: String(name || '').trim() || (this._lang() === 'da' ? 'Fjernbetjening' : 'Remote control'),
+        name: String(name || '').trim() || this.homey.__('remote.title'),
         data: { id: crypto.randomUUID() },
         icon: `/icons/${ICONS.includes(icon) ? icon : 'remote'}.svg`,
-        class: CLASSES.some((c) => c.id === deviceClass) ? deviceClass : 'remote',
+        class: CLASSES.includes(deviceClass) ? deviceClass : 'remote',
         capabilities: list.map((b) => `button.${b.id}`),
         capabilitiesOptions: Object.fromEntries(list.map((b) => [`button.${b.id}`, { title: b.label }])),
         store: { buttons: list, nextId, deviceClass, icon },
@@ -135,7 +120,7 @@ class RemoteDriver extends Homey.Driver {
       });
       await device.applyButtons(list);
       await device.setStoreValue('nextId', nextId);
-      if (CLASSES.some((c) => c.id === deviceClass) && deviceClass !== device.getClass()) await device.setClass(deviceClass);
+      if (CLASSES.includes(deviceClass) && deviceClass !== device.getClass()) await device.setClass(deviceClass);
       await device.setSettings({ repetitions: Number(repetitions) || 10 });
     });
   }

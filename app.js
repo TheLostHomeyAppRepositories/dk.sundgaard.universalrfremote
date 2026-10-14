@@ -3,11 +3,12 @@
 const Homey = require('homey');
 const { plan } = require('./lib/radio');
 const { prepareCode, protocolList } = require('./lib/codes');
-const { setLanguage } = require('./lib/i18n');
+const { setLanguageSource, msg, broken } = require('./lib/i18n');
 
 class App extends Homey.App {
   async onInit() {
-    setLanguage(this.homey.i18n.getLanguage());
+    setLanguageSource(() => this.homey.i18n.getLanguage());
+    if (broken.length) this.error('Sprogfiler sprunget over:', broken.join('; '));
     this._queue = Promise.resolve();
     this._signals = new Map();
     this._status = { sent: 0, failed: 0, last: null, lastError: null };
@@ -15,7 +16,7 @@ class App extends Homey.App {
     const card = this.homey.flow.getActionCard('send_code');
     card.registerArgumentAutocompleteListener('protocol', async (query) => protocolList()
       .filter((p) => p.name.toLowerCase().includes(query.toLowerCase()))
-      .map((p) => ({ name: p.name, description: p.te ? `${p.bits} bit, TE ${p.te} µs` : `${p.bits} bit`, id: p.name })));
+      .map((p) => ({ name: p.name, description: p.te ? `${p.bits} ${msg('bit')}, TE ${p.te} µs` : `${p.bits} ${msg('bit')}`, id: p.name })));
     card.registerRunListener(async (args) => {
       const code = prepareCode({
         protocol: args.protocol.id, key: args.key, bits: args.bits, te: args.te, frequency: args.frequency,
