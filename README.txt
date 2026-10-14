@@ -2,7 +2,7 @@ Control the 433 MHz remotes Homey can't learn on its own, such as the ones for a
 Universal RF Remote adds a remote to Homey with your own buttons, like In, Stop and Out.
 You can tap them in the Homey app and use them in flows.
 
-Each button gets its code from a Flipper Zero recording (.sub file) or from values you type in.
+Each button gets its code by letting Homey listen to your remote, from a Flipper Zero recording (.sub file) or from values you type in.
 You can test every button before you finish.
 
 The app supports 32 remote protocols with a fixed code.

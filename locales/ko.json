@@ -7,6 +7,7 @@
     "repetitions_hint": "명령 한 번에 코드를 보내는 횟수 (Flipper는 10회).",
     "tab_file": ".sub 파일",
     "tab_manual": "직접 입력",
+    "tab_listen": "듣기",
     "paste_hint": "… 또는 파일 내용을 붙여넣으세요:",
     "protocol": "프로토콜",
     "key": "키 (hex)",
@@ -18,7 +19,12 @@
     "test": "테스트",
     "sent": "전송됨",
     "create": "기기 추가",
-    "save": "저장"
+    "save": "저장",
+    "listen_hint": "듣기 시작을 누르고 리모컨을 Homey 가까이에 둔 채 리모컨 버튼을 몇 번 누르세요. Homey는 433.92 MHz 리모컨을 수신할 수 있습니다.",
+    "listen_start": "듣기 시작",
+    "listen_stop": "중지",
+    "listening": "듣는 중… 지금 리모컨 버튼을 누르세요.",
+    "heard": "신호 수신, 디코딩 중…"
   },
   "error": {
     "no_code": "이 버튼에는 코드가 없습니다"
@@ -91,6 +97,9 @@
     "pulses": "펄스",
     "no_code": "버튼 \"{label}\"에 코드가 없습니다",
     "bit": "비트",
-    "decimal": "."
+    "decimal": ".",
+    "listen_nothing": "신호가 감지되지 않았습니다. 리모컨을 Homey에 더 가까이 대고 다시 시도하세요.",
+    "listen_unknown": "신호를 수신했지만 인식하지 못했습니다. 롤링 코드나 앱이 디코딩할 수 없는 프로토콜일 수 있습니다. 대신 Flipper Zero의 .sub 파일을 사용하세요.",
+    "listen_cancelled": "듣기를 중지했습니다."
   }
 }

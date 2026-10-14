@@ -7,6 +7,7 @@
     "repetitions_hint": "How many times the code is sent per command (the Flipper uses 10).",
     "tab_file": ".sub file",
     "tab_manual": "Enter",
+    "tab_listen": "Listen",
     "paste_hint": "… or paste the file contents:",
     "protocol": "Protocol",
     "key": "Key (hex)",
@@ -18,7 +19,12 @@
     "test": "Test",
     "sent": "Sent",
     "create": "Add device",
-    "save": "Save"
+    "save": "Save",
+    "listen_hint": "Press Start listening, hold the remote close to Homey and press its button a few times. Homey can hear remotes on 433.92 MHz.",
+    "listen_start": "Start listening",
+    "listen_stop": "Stop",
+    "listening": "Listening… press the button on the remote now.",
+    "heard": "Signal received, decoding…"
   },
   "error": {
     "no_code": "There is no code for this button"
@@ -91,6 +97,9 @@
     "pulses": "pulses",
     "no_code": "The button \"{label}\" has no code",
     "bit": "bit",
-    "decimal": "."
+    "decimal": ".",
+    "listen_nothing": "No signal heard. Hold the remote closer to Homey and try again.",
+    "listen_unknown": "A signal was heard but not recognised. It may use a rolling code or a protocol the app can't decode – use a .sub file from a Flipper Zero instead.",
+    "listen_cancelled": "Listening stopped."
   }
 }

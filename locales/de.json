@@ -7,6 +7,7 @@
     "repetitions_hint": "Wie oft der Code pro Befehl gesendet wird (der Flipper verwendet 10).",
     "tab_file": ".sub-Datei",
     "tab_manual": "Eingeben",
+    "tab_listen": "Zuhören",
     "paste_hint": "… oder den Dateiinhalt einfügen:",
     "protocol": "Protokoll",
     "key": "Schlüssel (hex)",
@@ -18,7 +19,12 @@
     "test": "Testen",
     "sent": "Gesendet",
     "create": "Gerät hinzufügen",
-    "save": "Speichern"
+    "save": "Speichern",
+    "listen_hint": "Tippe auf Zuhören starten, halte die Fernbedienung nah an Homey und drücke ein paar Mal ihre Taste. Homey kann Fernbedienungen auf 433,92 MHz empfangen.",
+    "listen_start": "Zuhören starten",
+    "listen_stop": "Stopp",
+    "listening": "Hört zu … drücke jetzt die Taste der Fernbedienung.",
+    "heard": "Signal empfangen, wird dekodiert …"
   },
   "error": {
     "no_code": "Für diese Taste gibt es keinen Code"
@@ -91,6 +97,9 @@
     "pulses": "Impulse",
     "no_code": "Die Taste \"{label}\" hat keinen Code",
     "bit": "Bit",
-    "decimal": ","
+    "decimal": ",",
+    "listen_nothing": "Kein Signal empfangen. Halte die Fernbedienung näher an Homey und versuche es erneut.",
+    "listen_unknown": "Es wurde ein Signal empfangen, aber nicht erkannt. Es verwendet vielleicht einen Rolling Code oder ein Protokoll, das die App nicht dekodieren kann – verwende stattdessen eine .sub-Datei von einem Flipper Zero.",
+    "listen_cancelled": "Zuhören beendet."
   }
 }

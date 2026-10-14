@@ -2,7 +2,7 @@ Steuere die 433-MHz-Fernbedienungen, die Homey nicht selbst anlernen kann, etwa 
 Universal RF Remote fügt Homey eine Fernbedienung mit eigenen Tasten hinzu, etwa Ein, Stopp und Aus.
 Du kannst sie in der Homey-App antippen und in Flows verwenden.
 
-Jede Taste bekommt ihren Code aus einer Flipper-Zero-Aufnahme (.sub-Datei) oder aus Werten, die du selbst eingibst.
+Jede Taste bekommt ihren Code, indem Homey deiner Fernbedienung zuhört, aus einer Flipper-Zero-Aufnahme (.sub-Datei) oder aus Werten, die du selbst eingibst.
 Du kannst jede Taste testen, bevor du fertig bist.
 
 Die App unterstützt 32 Funkprotokolle mit festem Code.

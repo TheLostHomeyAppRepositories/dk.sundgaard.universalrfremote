@@ -7,6 +7,7 @@
     "repetitions_hint": "Nombre d'envois du code par commande (le Flipper en utilise 10).",
     "tab_file": "Fichier .sub",
     "tab_manual": "Saisir",
+    "tab_listen": "Écouter",
     "paste_hint": "… ou collez le contenu du fichier :",
     "protocol": "Protocole",
     "key": "Clé (hex)",
@@ -18,7 +19,12 @@
     "test": "Tester",
     "sent": "Envoyé",
     "create": "Ajouter l'appareil",
-    "save": "Enregistrer"
+    "save": "Enregistrer",
+    "listen_hint": "Appuyez sur Commencer l'écoute, tenez la télécommande près de Homey et appuyez quelques fois sur son bouton. Homey peut capter les télécommandes à 433,92 MHz.",
+    "listen_start": "Commencer l'écoute",
+    "listen_stop": "Arrêter",
+    "listening": "Écoute en cours… appuyez maintenant sur le bouton de la télécommande.",
+    "heard": "Signal reçu, décodage…"
   },
   "error": {
     "no_code": "Ce bouton n'a pas de code"
@@ -91,6 +97,9 @@
     "pulses": "impulsions",
     "no_code": "Le bouton « {label} » n'a pas de code",
     "bit": "bits",
-    "decimal": ","
+    "decimal": ",",
+    "listen_nothing": "Aucun signal capté. Rapprochez la télécommande de Homey et réessayez.",
+    "listen_unknown": "Un signal a été capté mais n'a pas été reconnu. Il utilise peut-être un code tournant ou un protocole que l'app ne sait pas décoder – utilisez plutôt un fichier .sub d'un Flipper Zero.",
+    "listen_cancelled": "Écoute arrêtée."
   }
 }

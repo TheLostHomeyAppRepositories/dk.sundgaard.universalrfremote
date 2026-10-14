@@ -7,6 +7,7 @@
     "repetitions_hint": "Cuántas veces se envía el código por orden (el Flipper usa 10).",
     "tab_file": "Archivo .sub",
     "tab_manual": "Introducir",
+    "tab_listen": "Escuchar",
     "paste_hint": "… o pega el contenido del archivo:",
     "protocol": "Protocolo",
     "key": "Clave (hex)",
@@ -18,7 +19,12 @@
     "test": "Probar",
     "sent": "Enviado",
     "create": "Añadir dispositivo",
-    "save": "Guardar"
+    "save": "Guardar",
+    "listen_hint": "Pulsa Empezar a escuchar, acerca el mando a Homey y pulsa su botón varias veces. Homey puede captar mandos de 433,92 MHz.",
+    "listen_start": "Empezar a escuchar",
+    "listen_stop": "Detener",
+    "listening": "Escuchando… pulsa ahora el botón del mando.",
+    "heard": "Señal recibida, descodificando…"
   },
   "error": {
     "no_code": "Este botón no tiene código"
@@ -91,6 +97,9 @@
     "pulses": "pulsos",
     "no_code": "El botón \"{label}\" no tiene código",
     "bit": "bits",
-    "decimal": ","
+    "decimal": ",",
+    "listen_nothing": "No se ha captado ninguna señal. Acerca el mando a Homey e inténtalo de nuevo.",
+    "listen_unknown": "Se ha captado una señal, pero no se ha reconocido. Puede usar un código variable o un protocolo que la app no sabe descodificar; usa en su lugar un archivo .sub de un Flipper Zero.",
+    "listen_cancelled": "Escucha detenida."
   }
 }

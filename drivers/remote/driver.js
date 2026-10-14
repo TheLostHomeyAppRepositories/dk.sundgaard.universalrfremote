@@ -73,6 +73,16 @@ class RemoteDriver extends Homey.Driver {
       return { code, summary: describe(code), note: p.note };
     });
     session.setHandler('test', async ({ code, repetitions }) => this.homey.app.send(code, { repetitions: Number(repetitions) || 10 }));
+    // Lyt: svarer med den dekodede kode (siden udfylder "Indtast" med den) og melder undervejs,
+    // hvor mange frames der er hørt.
+    session.setHandler('listen', async () => {
+      const { code } = await this.homey.app.listen({
+        onHeard: (n) => session.emit('listen_heard', n).catch(() => {}),
+      });
+      return code;
+    });
+    session.setHandler('listen_stop', async () => this.homey.app.stopListening());
+    session.setHandler('disconnect', async () => this.homey.app.stopListening());
   }
 
   _context(extra) {

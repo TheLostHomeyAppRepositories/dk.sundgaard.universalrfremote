@@ -7,6 +7,7 @@
     "repetitions_hint": "Ile razy kod jest wysyłany na jedno polecenie (Flipper używa 10).",
     "tab_file": "Plik .sub",
     "tab_manual": "Wpisz",
+    "tab_listen": "Słuchaj",
     "paste_hint": "… lub wklej zawartość pliku:",
     "protocol": "Protokół",
     "key": "Klucz (hex)",
@@ -18,7 +19,12 @@
     "test": "Testuj",
     "sent": "Wysłano",
     "create": "Dodaj urządzenie",
-    "save": "Zapisz"
+    "save": "Zapisz",
+    "listen_hint": "Naciśnij Zacznij słuchać, trzymaj pilota blisko Homey i naciśnij kilka razy jego przycisk. Homey odbiera piloty na 433,92 MHz.",
+    "listen_start": "Zacznij słuchać",
+    "listen_stop": "Zatrzymaj",
+    "listening": "Nasłuchiwanie… naciśnij teraz przycisk na pilocie.",
+    "heard": "Odebrano sygnał, dekodowanie…"
   },
   "error": {
     "no_code": "Ten przycisk nie ma kodu"
@@ -91,6 +97,9 @@
     "pulses": "impulsów",
     "no_code": "Przycisk „{label}” nie ma kodu",
     "bit": "bit",
-    "decimal": ","
+    "decimal": ",",
+    "listen_nothing": "Nie wykryto sygnału. Przybliż pilota do Homey i spróbuj ponownie.",
+    "listen_unknown": "Odebrano sygnał, ale go nie rozpoznano. Może używać kodu zmiennego lub protokołu, którego aplikacja nie umie zdekodować – zamiast tego użyj pliku .sub z Flipper Zero.",
+    "listen_cancelled": "Nasłuchiwanie zatrzymane."
   }
 }

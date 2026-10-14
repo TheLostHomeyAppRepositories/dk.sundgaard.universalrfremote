@@ -2,7 +2,7 @@ Controlla i telecomandi a 433 MHz che Homey non riesce ad apprendere da solo, co
 Universal RF Remote aggiunge a Homey un telecomando con i tuoi pulsanti, come Dentro, Stop e Fuori.
 Puoi toccarli nell'app Homey e usarli nei flow.
 
-Ogni pulsante riceve il suo codice da una registrazione Flipper Zero (file .sub) o da valori che inserisci tu.
+Ogni pulsante riceve il suo codice lasciando che Homey ascolti il tuo telecomando, da una registrazione Flipper Zero (file .sub) o da valori che inserisci tu.
 Puoi provare ogni pulsante prima di finire.
 
 L'app supporta 32 protocolli per telecomandi a codice fisso.

@@ -1,6 +1,7 @@
 <!--
   Parring og reparation af en fjernbetjening (kopieres til drivers/remote/pair og /repair af scripts/build.js).
-  Brugeren vælger navn, ikon og type og tilføjer selv knapper med etiket og kode (.sub-fil eller manuelt).
+  Brugeren vælger navn, ikon og type og tilføjer selv knapper med etiket og kode (.sub-fil, manuelt
+  eller ved at lade Homey lytte og dekode fjernbetjeningen – så udfyldes "Indtast").
 -->
 <style>
   .ur-hide { display: none !important; }
@@ -26,6 +27,9 @@
   .ur-small { font-size: .85em; opacity: .7; }
   /* Homeys stylesheet giver tekstfelter en fast bredde – fyld hele bredden. */
   textarea.homey-form-input { display: block; width: 100% !important; max-width: none !important; box-sizing: border-box; min-height: 4.5em; font-family: monospace; font-size: .85em; resize: vertical; }
+  .ur-rec { color: #d9534f; }
+  .ur-listening .ur-rec { animation: ur-blink 1s steps(2, start) infinite; }
+  @keyframes ur-blink { to { visibility: hidden; } }
   .ur-actions { display: flex; gap: .5em; margin-top: .4em; }
   .ur-actions button { flex: 1; }
   #ur-add { margin-bottom: 1em; }
@@ -74,12 +78,19 @@
     <div class="ur-tabs">
       <button type="button" data-tab="file" class="active" data-i18n="pair.tab_file"></button>
       <button type="button" data-tab="manual" data-i18n="pair.tab_manual"></button>
+      <button type="button" data-tab="listen"><span class="ur-rec">●</span> <span data-i18n="pair.tab_listen"></span></button>
     </div>
 
     <div data-pane="file">
       <input class="homey-form-input" type="file" accept=".sub,text/plain" data-role="file" />
       <div class="ur-small" data-i18n="pair.paste_hint"></div>
       <textarea class="homey-form-input" data-role="paste" placeholder="Filetype: Flipper SubGhz Key File&#10;…"></textarea>
+    </div>
+
+    <div data-pane="listen" class="ur-hide">
+      <div class="ur-small" data-i18n="pair.listen_hint"></div>
+      <button type="button" class="homey-button-secondary-full" data-role="listen"><span class="ur-rec">●</span> <span data-role="listen-text" data-i18n="pair.listen_start"></span></button>
+      <div class="ur-summary" data-role="listen-status"></div>
     </div>
 
     <div data-pane="manual" class="ur-hide">
@@ -128,6 +139,7 @@
   let ctx;
   let icon = 'remote';
   const buttons = []; // { id, label, code, el }
+  let listener = null; // knappen, der lytter lige nu (kun én ad gangen)
 
   function translate(root) {
     root.querySelectorAll('[data-i18n]').forEach((el) => { el.textContent = t(el.dataset.i18n); });
@@ -190,6 +202,57 @@
     updateManualFields(b);
   }
 
+  function showTab(b, tab) {
+    b.el.querySelectorAll('[data-tab]').forEach((x) => x.classList.toggle('active', x.dataset.tab === tab));
+    b.el.querySelectorAll('[data-pane]').forEach((p) => p.classList.toggle('ur-hide', p.dataset.pane !== tab));
+    if (tab !== 'listen' && listener === b) stopListening();
+  }
+
+  function listenStatus(b, text, cls) {
+    const s = $('[data-role=listen-status]', b.el);
+    s.textContent = text || '';
+    s.className = `ur-summary ${cls || ''}`;
+  }
+
+  function setListening(b, on) {
+    const btn = $('[data-role=listen]', b.el);
+    btn.classList.toggle('ur-listening', on);
+    $('[data-role=listen-text]', b.el).textContent = t(on ? 'pair.listen_stop' : 'pair.listen_start');
+  }
+
+  // Homey lytter, til en kode er dekodet (eller tiden er gået). Ved succes springes til "Indtast"
+  // med værdierne udfyldt og koden klar til Test.
+  async function listen(b) {
+    if (listener) stopListening();
+    listener = b;
+    setListening(b, true);
+    listenStatus(b, t('pair.listening'));
+    try {
+      const code = await Homey.emit('listen');
+      if (listener !== b) return;
+      listener = null;
+      setListening(b, false);
+      listenStatus(b, '');
+      fillManual(b, code);
+      showTab(b, 'manual');
+      await parse(b, code);
+    } catch (err) {
+      if (listener !== b) return; // afbrudt af brugeren eller en anden knap
+      listener = null;
+      setListening(b, false);
+      listenStatus(b, err.message || String(err), 'err');
+    }
+  }
+
+  function stopListening() {
+    const b = listener;
+    if (!b) return;
+    listener = null;
+    setListening(b, false);
+    listenStatus(b, '');
+    Homey.emit('listen_stop').catch(() => {});
+  }
+
   function addButton(data) {
     const el = $('#ur-btn-tpl').content.firstElementChild.cloneNode(true);
     translate(el);
@@ -200,10 +263,8 @@
     label.placeholder = t('remote.label_placeholder');
     label.value = (data && data.label) || '';
 
-    el.querySelectorAll('[data-tab]').forEach((btn) => btn.addEventListener('click', () => {
-      el.querySelectorAll('[data-tab]').forEach((x) => x.classList.toggle('active', x === btn));
-      el.querySelectorAll('[data-pane]').forEach((p) => p.classList.toggle('ur-hide', p.dataset.pane !== btn.dataset.tab));
-    }));
+    el.querySelectorAll('[data-tab]').forEach((btn) => btn.addEventListener('click', () => showTab(b, btn.dataset.tab)));
+    $('[data-role=listen]', el).addEventListener('click', () => (listener === b ? stopListening() : listen(b)));
 
     $('[data-role=file]', el).addEventListener('change', (e) => {
       const file = e.target.files && e.target.files[0];
@@ -264,6 +325,7 @@
     $('[data-role=up]', el).addEventListener('click', () => move(-1));
     $('[data-role=down]', el).addEventListener('click', () => move(1));
     $('[data-role=remove]', el).addEventListener('click', () => {
+      if (listener === b) stopListening();
       buttons.splice(buttons.indexOf(b), 1);
       el.remove();
       renumber();
@@ -328,6 +390,9 @@
 
   async function init() {
     translate(document);
+    Homey.on('listen_heard', (n) => {
+      if (listener) listenStatus(listener, `${t('pair.heard')} (${n})`);
+    });
     ctx = await Homey.emit('context');
     icon = ctx.icon || 'remote';
     $('#ur-name').value = ctx.name || '';

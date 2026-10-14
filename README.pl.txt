@@ -2,7 +2,7 @@ Steruj pilotami 433 MHz, których Homey nie potrafi sam się nauczyć, na przyk�
 Universal RF Remote dodaje do Homey pilota z własnymi przyciskami, na przykład Zwiń, Stop i Rozwiń.
 Możesz je naciskać w aplikacji Homey i używać we flow.
 
-Każdy przycisk dostaje kod z nagrania Flipper Zero (plik .sub) albo z wartości wpisanych ręcznie.
+Każdy przycisk dostaje kod przez nasłuchanie pilota przez Homey, z nagrania Flipper Zero (plik .sub) albo z wartości wpisanych ręcznie.
 Każdy przycisk możesz przetestować przed zakończeniem.
 
 Aplikacja obsługuje 32 protokoły pilotów ze stałym kodem.

@@ -7,6 +7,7 @@
     "repetitions_hint": "Hvor mange gange koden sendes pr. kommando (Flipper bruger 10).",
     "tab_file": ".sub-fil",
     "tab_manual": "Indtast",
+    "tab_listen": "Lyt",
     "paste_hint": "… eller indsæt filens indhold:",
     "protocol": "Protokol",
     "key": "Nøgle (hex)",
@@ -18,7 +19,12 @@
     "test": "Test",
     "sent": "Sendt",
     "create": "Opret enhed",
-    "save": "Gem"
+    "save": "Gem",
+    "listen_hint": "Tryk på Start lytning, hold fjernbetjeningen tæt på Homey, og tryk et par gange på dens knap. Homey kan høre fjernbetjeninger på 433,92 MHz.",
+    "listen_start": "Start lytning",
+    "listen_stop": "Stop",
+    "listening": "Lytter… tryk på fjernbetjeningens knap nu.",
+    "heard": "Signal modtaget, dekoder…"
   },
   "error": {
     "no_code": "Der er ingen kode til denne knap"
@@ -91,6 +97,9 @@
     "pulses": "pulser",
     "no_code": "Knappen \"{label}\" mangler en kode",
     "bit": "bit",
-    "decimal": ","
+    "decimal": ",",
+    "listen_nothing": "Intet signal hørt. Hold fjernbetjeningen tættere på Homey, og prøv igen.",
+    "listen_unknown": "Der blev hørt et signal, men det blev ikke genkendt. Det kan bruge en rullende kode eller en protokol, appen ikke kan dekode – brug i stedet en .sub-fil fra en Flipper Zero.",
+    "listen_cancelled": "Lytning stoppet."
   }
 }

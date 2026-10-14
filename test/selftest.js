@@ -107,6 +107,84 @@ assert.throws(() => encode({ protocol: 'KeeLoq', bits: 64, key: '1' }), /rolling
 assert.throws(() => plan({ ...c, frequency: 868350000 }, catalog), /433.00–433.99 MHz/);
 setLanguage('da');
 
+// Lyt: simuleret modtagelse (Homey matcher [puls, pause] til nærmeste ord i rx-tabellerne, deler
+// frames ved pauser over 5 ms og taber parret før pausen) skal dekodes til den samme kode.
+{
+  const { decodeFrame, decodeFrames, decodable } = require('../lib/decode');
+  const { rxSignals, RX_IDS } = require('../lib/radio');
+  const { merge } = require('../lib/raw');
+  const rx = rxSignals();
+  assert.deepStrictEqual(Object.keys(rx), RX_IDS);
+  for (const id of RX_IDS) {
+    assert.ok(!catalog[id].txOnly, `${id} skal kunne modtage`);
+    assert.ok(catalog[id].words.length <= 400, `${id} har for mange ord`);
+  }
+  let seed = 11;
+  const rnd = () => { seed = (seed * 1664525 + 1013904223) >>> 0; return seed / 2 ** 32; };
+  const receive = (frame, words, jitter = 0.1) => {
+    const seq = [];
+    for (let r = 0; r < 4; r++) seq.push(...frame, -9000); // fjernbetjeningen holder pause mellem gentagelser
+    const s = merge(seq);
+    while (s[0] < 0) s.push(s.shift());
+    const frames = [];
+    let cur = [];
+    for (let i = 0; i + 1 < s.length; i += 2) {
+      const h = s[i] * (1 + (rnd() * 2 - 1) * jitter);
+      const l = -s[i + 1] * (1 + (rnd() * 2 - 1) * jitter);
+      if (h > 4500 || l > 5000) {
+        if (cur.length >= 6) frames.push(cur);
+        cur = [];
+        continue;
+      }
+      let best = words[0];
+      let be = Infinity;
+      for (const w of words) {
+        const e = Math.abs(Math.log(h / w[0])) + Math.abs(Math.log(l / w[1]));
+        if (e < be) { be = e; best = w; }
+      }
+      cur.push(best);
+    }
+    return frames;
+  };
+  const listen = (code) => {
+    const { frame } = encode(code);
+    return decodeFrames(RX_IDS.flatMap((id) => receive(frame, rx[id].words)));
+  };
+  const cases = [
+    { protocol: 'Princeton', bits: 24, key: '5A3C91', te: 211 },
+    { protocol: 'Princeton', bits: 24, key: '5A3C91', te: 420 },
+    { protocol: 'CAME', bits: 12, key: 'A5C' },
+    { protocol: 'CAME', bits: 24, key: '5A3C91' },
+    { protocol: 'Nice FLO', bits: 24, key: '5A3C91' },
+    { protocol: 'GateTX', bits: 24, key: '5A3C91' },
+    { protocol: 'Intertechno_V3', bits: 32, key: '5A3C9100' },
+    { protocol: 'SMC5326', bits: 25, key: '15A3C91', te: 300 },
+  ];
+  for (const want of cases) {
+    const r = listen(want);
+    assert.ok(r, `${want.protocol} ikke dekodet`);
+    assert.deepStrictEqual([r.code.protocol, r.code.bits, r.code.key], [want.protocol, want.bits, want.key], want.protocol);
+    assert.strictEqual(r.code.frequency, 433920000);
+    if (want.te) assert.ok(Math.abs(r.code.te - want.te) / want.te < 0.05, `${want.protocol} TE ${r.code.te} ≠ ${want.te}`);
+    assert.ok(r.votes >= 3);
+  }
+  // Koden kan bruges direkte: prepareCode accepterer den, og den planlægges til et præcist signal.
+  const heard = listen(cases[0]).code;
+  assert.ok(plan(prepareCode(heard), catalog).exact);
+
+  // Protokoller, hvor en bit går tabt i Homeys modtagelse, må ikke blive til en (forkert) kode.
+  assert.ok(!decodable().includes('Roger') && !decodable().includes('Power Smart'));
+  assert.ok(decodable().includes('Princeton') && decodable().includes('CAME'));
+  assert.strictEqual(listen({ protocol: 'Roger', bits: 28, key: '5A3C910' }), null);
+  assert.strictEqual(listen({ protocol: 'Mastercode', bits: 36, key: '5A3C910AB' }), null);
+  // Støj giver ingen kode, og ét frame er ikke nok.
+  const noise = Array.from({ length: 10 }, () => Array.from({ length: 30 }, () => rx.rx_a.words[Math.floor(rnd() * rx.rx_a.words.length)]));
+  assert.strictEqual(decodeFrames(noise), null);
+  const one = receive(encode(cases[0]).frame, rx.rx_a.words)[0];
+  assert.ok(decodeFrame(one));
+  assert.strictEqual(decodeFrames([one]), null);
+}
+
 // Sprog: alle 13 sprog har samme nøgler og pladsholdere som engelsk – i locales/, app.json og changelog
 {
   const fs = require('fs');

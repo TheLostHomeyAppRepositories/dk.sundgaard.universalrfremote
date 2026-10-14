@@ -2,7 +2,7 @@ Pilotez les télécommandes 433 MHz que Homey ne sait pas apprendre seul, par ex
 Universal RF Remote ajoute à Homey une télécommande avec vos propres boutons, comme Rentrer, Stop et Sortir.
 Vous pouvez les toucher dans l'application Homey et les utiliser dans vos flows.
 
-Chaque bouton reçoit son code d'un enregistrement Flipper Zero (fichier .sub) ou de valeurs que vous saisissez.
+Chaque bouton reçoit son code en laissant Homey écouter votre télécommande, d'un enregistrement Flipper Zero (fichier .sub) ou de valeurs que vous saisissez.
 Vous pouvez tester chaque bouton avant de terminer.
 
 L'application prend en charge 32 protocoles de télécommande à code fixe.

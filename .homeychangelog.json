@@ -58,5 +58,20 @@
     "pl": "Krótszy opis aplikacji i wątek w Homey Community z instrukcją i wsparciem.",
     "ko": "더 짧아진 앱 설명과 가이드 및 지원을 제공하는 Homey Community 토픽.",
     "ar": "وصف أقصر للتطبيق وموضوع في Homey Community يتضمن دليلًا ودعمًا."
+  },
+  "1.2.0": {
+    "en": "New: let Homey listen to a remote and decode its code. Choose the Listen tab on a button, press the remote a few times and the values are filled in for you. Works with 18 fixed-code protocols on 433.92 MHz.",
+    "nl": "Nieuw: laat Homey naar een afstandsbediening luisteren en de code decoderen. Kies het tabblad Luisteren bij een knop, druk een paar keer op de afstandsbediening en de waarden worden voor je ingevuld. Werkt met 18 protocollen met vaste code op 433,92 MHz.",
+    "de": "Neu: Lass Homey einer Fernbedienung zuhören und ihren Code dekodieren. Wähle bei einer Taste den Tab Zuhören, drücke ein paar Mal die Fernbedienung, und die Werte werden für dich ausgefüllt. Funktioniert mit 18 Protokollen mit festem Code auf 433,92 MHz.",
+    "fr": "Nouveau : laissez Homey écouter une télécommande et décoder son code. Choisissez l'onglet Écouter sur un bouton, appuyez quelques fois sur la télécommande et les valeurs sont remplies pour vous. Fonctionne avec 18 protocoles à code fixe à 433,92 MHz.",
+    "it": "Novità: lascia che Homey ascolti un telecomando e ne decodifichi il codice. Scegli la scheda Ascolta su un pulsante, premi alcune volte il telecomando e i valori vengono compilati per te. Funziona con 18 protocolli a codice fisso a 433,92 MHz.",
+    "sv": "Nytt: låt Homey lyssna på en fjärrkontroll och avkoda koden. Välj fliken Lyssna på en knapp, tryck några gånger på fjärrkontrollen så fylls värdena i åt dig. Fungerar med 18 protokoll med fast kod på 433,92 MHz.",
+    "no": "Nytt: la Homey lytte på en fjernkontroll og dekode koden. Velg fanen Lytt på en knapp, trykk noen ganger på fjernkontrollen, så fylles verdiene ut for deg. Fungerer med 18 protokoller med fast kode på 433,92 MHz.",
+    "es": "Novedad: deja que Homey escuche un mando y descodifique su código. Elige la pestaña Escuchar en un botón, pulsa el mando varias veces y los valores se rellenan solos. Funciona con 18 protocolos de código fijo a 433,92 MHz.",
+    "da": "Nyt: lad Homey lytte til en fjernbetjening og dekode koden. Vælg fanen Lyt på en knap, tryk et par gange på fjernbetjeningen, så bliver værdierne udfyldt for dig. Virker med 18 protokoller med fast kode på 433,92 MHz.",
+    "ru": "Новое: Homey может прослушать пульт и декодировать его код. Выберите вкладку «Слушать» у кнопки, нажмите кнопку пульта несколько раз, и значения заполнятся автоматически. Работает с 18 протоколами с фиксированным кодом на частоте 433,92 МГц.",
+    "pl": "Nowość: Homey może nasłuchać pilota i zdekodować jego kod. Wybierz kartę Słuchaj przy przycisku, naciśnij kilka razy pilota, a wartości zostaną wypełnione za Ciebie. Działa z 18 protokołami ze stałym kodem na 433,92 MHz.",
+    "ko": "새 기능: Homey가 리모컨 신호를 듣고 코드를 디코딩합니다. 버튼에서 듣기 탭을 선택하고 리모컨을 몇 번 누르면 값이 자동으로 입력됩니다. 433.92 MHz의 고정 코드 프로토콜 18종에서 작동합니다.",
+    "ar": "جديد: دع Homey يستمع إلى جهاز تحكم ويفك ترميز رمزه. اختر علامة التبويب استماع على زر، واضغط على جهاز التحكم عدة مرات، وستُملأ القيم تلقائيًا. يعمل مع 18 بروتوكولًا ذا رمز ثابت على 433.92 ميغاهرتز."
   }
 }

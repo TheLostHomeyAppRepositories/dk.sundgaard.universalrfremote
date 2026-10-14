@@ -7,6 +7,7 @@
     "repetitions_hint": "Hoe vaak de code per opdracht wordt verzonden (de Flipper gebruikt 10).",
     "tab_file": ".sub-bestand",
     "tab_manual": "Invoeren",
+    "tab_listen": "Luisteren",
     "paste_hint": "… of plak de inhoud van het bestand:",
     "protocol": "Protocol",
     "key": "Sleutel (hex)",
@@ -18,7 +19,12 @@
     "test": "Testen",
     "sent": "Verzonden",
     "create": "Apparaat toevoegen",
-    "save": "Opslaan"
+    "save": "Opslaan",
+    "listen_hint": "Druk op Start met luisteren, houd de afstandsbediening dicht bij Homey en druk een paar keer op de knop. Homey kan afstandsbedieningen op 433,92 MHz horen.",
+    "listen_start": "Start met luisteren",
+    "listen_stop": "Stop",
+    "listening": "Aan het luisteren… druk nu op de knop van de afstandsbediening.",
+    "heard": "Signaal ontvangen, bezig met decoderen…"
   },
   "error": {
     "no_code": "Er is geen code voor deze knop"
@@ -91,6 +97,9 @@
     "pulses": "pulsen",
     "no_code": "De knop \"{label}\" heeft geen code",
     "bit": "bit",
-    "decimal": ","
+    "decimal": ",",
+    "listen_nothing": "Geen signaal gehoord. Houd de afstandsbediening dichter bij Homey en probeer het opnieuw.",
+    "listen_unknown": "Er is een signaal gehoord, maar het werd niet herkend. Het gebruikt mogelijk een rolling code of een protocol dat de app niet kan decoderen – gebruik in plaats daarvan een .sub-bestand van een Flipper Zero.",
+    "listen_cancelled": "Luisteren gestopt."
   }
 }

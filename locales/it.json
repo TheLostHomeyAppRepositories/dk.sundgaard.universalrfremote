@@ -7,6 +7,7 @@
     "repetitions_hint": "Quante volte il codice viene inviato per comando (il Flipper ne usa 10).",
     "tab_file": "File .sub",
     "tab_manual": "Inserisci",
+    "tab_listen": "Ascolta",
     "paste_hint": "… oppure incolla il contenuto del file:",
     "protocol": "Protocollo",
     "key": "Chiave (hex)",
@@ -18,7 +19,12 @@
     "test": "Prova",
     "sent": "Inviato",
     "create": "Aggiungi dispositivo",
-    "save": "Salva"
+    "save": "Salva",
+    "listen_hint": "Premi Avvia ascolto, tieni il telecomando vicino a Homey e premi alcune volte il suo pulsante. Homey può ricevere telecomandi a 433,92 MHz.",
+    "listen_start": "Avvia ascolto",
+    "listen_stop": "Ferma",
+    "listening": "In ascolto… premi ora il pulsante del telecomando.",
+    "heard": "Segnale ricevuto, decodifica in corso…"
   },
   "error": {
     "no_code": "Questo pulsante non ha un codice"
@@ -91,6 +97,9 @@
     "pulses": "impulsi",
     "no_code": "Il pulsante \"{label}\" non ha un codice",
     "bit": "bit",
-    "decimal": ","
+    "decimal": ",",
+    "listen_nothing": "Nessun segnale ricevuto. Avvicina il telecomando a Homey e riprova.",
+    "listen_unknown": "È stato ricevuto un segnale, ma non è stato riconosciuto. Potrebbe usare un codice variabile o un protocollo che l'app non sa decodificare – usa invece un file .sub di un Flipper Zero.",
+    "listen_cancelled": "Ascolto interrotto."
   }
 }

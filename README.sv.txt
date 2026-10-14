@@ -2,7 +2,7 @@ Styr de 433 MHz-fjärrkontroller som Homey inte kan lära sig själv, till exemp
 Universal RF Remote lägger till en fjärrkontroll i Homey med dina egna knappar, till exempel In, Stopp och Ut.
 Du kan trycka på dem i Homey-appen och använda dem i flöden.
 
-Varje knapp får sin kod från en Flipper Zero-inspelning (.sub-fil) eller från värden som du skriver in.
+Varje knapp får sin kod genom att Homey lyssnar på din fjärrkontroll, från en Flipper Zero-inspelning (.sub-fil) eller från värden som du skriver in.
 Du kan testa varje knapp innan du är klar.
 
 Appen stöder 32 fjärrkontrollprotokoll med fast kod.

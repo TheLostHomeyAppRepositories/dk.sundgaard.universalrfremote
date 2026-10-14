@@ -1,9 +1,13 @@
 'use strict';
 
 const Homey = require('homey');
-const { plan } = require('./lib/radio');
+const { plan, RX_IDS } = require('./lib/radio');
+const { decodeFrame, vote } = require('./lib/decode');
 const { prepareCode, protocolList } = require('./lib/codes');
-const { setLanguageSource, msg, broken } = require('./lib/i18n');
+const { setLanguageSource, msg, err, broken } = require('./lib/i18n');
+
+const LISTEN_SECONDS = 15;
+const MAX_FRAMES = 60;
 
 class App extends Homey.App {
   async onInit() {
@@ -67,6 +71,62 @@ class App extends Homey.App {
 
   getStatus() {
     return this._status;
+  }
+
+  // Lytter efter en fjernbetjening og dekoder den (lyt-fanen på parringssiden).
+  // -> { code, votes, frames }. Fejler med en forklaring, hvis intet blev hørt eller genkendt.
+  // Kun én lytning ad gangen: en ny afbryder den forrige. Modtagelse er tung for Homey, så den
+  // er kun slået til, mens der lyttes.
+  async listen({ seconds = LISTEN_SECONDS, onHeard } = {}) {
+    this.stopListening();
+    const job = { frames: [], results: [], onHeard };
+    const done = new Promise((resolve, reject) => Object.assign(job, { resolve, reject }));
+    this._listening = job;
+    try {
+      for (const id of RX_IDS) await this._rxSignal(id).enableRX();
+    } catch (e) {
+      this._finishListening(job, e);
+      return done;
+    }
+    const ms = Math.max(1, Math.min(60, Number(seconds) || LISTEN_SECONDS)) * 1000;
+    job.timer = this.homey.setTimeout(() => this._finishListening(job), ms);
+    return done;
+  }
+
+  stopListening() {
+    if (this._listening) this._finishListening(this._listening, err('listen_cancelled'));
+  }
+
+  _rxSignal(id) {
+    if (!this._signals.has(id)) {
+      const sig = this.homey.rf.getSignal433(id);
+      const { words } = this.homey.manifest.signals['433'][id];
+      sig.on('payload', (payload) => this._onFrame(payload.map((w) => words[w]).filter(Boolean)));
+      this._signals.set(id, sig);
+    }
+    return this._signals.get(id);
+  }
+
+  _onFrame(pairs) {
+    const job = this._listening;
+    if (!job || job.frames.length >= MAX_FRAMES) return;
+    job.frames.push(pairs);
+    job.results.push(decodeFrame(pairs));
+    if (job.onHeard) job.onHeard(job.frames.length);
+    if (vote(job.results)) this._finishListening(job);
+  }
+
+  _finishListening(job, error) {
+    if (this._listening !== job) return;
+    this._listening = null;
+    this.homey.clearTimeout(job.timer);
+    for (const id of RX_IDS) {
+      this._rxSignal(id).disableRX().catch((e) => this.error('disableRX', id, e.message));
+    }
+    const result = !error && vote(job.results);
+    this.log('Lyttede:', job.frames.length, 'frames,', result ? `${result.code.protocol} (${result.votes} stemmer)` : 'ingen kode');
+    if (result) job.resolve({ ...result, frames: job.frames.length });
+    else job.reject(error || err(job.frames.length ? 'listen_unknown' : 'listen_nothing'));
   }
 }
 

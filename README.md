@@ -1,10 +1,11 @@
 # Universal RF Remote for Homey Pro
 
-Send 433 MHz codes captured with a [Flipper Zero](https://flipperzero.one) from your Homey Pro. Create a remote control device, add as many buttons as you like with your own labels, and give each button a code – either by loading the `.sub` file the Flipper saved, or by typing in the protocol, key, bit count, TE and frequency exactly as the Flipper shows them.
+Send 433 MHz codes captured with a [Flipper Zero](https://flipperzero.one) from your Homey Pro. Create a remote control device, add as many buttons as you like with your own labels, and give each button a code – by letting Homey listen to the remote, by loading the `.sub` file the Flipper saved, or by typing in the protocol, key, bit count, TE and frequency exactly as the Flipper shows them.
 
 ## Features
 
 - **Remote control device** with a chosen name, icon and device type, and up to 16 labelled buttons.
+- **Listen:** Homey listens to your remote and decodes the code itself (18 protocols on 433.92 MHz, see below).
 - **Codes from Flipper Zero `.sub` files** (Key, RAW and BinRAW) or entered by hand, each with a *Test* button during pairing.
 - **32 fixed-code protocols** rebuilt from the decoded values the same way the Flipper does: Princeton, CAME, Nice FLO, Holtek, Holtek_HT12X, Linear, LinearDelta3, GateTX, Cham_Code, MegaCode, Ansonic, SMC5326, Phoenix_V2, Power Smart, BETT, Doitrand, Intertechno_V3, Clemsa, Dooya, Hormann HSM, Marantec, Marantec24, Mastercode, Legrand, Dickert_MAHS, Magellan, Feron, Nero Radio, Nero Sketch, Honeywell, Elplast and Roger.
 - **Flow cards:** *Press a button*, *A button is pressed* and *Send a 433 MHz code*.
@@ -15,11 +16,12 @@ Send 433 MHz codes captured with a [Flipper Zero](https://flipperzero.one) from 
 
 - Homey Pro (Early 2023) transmits on **433.00–433.99 MHz** with AM/OOK only. 868 MHz and FM/FSK recordings are not supported.
 - **Rolling-code remotes** (KeeLoq, Somfy RTS, Nice FloR-S, CAME Atomo, Security+ …) cannot be replayed. The app refuses them with an explanation.
+- **Listen** only hears 433.76–434.08 MHz (433.92 MHz remotes) and decodes Princeton, CAME, Nice FLO, Holtek, Holtek_HT12X, SMC5326, Legrand, GateTX, Intertechno_V3, Ansonic, Doitrand, Dickert_MAHS, Phoenix_V2, Magellan, Feron, Honeywell, Nero Sketch and Cham_Code. Homey's receiver drops the last pulse before a long pause, so protocols that keep a bit there (Linear, LinearDelta3, Roger, Dooya, Mastercode …) and Manchester-coded ones need a `.sub` file. Holtek_HT12X with TE 320 or 700 µs looks the same on air as CAME or Nice FLO and may be shown as those – the code works either way.
 - A frame can hold at most 256 pulses (a Homey radio limit). Long RAW recordings are reduced to one clean repetition automatically.
 
 ## Guide
 
-There are three ways to get a code: read your own remote with a Flipper Zero, download a ready-made `.sub` file, or type in the values. Try Homey's own 433 MHz learning first – this app is for the remotes it cannot learn.
+There are four ways to get a code: let Homey listen to your remote, read it with a Flipper Zero, download a ready-made `.sub` file, or type in the values. Try Homey's own 433 MHz learning first – this app is for the remotes it cannot learn.
 
 ### 1. Read your remote with a Flipper Zero
 
@@ -61,9 +63,10 @@ A downloaded code only works if your receiver uses exactly that code. Many fixed
 1. In the Homey app, go to **Devices → + → Universal RF Remote → Remote control**.
 2. Choose a name, an icon and a device type.
 3. Tap **+ Add button** for each button and give it a label, e.g. *In*, *Stop*, *Out*.
-4. Give the button its code in one of three ways:
+4. Give the button its code in one of four ways:
    - **.sub file** tab: choose the file. The label is filled in from the file name if it is empty.
    - **.sub file** tab: paste the file contents into the box below the file picker.
+   - **● Listen** tab: tap **Start listening**, hold the remote close to Homey and press its button a few times. When the code is decoded, the page switches to **Enter** with the values filled in.
    - **Enter** tab: pick the protocol and type the key, bits, TE and frequency as the Flipper showed them, then tap **Use these values**. The key may be written as `0x5A3C91`, `5A3C91` or `00 00 00 00 00 5A 3C 91`. For RAW, paste the `RAW_Data` numbers instead.
 5. Tap **Test** next to each button and check that the device reacts. If it does not, try more *Repetitions*.
 6. Finish with **Add device**.
@@ -79,6 +82,8 @@ Homey apps cannot send raw pulse lists: every transmission must use a signal def
 - `grid_<kHz>` – a generic 24×32 log-spaced table used for RAW recordings and as a fallback,
 
 for the carriers 433.92, 433.42 and 433.07 MHz. At runtime `lib/radio.js` encodes the code to pulses (`lib/protocols.js`), picks the best signal and maps the pulses to word indexes.
+
+Receiving works the same way in reverse. Homey only reports which words of a signal it recognised, so **Listen** turns on two generic 18×18 tables (`rx_a`, `rx_b`, offset by half a step) and converts the word indexes back to µs. `lib/decode.js` then uses the encoders as templates: each bit changes fixed positions in the frame, so the received timings are compared with the 0 and 1 version of every bit, and a result is accepted only if the whole re-encoded frame matches. Three frames must agree.
 
 ## Development
 

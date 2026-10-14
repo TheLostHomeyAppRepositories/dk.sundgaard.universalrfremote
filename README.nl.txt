@@ -2,7 +2,7 @@ Bedien de 433 MHz-afstandsbedieningen die Homey zelf niet kan leren, zoals die v
 Universal RF Remote voegt een afstandsbediening aan Homey toe met je eigen knoppen, zoals In, Stop en Uit.
 Je kunt ze indrukken in de Homey-app en gebruiken in flows.
 
-Elke knop krijgt zijn code uit een Flipper Zero-opname (.sub-bestand) of uit waarden die je zelf invoert.
+Elke knop krijgt zijn code doordat Homey naar je afstandsbediening luistert, uit een Flipper Zero-opname (.sub-bestand) of uit waarden die je zelf invoert.
 Je kunt elke knop testen voordat je klaar bent.
 
 De app ondersteunt 32 protocollen voor afstandsbedieningen met een vaste code.
