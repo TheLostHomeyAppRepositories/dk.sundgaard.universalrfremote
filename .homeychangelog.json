@@ -43,5 +43,20 @@
     "pl": "Teraz w 13 językach. Nowy opis aplikacji z instrukcją odczytywania, testowania i pobierania kodów za pomocą Flipper Zero. Częstotliwości są wyświetlane z Twoim separatorem dziesiętnym.",
     "ko": "이제 13개 언어를 지원합니다. Flipper Zero로 코드를 읽고, 테스트하고, 내려받는 방법을 담은 새 앱 설명. 주파수가 지역 소수점 형식으로 표시됩니다.",
     "ar": "متوفر الآن بـ 13 لغة. وصف جديد للتطبيق مع دليل لقراءة الرموز واختبارها وتنزيلها باستخدام Flipper Zero. تُعرض الترددات بفاصل الكسور العشرية المحلي."
+  },
+  "1.1.1": {
+    "en": "Shorter app description and a Homey Community topic with a guide and support.",
+    "nl": "Kortere appbeschrijving en een Homey Community-topic met handleiding en support.",
+    "de": "Kürzere App-Beschreibung und ein Homey-Community-Thema mit Anleitung und Support.",
+    "fr": "Description de l'application plus courte et un sujet sur la Homey Community avec guide et support.",
+    "it": "Descrizione dell'app più breve e un topic nella Homey Community con guida e supporto.",
+    "sv": "Kortare appbeskrivning och en tråd i Homey Community med guide och support.",
+    "no": "Kortere appbeskrivelse og en tråd i Homey Community med veiledning og support.",
+    "es": "Descripción de la app más corta y un tema en la Homey Community con guía y soporte.",
+    "da": "Kortere appbeskrivelse og en tråd på Homey Community med guide og support.",
+    "ru": "Более короткое описание приложения и тема в Homey Community с руководством и поддержкой.",
+    "pl": "Krótszy opis aplikacji i wątek w Homey Community z instrukcją i wsparciem.",
+    "ko": "더 짧아진 앱 설명과 가이드 및 지원을 제공하는 Homey Community 토픽.",
+    "ar": "وصف أقصر للتطبيق وموضوع في Homey Community يتضمن دليلًا ودعمًا."
   }
 }

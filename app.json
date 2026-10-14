@@ -1,6 +1,6 @@
 {
   "id": "dk.sundgaard.universalrfremote",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "compatibility": ">=12.3.0",
   "sdk": 3,
   "platforms": [
@@ -48,7 +48,8 @@
     "email": "homey@uniteapps.dk"
   },
   "homepage": "https://www.uniteapps.dk",
-  "support": "mailto:homey@uniteapps.dk",
+  "support": "https://community.homey.app/t/app-pro-universal-rf-remote-use-flipper-zero-sub-files/160781",
+  "homeyCommunityTopicId": 160781,
   "source": "https://github.com/bosund/universal-rf-remote",
   "bugs": {
     "url": "https://github.com/bosund/universal-rf-remote/issues"
