@@ -104,7 +104,9 @@
     "listen_unknown": "En signal hördes men kändes inte igen. Den kan använda en rullande kod eller ett protokoll som appen inte kan avkoda – använd i stället en .sub-fil från en Flipper Zero.",
     "listen_cancelled": "Lyssnandet stoppades.",
     "role_twice": "Knapp {a} och {b} har samma funktion – välj den bara på en knapp.",
-    "no_role": "Fjärrkontrollen har ingen knapp för det – ge en knapp den funktionen under Reparera enhet."
+    "no_role": "Fjärrkontrollen har ingen knapp för det – ge en knapp den funktionen under Reparera enhet.",
+    "receive_none": "Homey känner inte igen någon av fjärrkontrollens knappar. Bara koder på 433,92 MHz i ett protokoll som appen kan avkoda (se fliken Lyssna) kan tas emot.",
+    "receive_some": "Homey känner igen {n} av {total} knappar. De andra använder en kod som appen inte kan avkoda."
   },
   "roles": {
     "none": "Ingen (bara knapp)",

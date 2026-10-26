@@ -4,7 +4,7 @@ const Homey = require('homey');
 const { describe } = require('../../lib/codes');
 const { ROLE_CAPABILITIES, roleMap, roleCapabilities } = require('../../lib/roles');
 const { CoverModel, slider } = require('../../lib/cover');
-const { err } = require('../../lib/i18n');
+const { err, msg } = require('../../lib/i18n');
 
 class RemoteDevice extends Homey.Device {
   async onInit() {
@@ -16,6 +16,13 @@ class RemoteDevice extends Homey.Device {
     // En bevægelse, der var i gang før en genstart, regnes færdig ud fra dens starttid.
     if (this._model().motion) await this._scheduleSettle();
     await this._updateInfo();
+    this._receive = !!this.getSetting('receive');
+    this.homey.app.updateReceivers();
+  }
+
+  async onDeleted() {
+    this._deleted = true;
+    this.homey.app.updateReceivers();
   }
 
   async onUninit() {
@@ -57,6 +64,25 @@ class RemoteDevice extends Homey.Device {
     }
     if (role) await this._afterRole(role);
     if (trigger) this.driver.triggerPressed(this, b.id);
+  }
+
+  // Lyttes der efter den rigtige fjernbetjening? (Indstillingen "receive", se app.js.)
+  receiving() {
+    return this._receive && !this._deleted;
+  }
+
+  // Knappen blev trykket på den rigtige fjernbetjening: opdater Homeys kontroller, som om Homey
+  // selv havde sendt koden (markisen kører jo), og start "… blev trykket på fjernbetjeningen".
+  async received(id) {
+    // Matcheren opdateres først lidt efter (app.updateReceivers), så tjek selv.
+    if (!this.receiving() || !(this.getStoreValue('buttons') || []).some((x) => x.id === id)) return;
+    this.homey.clearTimeout(this._moveTimer);
+    const entry = Object.entries(this._roles()).find(([, bid]) => bid === id);
+    if (entry) {
+      this._beforeRole(entry[0]);
+      await this._afterRole(entry[0]);
+    }
+    this.driver.triggerReceived(this, id);
   }
 
   async _pressRole(role, opts = {}) {
@@ -192,6 +218,14 @@ class RemoteDevice extends Homey.Device {
   }
 
   async onSettings({ newSettings, changedKeys }) {
+    // Kan ingen af knapperne genkendes, afvises "Lyt"; kan kun nogle, siges det (Homey viser teksten).
+    let message;
+    if (changedKeys.includes('receive') && newSettings.receive) {
+      const buttons = this.getStoreValue('buttons') || [];
+      const n = await this.homey.app.receivable(buttons);
+      if (!n) throw err('receive_none');
+      if (n < buttons.length) message = msg('receive_some', { n, total: buttons.length });
+    }
     if (changedKeys.includes('travel_time')) {
       // Den nye køretid gælder straks; positionen og en igangværende bevægelse bevares.
       this._travel = Number(newSettings.travel_time) || 0;
@@ -200,6 +234,11 @@ class RemoteDevice extends Homey.Device {
       await this._persist();
       await this._scheduleSettle();
     }
+    if (changedKeys.includes('receive')) {
+      this._receive = !!newSettings.receive;
+      this.homey.app.updateReceivers();
+    }
+    return message;
   }
 
   // Ny knapliste fra reparation. Homeys kontroller kommer først, derefter knapperne i den nye
@@ -214,6 +253,7 @@ class RemoteDevice extends Homey.Device {
       this._listen(b.id);
     }
     await this._updateInfo();
+    this.homey.app.updateReceivers();
   }
 
   async _updateInfo() {

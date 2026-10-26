@@ -104,7 +104,9 @@
     "listen_unknown": "Odebrano sygnał, ale go nie rozpoznano. Może używać kodu zmiennego lub protokołu, którego aplikacja nie umie zdekodować – zamiast tego użyj pliku .sub z Flipper Zero.",
     "listen_cancelled": "Nasłuchiwanie zatrzymane.",
     "role_twice": "Przyciski {a} i {b} mają tę samą funkcję – wybierz ją tylko dla jednego przycisku.",
-    "no_role": "Ten pilot nie ma do tego przycisku – przypisz tę funkcję przyciskowi w Napraw urządzenie."
+    "no_role": "Ten pilot nie ma do tego przycisku – przypisz tę funkcję przyciskowi w Napraw urządzenie.",
+    "receive_none": "Homey nie rozpoznaje żadnego przycisku tego pilota. Odbierane mogą być tylko kody na 433,92 MHz w protokole, który aplikacja potrafi zdekodować (zob. kartę Słuchaj).",
+    "receive_some": "Homey rozpoznaje {n} z {total} przycisków. Pozostałe używają kodu, którego aplikacja nie potrafi zdekodować."
   },
   "roles": {
     "none": "Brak (tylko przycisk)",

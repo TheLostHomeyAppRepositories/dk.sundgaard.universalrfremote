@@ -11,6 +11,8 @@ let timers = [];
 let tid = 0;
 const sent = [];
 let failNext = false;
+let receiverUpdates = 0;
+const received = [];
 
 class Device {
   constructor({ cls, buttons, settings, store = {} }) {
@@ -29,9 +31,11 @@ class Device {
           if (failNext) { failNext = false; throw new Error('radio fejl'); }
           sent.push(code.key);
         },
+        updateReceivers: () => { receiverUpdates++; },
+        receivable: async (buttons) => buttons.filter((b) => b.code.key !== 'RAW').length,
       },
     };
-    this.driver = { triggerPressed: () => {} };
+    this.driver = { triggerPressed: () => {}, triggerReceived: (dev, id) => received.push(id) };
   }
   getClass() { return this._cls; }
   getStoreValue(k) { return this._store[k] ?? null; }
@@ -193,6 +197,39 @@ async function make(opts) {
     await advance(6000);
     assert.deepStrictEqual(sent, ['DOWN', 'STOP']);
     assert.ok(Math.abs(d.getCapabilityValue('windowcoverings_set') - 0.25) < 0.02);
+  }
+  // Lyt efter den rigtige fjernbetjening: tryk opdaterer kontrollerne uden at sende og starter kortet
+  {
+    const d = await make({ cls: 'sunshade', buttons: coverButtons });
+    assert.strictEqual(d.receiving(), false);
+    const before = receiverUpdates;
+    const m = await d.onSettings({ newSettings: { receive: true }, changedKeys: ['receive'] });
+    assert.strictEqual(m, undefined);
+    assert.ok(d.receiving() && receiverUpdates > before);
+    received.length = 0;
+    await d.received('b3'); // Ned på den rigtige fjernbetjening
+    assert.deepStrictEqual(sent, [], 'modtagelse sender intet');
+    assert.deepStrictEqual(received, ['b3']);
+    assert.strictEqual(d.getCapabilityValue('windowcoverings_state'), 'down');
+    await advance(5000);
+    await d.received('b2'); // Stop
+    assert.ok(Math.abs(d.getCapabilityValue('windowcoverings_set') - 0.25) < 0.02, 'positionen følger med');
+    // et tryk på den rigtige fjernbetjening afbryder Homeys positionering
+    await d.ui('windowcoverings_set', 1);
+    await advance(2000);
+    await d.received('b2');
+    await advance(30000);
+    assert.deepStrictEqual(sent, ['DOWN'], `intet planlagt Stop efter manuelt Stop: ${sent}`);
+    await d.received('b99'); // ukendt knap ignoreres
+    await d.onDeleted();
+    assert.strictEqual(d.receiving(), false);
+    // ingen knapper kan genkendes -> afvises; nogle -> besked
+    const raw = { protocol: 'RAW', key: 'RAW' };
+    const r = await make({ cls: 'remote', buttons: [{ id: 'b1', label: 'A', code: raw }] });
+    await assert.rejects(r.onSettings({ newSettings: { receive: true }, changedKeys: ['receive'] }));
+    assert.strictEqual(r.receiving(), false);
+    const r2 = await make({ cls: 'remote', buttons: [{ id: 'b1', label: 'A', code: raw }, { id: 'b2', label: 'B', code: code('B') }] });
+    assert.ok(/1/.test(await r2.onSettings({ newSettings: { receive: true }, changedKeys: ['receive'] })));
   }
   console.log('OK – alle enhedstest bestået');
 })().catch((e) => { console.error('FEJL:', e.message); process.exit(1); });

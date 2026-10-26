@@ -104,7 +104,9 @@
     "listen_unknown": "È stato ricevuto un segnale, ma non è stato riconosciuto. Potrebbe usare un codice variabile o un protocollo che l'app non sa decodificare – usa invece un file .sub di un Flipper Zero.",
     "listen_cancelled": "Ascolto interrotto.",
     "role_twice": "I pulsanti {a} e {b} hanno la stessa funzione – sceglila su un solo pulsante.",
-    "no_role": "Questo telecomando non ha un pulsante per questo – assegna quella funzione a un pulsante in Ripara dispositivo."
+    "no_role": "Questo telecomando non ha un pulsante per questo – assegna quella funzione a un pulsante in Ripara dispositivo.",
+    "receive_none": "Homey non riconosce nessun pulsante di questo telecomando. Si possono ricevere solo codici a 433,92 MHz in un protocollo che l'app sa decodificare (vedi la scheda Ascolta).",
+    "receive_some": "Homey riconosce {n} dei {total} pulsanti. Gli altri usano un codice che l'app non sa decodificare."
   },
   "roles": {
     "none": "Nessuna (solo pulsante)",

@@ -1,6 +1,6 @@
 {
   "id": "dk.sundgaard.universalrfremote",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "compatibility": ">=12.3.0",
   "sdk": 3,
   "platforms": [
@@ -216,6 +216,61 @@
                 "pl": "Dla markiz, żaluzji i zasłon: czas od pełnego podniesienia/zwinięcia do pełnego opuszczenia/rozwinięcia. Z przyciskami Góra, Stop i Dół Homey może ustawić je w wybranej pozycji. Pozycja jest szacowana, więc co jakiś czas przejedź do końca w górę lub w dół. 0 = wyłączone.",
                 "ko": "차양, 블라인드, 커튼용: 완전히 올림/접힘에서 완전히 내림/펼침까지 걸리는 시간입니다. 위로, 정지, 아래로 버튼이 있으면 Homey가 원하는 위치로 움직일 수 있습니다. 위치는 추정값이므로 가끔 끝까지 올리거나 내리세요. 0 = 끄기.",
                 "ar": "للمظلات والستائر: الزمن من الأعلى/الطي الكامل إلى الأسفل/البسط الكامل. مع أزرار أعلى وإيقاف وأسفل يستطيع Homey تحريكها إلى موضع معيّن. الموضع تقديري، لذا حرّكها أحيانًا حتى النهاية للأعلى أو للأسفل. 0 = إيقاف."
+              }
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Receiving",
+            "nl": "Ontvangen",
+            "de": "Empfang",
+            "fr": "Réception",
+            "it": "Ricezione",
+            "sv": "Mottagning",
+            "no": "Mottak",
+            "es": "Recepción",
+            "da": "Modtagelse",
+            "ru": "Приём",
+            "pl": "Odbiór",
+            "ko": "수신",
+            "ar": "الاستقبال"
+          },
+          "children": [
+            {
+              "id": "receive",
+              "type": "checkbox",
+              "label": {
+                "en": "Listen for the physical remote",
+                "nl": "Luisteren naar de echte afstandsbediening",
+                "de": "Auf die echte Fernbedienung hören",
+                "fr": "Écouter la vraie télécommande",
+                "it": "Ascolta il telecomando reale",
+                "sv": "Lyssna efter den riktiga fjärrkontrollen",
+                "no": "Lytt etter den ekte fjernkontrollen",
+                "es": "Escuchar el mando real",
+                "da": "Lyt efter den rigtige fjernbetjening",
+                "ru": "Слушать настоящий пульт",
+                "pl": "Nasłuchuj prawdziwego pilota",
+                "ko": "실제 리모컨 신호 듣기",
+                "ar": "الاستماع إلى جهاز التحكم الحقيقي"
+              },
+              "value": false,
+              "hint": {
+                "en": "Homey listens for the codes of this remote's buttons and starts the flow card \"[button] was pressed on the physical remote\". Homey's own controls follow along. Only codes on 433.92 MHz that the app can decode are recognised. Receiving uses Homey's radio continuously, so only turn it on where you need it.",
+                "nl": "Homey luistert naar de codes van de knoppen van deze afstandsbediening en start de flowkaart \"Er is op [button] gedrukt op de echte afstandsbediening\". De eigen bediening van Homey volgt mee. Alleen codes op 433,92 MHz die de app kan decoderen worden herkend. Ontvangen gebruikt de radio van Homey continu, dus zet het alleen aan waar je het nodig hebt.",
+                "de": "Homey hört auf die Codes der Tasten dieser Fernbedienung und startet die Flow-Karte „[button] wurde auf der echten Fernbedienung gedrückt“. Homeys eigene Steuerung zieht mit. Erkannt werden nur Codes auf 433,92 MHz, die die App dekodieren kann. Der Empfang nutzt Homeys Funk dauerhaft, schalte ihn also nur ein, wo du ihn brauchst.",
+                "fr": "Homey écoute les codes des boutons de cette télécommande et lance la carte de flow « [button] a été pressé sur la vraie télécommande ». Les commandes de Homey suivent. Seuls les codes à 433,92 MHz que l'application sait décoder sont reconnus. La réception utilise la radio de Homey en continu : ne l'activez que là où vous en avez besoin.",
+                "it": "Homey ascolta i codici dei pulsanti di questo telecomando e avvia la scheda flow \"[button] è stato premuto sul telecomando reale\". I controlli di Homey si aggiornano di conseguenza. Vengono riconosciuti solo i codici a 433,92 MHz che l'app sa decodificare. La ricezione usa la radio di Homey in continuo, quindi attivala solo dove serve.",
+                "sv": "Homey lyssnar efter koderna för fjärrkontrollens knappar och startar flödeskortet \"[button] trycktes på den riktiga fjärrkontrollen\". Homeys egna kontroller följer med. Bara koder på 433,92 MHz som appen kan avkoda känns igen. Mottagning använder Homeys radio hela tiden, så slå bara på den där du behöver den.",
+                "no": "Homey lytter etter kodene til knappene på denne fjernkontrollen og starter flytkortet \"[button] ble trykket på den ekte fjernkontrollen\". Homeys egne kontroller følger med. Bare koder på 433,92 MHz som appen kan dekode, gjenkjennes. Mottak bruker Homeys radio hele tiden, så slå det bare på der du trenger det.",
+                "es": "Homey escucha los códigos de los botones de este mando e inicia la tarjeta de flujo \"Se pulsó [button] en el mando real\". Los controles propios de Homey se actualizan. Solo se reconocen códigos en 433,92 MHz que la app puede decodificar. La recepción usa la radio de Homey de forma continua, así que actívala solo donde la necesites.",
+                "da": "Homey lytter efter koderne fra fjernbetjeningens knapper og starter flowkortet \"Der blev trykket på [button] på den rigtige fjernbetjening\". Homeys egne kontroller følger med. Kun koder på 433,92 MHz, som appen kan dekode, genkendes. Modtagelse bruger Homeys radio hele tiden, så slå den kun til, hvor du har brug for den.",
+                "ru": "Homey слушает коды кнопок этого пульта и запускает карту потока «На настоящем пульте нажата [button]». Стандартные элементы управления Homey обновляются. Распознаются только коды на 433,92 МГц, которые приложение умеет декодировать. Приём постоянно занимает радио Homey, поэтому включайте его только там, где он нужен.",
+                "pl": "Homey nasłuchuje kodów przycisków tego pilota i uruchamia kartę flow „Naciśnięto [button] na prawdziwym pilocie”. Własne sterowanie Homey nadąża za zmianami. Rozpoznawane są tylko kody na 433,92 MHz, które aplikacja potrafi zdekodować. Odbiór stale korzysta z radia Homey, więc włączaj go tylko tam, gdzie jest potrzebny.",
+                "ko": "Homey가 이 리모컨 버튼의 코드를 듣고 \"실제 리모컨에서 [button] 버튼이 눌렸을 때\" 플로우 카드를 실행합니다. Homey 기본 컨트롤도 함께 갱신됩니다. 앱이 해독할 수 있는 433.92 MHz 코드만 인식됩니다. 수신 중에는 Homey 무선이 계속 사용되므로 필요한 곳에서만 켜세요.",
+                "ar": "يستمع Homey إلى رموز أزرار جهاز التحكم هذا ويشغّل بطاقة التدفق \"تم الضغط على [button] في جهاز التحكم الحقيقي\". وتتحدّث عناصر تحكم Homey تبعًا لذلك. لا يتم التعرّف إلا على الرموز على 433.92 ميغاهرتز التي يستطيع التطبيق فك ترميزها. يستخدم الاستقبال راديو Homey باستمرار، لذا فعّله فقط حيث تحتاج إليه."
               }
             }
           ]
@@ -689,6 +744,95 @@
           "pl": "Uruchamia się po naciśnięciu przycisku na urządzeniu, po wysłaniu jego kodu. Naciśnięcie kartą flow „Naciśnij przycisk” nie uruchamia tej karty.",
           "ko": "기기에서 버튼을 눌러 코드가 전송된 후 실행됩니다. \"버튼 누르기\" 플로우 카드로 누른 경우에는 실행되지 않습니다.",
           "ar": "يعمل عند الضغط على الزر في الجهاز بعد إرسال رمزه. الضغط باستخدام بطاقة التدفق \"اضغط على زر\" لا يشغّل هذه البطاقة."
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=remote"
+          },
+          {
+            "type": "autocomplete",
+            "name": "button",
+            "title": {
+              "en": "Button",
+              "nl": "Knop",
+              "de": "Taste",
+              "fr": "Bouton",
+              "it": "Pulsante",
+              "sv": "Knapp",
+              "no": "Knapp",
+              "es": "Botón",
+              "da": "Knap",
+              "ru": "Кнопка",
+              "pl": "Przycisk",
+              "ko": "버튼",
+              "ar": "الزر"
+            },
+            "placeholder": {
+              "en": "In",
+              "nl": "In",
+              "de": "Ein",
+              "fr": "Rentrer",
+              "it": "Dentro",
+              "sv": "In",
+              "no": "Inn",
+              "es": "Recoger",
+              "da": "Ind",
+              "ru": "Втянуть",
+              "pl": "Zwiń",
+              "ko": "접기",
+              "ar": "طي"
+            }
+          }
+        ]
+      },
+      {
+        "id": "button_received",
+        "title": {
+          "en": "A button is pressed on the physical remote",
+          "nl": "Er wordt op een knop gedrukt op de echte afstandsbediening",
+          "de": "Eine Taste wird auf der echten Fernbedienung gedrückt",
+          "fr": "Un bouton est pressé sur la vraie télécommande",
+          "it": "Viene premuto un pulsante sul telecomando reale",
+          "sv": "En knapp trycks på den riktiga fjärrkontrollen",
+          "no": "En knapp trykkes på den ekte fjernkontrollen",
+          "es": "Se pulsa un botón en el mando real",
+          "da": "Der trykkes på en knap på den rigtige fjernbetjening",
+          "ru": "На настоящем пульте нажата кнопка",
+          "pl": "Naciśnięto przycisk na prawdziwym pilocie",
+          "ko": "실제 리모컨에서 버튼이 눌렸을 때",
+          "ar": "تم الضغط على زر في جهاز التحكم الحقيقي"
+        },
+        "titleFormatted": {
+          "en": "[[button]] was pressed on the physical remote",
+          "nl": "Er is op [[button]] gedrukt op de echte afstandsbediening",
+          "de": "[[button]] wurde auf der echten Fernbedienung gedrückt",
+          "fr": "[[button]] a été pressé sur la vraie télécommande",
+          "it": "[[button]] è stato premuto sul telecomando reale",
+          "sv": "[[button]] trycktes på den riktiga fjärrkontrollen",
+          "no": "[[button]] ble trykket på den ekte fjernkontrollen",
+          "es": "Se pulsó [[button]] en el mando real",
+          "da": "Der blev trykket på [[button]] på den rigtige fjernbetjening",
+          "ru": "На настоящем пульте нажата [[button]]",
+          "pl": "Naciśnięto [[button]] na prawdziwym pilocie",
+          "ko": "실제 리모컨에서 [[button]] 버튼이 눌렸을 때",
+          "ar": "تم الضغط على [[button]] في جهاز التحكم الحقيقي"
+        },
+        "hint": {
+          "en": "Requires \"Listen for the physical remote\" in the device settings. Runs when Homey hears the button's code from the remote itself – not when the code is sent by Homey.",
+          "nl": "Vereist \"Luisteren naar de echte afstandsbediening\" in de apparaatinstellingen. Wordt uitgevoerd als Homey de code van de knop van de afstandsbediening zelf hoort – niet als Homey de code verstuurt.",
+          "de": "Erfordert „Auf die echte Fernbedienung hören“ in den Geräteeinstellungen. Wird ausgeführt, wenn Homey den Code der Taste von der Fernbedienung selbst hört – nicht, wenn Homey den Code sendet.",
+          "fr": "Nécessite « Écouter la vraie télécommande » dans les réglages de l'appareil. S'exécute quand Homey entend le code du bouton venant de la télécommande elle-même – pas quand Homey envoie le code.",
+          "it": "Richiede \"Ascolta il telecomando reale\" nelle impostazioni del dispositivo. Viene eseguito quando Homey sente il codice del pulsante dal telecomando stesso, non quando è Homey a inviarlo.",
+          "sv": "Kräver \"Lyssna efter den riktiga fjärrkontrollen\" i enhetens inställningar. Körs när Homey hör knappens kod från själva fjärrkontrollen – inte när Homey skickar koden.",
+          "no": "Krever \"Lytt etter den ekte fjernkontrollen\" i enhetsinnstillingene. Kjører når Homey hører knappens kode fra selve fjernkontrollen – ikke når Homey sender koden.",
+          "es": "Requiere \"Escuchar el mando real\" en los ajustes del dispositivo. Se ejecuta cuando Homey oye el código del botón desde el propio mando, no cuando lo envía Homey.",
+          "da": "Kræver \"Lyt efter den rigtige fjernbetjening\" i enhedens indstillinger. Kører når Homey hører knappens kode fra selve fjernbetjeningen – ikke når Homey sender koden.",
+          "ru": "Требует включить «Слушать настоящий пульт» в настройках устройства. Срабатывает, когда Homey слышит код кнопки от самого пульта, а не когда код отправляет Homey.",
+          "pl": "Wymaga włączenia „Nasłuchuj prawdziwego pilota” w ustawieniach urządzenia. Uruchamia się, gdy Homey usłyszy kod przycisku z samego pilota – nie wtedy, gdy kod wysyła Homey.",
+          "ko": "기기 설정에서 \"실제 리모컨 신호 듣기\"를 켜야 합니다. Homey가 리모컨 자체에서 버튼 코드를 들었을 때 실행되며, Homey가 코드를 보낼 때는 실행되지 않습니다.",
+          "ar": "يتطلب تفعيل \"الاستماع إلى جهاز التحكم الحقيقي\" في إعدادات الجهاز. يعمل عندما يسمع Homey رمز الزر من جهاز التحكم نفسه، وليس عندما يرسل Homey الرمز."
         },
         "args": [
           {

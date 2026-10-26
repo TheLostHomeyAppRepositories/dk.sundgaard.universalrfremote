@@ -57,6 +57,9 @@ class RemoteDriver extends Homey.Driver {
     this._pressedCard = this.homey.flow.getDeviceTriggerCard('button_pressed')
       .registerArgumentAutocompleteListener('button', autocomplete)
       .registerRunListener(async (args, state) => args.button.id === state.id);
+    this._receivedCard = this.homey.flow.getDeviceTriggerCard('button_received')
+      .registerArgumentAutocompleteListener('button', autocomplete)
+      .registerRunListener(async (args, state) => args.button.id === state.id);
   }
 
   // Ikonerne som data-URI'er, så parringssiden kan vise dem uden at kende stien.
@@ -73,6 +76,10 @@ class RemoteDriver extends Homey.Driver {
   // Venter ikke på flows: koden er allerede sendt, og en fejl her må ikke få knappen til at fejle.
   triggerPressed(device, id) {
     this._pressedCard.trigger(device, {}, { id }).catch((e) => this.error(e));
+  }
+
+  triggerReceived(device, id) {
+    this._receivedCard.trigger(device, {}, { id }).catch((e) => this.error(e));
   }
 
   _register(session, context) {

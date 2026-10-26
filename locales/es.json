@@ -104,7 +104,9 @@
     "listen_unknown": "Se ha captado una señal, pero no se ha reconocido. Puede usar un código variable o un protocolo que la app no sabe descodificar; usa en su lugar un archivo .sub de un Flipper Zero.",
     "listen_cancelled": "Escucha detenida.",
     "role_twice": "Los botones {a} y {b} tienen la misma función; elígela solo en un botón.",
-    "no_role": "Este mando no tiene un botón para eso; asigna esa función a un botón en Reparar dispositivo."
+    "no_role": "Este mando no tiene un botón para eso; asigna esa función a un botón en Reparar dispositivo.",
+    "receive_none": "Homey no reconoce ningún botón de este mando. Solo se pueden recibir códigos en 433,92 MHz con un protocolo que la app sepa decodificar (ver la pestaña Escuchar).",
+    "receive_some": "Homey reconoce {n} de los {total} botones. Los demás usan un código que la app no sabe decodificar."
   },
   "roles": {
     "none": "Ninguna (solo botón)",

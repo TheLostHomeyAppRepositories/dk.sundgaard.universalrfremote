@@ -112,7 +112,6 @@ setLanguage('da');
 {
   const { decodeFrame, decodeFrames, decodable } = require('../lib/decode');
   const { rxSignals, RX_IDS } = require('../lib/radio');
-  const { merge } = require('../lib/raw');
   const rx = rxSignals();
   assert.deepStrictEqual(Object.keys(rx), RX_IDS);
   for (const id of RX_IDS) {
@@ -121,31 +120,9 @@ setLanguage('da');
   }
   let seed = 11;
   const rnd = () => { seed = (seed * 1664525 + 1013904223) >>> 0; return seed / 2 ** 32; };
-  const receive = (frame, words, jitter = 0.1) => {
-    const seq = [];
-    for (let r = 0; r < 4; r++) seq.push(...frame, -9000); // fjernbetjeningen holder pause mellem gentagelser
-    const s = merge(seq);
-    while (s[0] < 0) s.push(s.shift());
-    const frames = [];
-    let cur = [];
-    for (let i = 0; i + 1 < s.length; i += 2) {
-      const h = s[i] * (1 + (rnd() * 2 - 1) * jitter);
-      const l = -s[i + 1] * (1 + (rnd() * 2 - 1) * jitter);
-      if (h > 4500 || l > 5000) {
-        if (cur.length >= 6) frames.push(cur);
-        cur = [];
-        continue;
-      }
-      let best = words[0];
-      let be = Infinity;
-      for (const w of words) {
-        const e = Math.abs(Math.log(h / w[0])) + Math.abs(Math.log(l / w[1]));
-        if (e < be) { be = e; best = w; }
-      }
-      cur.push(best);
-    }
-    return frames;
-  };
+  // Homeys modtagelse simuleres med lib/match.js (samme kode, som appen bruger til knapperne) + støj.
+  const { matchIds, Matcher, onAir } = require('../lib/match');
+  const receive = (frame, words, jitter = 0.1) => onAir(frame, words, () => 1 + (rnd() * 2 - 1) * jitter);
   const listen = (code) => {
     const { frame } = encode(code);
     return decodeFrames(RX_IDS.flatMap((id) => receive(frame, rx[id].words)));
@@ -183,6 +160,35 @@ setLanguage('da');
   const one = receive(encode(cases[0]).frame, rx.rx_a.words)[0];
   assert.ok(decodeFrame(one));
   assert.strictEqual(decodeFrames([one]), null);
+
+  // Lyt efter den rigtige fjernbetjening: knappernes koder -> id'er, og modtagne frames -> tryk.
+  const tables = RX_IDS.map((id) => rx[id].words);
+  const prince = { protocol: 'Princeton', bits: 24, key: '5A3C91', te: 211, frequency: 433920000 };
+  assert.deepStrictEqual(matchIds(prince, tables), ['Princeton|24|5A3C91']);
+  // Holtek_HT12X høres som CAME; begge id'er tæller.
+  assert.ok(matchIds({ protocol: 'Holtek_HT12X', bits: 12, key: 'A5C', te: 320, frequency: 433920000 }, tables).includes('CAME|12|A5C'));
+  // RAW-optagelser genkendes, hvis signalet kan dekodes.
+  const rawPrince = { protocol: 'RAW', pulses: encode(prince).frame.map((v) => Math.round(v * 1.05)), frequency: 433920000 };
+  assert.deepStrictEqual(matchIds(rawPrince, tables), ['Princeton|24|5A3C91']);
+  // Uden for Homeys modtageområde eller ukendt: ingen id'er.
+  assert.deepStrictEqual(matchIds({ ...prince, frequency: 433420000 }, tables), []);
+  assert.deepStrictEqual(matchIds({ protocol: 'Mastercode', bits: 36, key: '5A3C910AB', frequency: 433920000 }, tables), []);
+
+  const m = new Matcher();
+  const target = { device: 'markise', id: 'b1' };
+  m.setTargets([{ ids: matchIds(prince, tables), target }]);
+  const heardFrames = receive(encode(prince).frame, rx.rx_a.words).map(decodeFrame);
+  let t = 0;
+  const fired = heardFrames.map((r) => m.frame(r, t += 50, 'rx_a')).filter((x) => x.length);
+  assert.deepStrictEqual(fired, [[target]], 'ét tryk udløser én gang, selv med mange frames');
+  assert.deepStrictEqual(m.frame(heardFrames[0], t += 2000, 'rx_a'), [], 'første frame af et nyt tryk er ikke nok');
+  assert.deepStrictEqual(m.frame(heardFrames[0], t, 'rx_b'), [], 'samme frame i den anden tabel tæller ikke som nr. 2');
+  assert.deepStrictEqual(m.frame(heardFrames[1], t += 50, 'rx_a'), [target], 'nyt tryk efter en pause');
+  assert.deepStrictEqual(matchIds({ protocol: 'RAW', pulses: [-500, -300], frequency: 433920000 }, tables), [], 'kun pauser: ingen løkke');
+  assert.deepStrictEqual(m.frame({ protocol: 'Princeton', bits: 24, key: '000001' }, t += 50), []);
+  assert.deepStrictEqual(m.frame(null, t), []);
+  m.setTargets([]);
+  assert.strictEqual(m.size, 0);
 }
 
 // Knapfunktioner -> Homeys egne kontroller

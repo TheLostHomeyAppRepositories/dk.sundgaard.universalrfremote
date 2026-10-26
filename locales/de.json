@@ -104,7 +104,9 @@
     "listen_unknown": "Es wurde ein Signal empfangen, aber nicht erkannt. Es verwendet vielleicht einen Rolling Code oder ein Protokoll, das die App nicht dekodieren kann – verwende stattdessen eine .sub-Datei von einem Flipper Zero.",
     "listen_cancelled": "Zuhören beendet.",
     "role_twice": "Taste {a} und {b} haben dieselbe Funktion – wähle sie nur bei einer Taste.",
-    "no_role": "Diese Fernbedienung hat dafür keine Taste – gib einer Taste diese Funktion unter Gerät reparieren."
+    "no_role": "Diese Fernbedienung hat dafür keine Taste – gib einer Taste diese Funktion unter Gerät reparieren.",
+    "receive_none": "Homey kann keine Taste dieser Fernbedienung erkennen. Empfangen werden nur Codes auf 433,92 MHz in einem Protokoll, das die App dekodieren kann (siehe Reiter Zuhören).",
+    "receive_some": "Homey kann {n} der {total} Tasten erkennen. Die anderen nutzen einen Code, den die App nicht dekodieren kann."
   },
   "roles": {
     "none": "Keine (nur Taste)",

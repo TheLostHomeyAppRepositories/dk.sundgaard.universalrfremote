@@ -3,11 +3,15 @@
 const Homey = require('homey');
 const { plan, RX_IDS } = require('./lib/radio');
 const { decodeFrame, vote } = require('./lib/decode');
+const { matchIds, idOf, Matcher } = require('./lib/match');
 const { prepareCode, protocolList } = require('./lib/codes');
 const { setLanguageSource, msg, err, broken } = require('./lib/i18n');
 
 const LISTEN_SECONDS = 15;
 const MAX_FRAMES = 60;
+const QUIET_MS = 1500; // efter egen udsendelse: hør ikke Homeys eget signal som et tryk
+const RX_RETRY_MS = 60000; // nyt forsøg, hvis radioen ikke kunne slås til/fra
+const CACHE_SIZE = 64; // senest dekodede frames (en fjernbetjening gentager det samme frame)
 
 class App extends Homey.App {
   async onInit() {
@@ -16,6 +20,13 @@ class App extends Homey.App {
     this._queue = Promise.resolve();
     this._signals = new Map();
     this._status = { sent: 0, failed: 0, last: null, lastError: null };
+    this._matcher = new Matcher();
+    this._decoded = new Map();
+    this._idCache = new Map();
+    this._rxOn = false;
+    this._rxQueue = Promise.resolve();
+    this._quiet = { ids: new Set(), until: 0 };
+    this._receive = { heard: 0, last: null };
 
     const card = this.homey.flow.getActionCard('send_code');
     card.registerArgumentAutocompleteListener('protocol', async (query) => protocolList()
@@ -50,6 +61,9 @@ class App extends Homey.App {
       : p.repetitions;
     const run = async () => {
       const started = Date.now();
+      // Kun den sendte kode ignoreres, så andre fjernbetjeninger stadig høres imens.
+      const quiet = { ids: new Set(this._matcher.size ? this._ids(code, this._rxTables()) : []), until: Infinity };
+      this._quiet = quiet;
       try {
         await this._signal(p.signalId).tx(p.frame, { repetitions });
         this._status.sent++;
@@ -61,6 +75,8 @@ class App extends Homey.App {
         this._status.failed++;
         this._status.lastError = { at: new Date().toISOString(), message: err.message, signalId: p.signalId };
         throw err;
+      } finally {
+        quiet.until = Date.now() + QUIET_MS;
       }
     };
     const job = this._queue.then(run, run);
@@ -70,20 +86,100 @@ class App extends Homey.App {
   }
 
   getStatus() {
-    return this._status;
+    return { ...this._status, rx: this._rxOn, receiving: this._matcher.size, received: this._receive };
+  }
+
+  // --- Lyt efter rigtige fjernbetjeninger ---------------------------------------------
+  // Modtagelse er tung for Homey, så radioen lytter kun, når mindst én enhed har indstillingen
+  // "Lyt efter den rigtige fjernbetjening" slået til (eller lyt-fanen er åben).
+  // Enhederne kalder updateReceivers(), når noget ændrer sig; kaldene samles.
+  updateReceivers() {
+    this.homey.clearTimeout(this._receiversTimer);
+    this._receiversTimer = this.homey.setTimeout(() => this._updateReceivers().catch(this.error), 200);
+  }
+
+  async _updateReceivers() {
+    const tables = this._rxTables();
+    const targets = [];
+    const used = new Set();
+    for (const device of this.homey.drivers.getDriver('remote').getDevices()) {
+      if (!device.receiving || !device.receiving()) continue;
+      for (const b of device.getStoreValue('buttons') || []) {
+        used.add(JSON.stringify(b.code));
+        targets.push({ ids: await this._idsLater(b.code, tables), target: { device, id: b.id } });
+      }
+    }
+    // Koder, ingen enhed lytter efter længere, glemmes.
+    for (const key of this._idCache.keys()) if (!used.has(key)) this._idCache.delete(key);
+    this._matcher.setTargets(targets.filter((t) => t.ids.length));
+    this.log('Lytter efter', this._matcher.size, 'koder');
+    await this._syncRx();
+  }
+
+  // Antal knapper, Homey kan genkende, når den rigtige fjernbetjening trykkes.
+  async receivable(buttons) {
+    const tables = this._rxTables();
+    let n = 0;
+    for (const b of buttons || []) if ((await this._idsLater(b.code, tables)).length) n++;
+    return n;
+  }
+
+  // matchIds simulerer modtagelsen og tager lidt tid, så resultatet huskes pr. kode.
+  _ids(code, tables) {
+    const key = JSON.stringify(code);
+    if (!this._idCache.has(key)) this._idCache.set(key, matchIds(code, tables));
+    return this._idCache.get(key);
+  }
+
+  // Som _ids, men giver andre opgaver (udsendelser, timere) plads mellem de tunge beregninger.
+  async _idsLater(code, tables) {
+    await new Promise((resolve) => setImmediate(resolve));
+    return this._ids(code, tables);
+  }
+
+  _rxTables() {
+    return RX_IDS.map((id) => this.homey.manifest.signals['433'][id].words);
+  }
+
+  // Slår modtagelse til/fra efter behov. Køres én ad gangen.
+  // Fejler det, prøves igen om lidt.
+  _syncRx() {
+    const job = this._rxQueue.then(async () => {
+      this.homey.clearTimeout(this._rxRetry);
+      const want = !!this._listening || this._matcher.size > 0;
+      if (want === this._rxOn) return;
+      try {
+        for (const id of RX_IDS) {
+          if (want) await this._rxSignal(id).enableRX();
+          else await this._rxSignal(id).disableRX();
+        }
+        this._rxOn = want;
+      } catch (e) {
+        // Slå til: det hele slås fra igen, så næste forsøg starter forfra. Slå fra: _rxOn bliver
+        // stående, så næste forsøg også prøver at slå fra.
+        if (want) {
+          for (const id of RX_IDS) await this._rxSignal(id).disableRX().catch(() => {});
+          this._rxOn = false;
+        }
+        this._rxRetry = this.homey.setTimeout(() => this._syncRx().catch(() => {}), RX_RETRY_MS);
+        throw e;
+      }
+    });
+    this._rxQueue = job.catch((e) => this.error('Modtagelse', e.message));
+    return job;
   }
 
   // Lytter efter en fjernbetjening og dekoder den (lyt-fanen på parringssiden).
   // -> { code, votes, frames }. Fejler med en forklaring, hvis intet blev hørt eller genkendt.
-  // Kun én lytning ad gangen: en ny afbryder den forrige. Modtagelse er tung for Homey, så den
-  // er kun slået til, mens der lyttes.
+  // Kun én lytning ad gangen: en ny afbryder den forrige. Modtagelse er kun slået til, mens der
+  // lyttes, eller når en enhed lytter efter sin fjernbetjening (se _syncRx).
   async listen({ seconds = LISTEN_SECONDS, onHeard } = {}) {
     this.stopListening();
     const job = { frames: [], results: [], onHeard };
     const done = new Promise((resolve, reject) => Object.assign(job, { resolve, reject }));
     this._listening = job;
     try {
-      for (const id of RX_IDS) await this._rxSignal(id).enableRX();
+      await this._syncRx();
     } catch (e) {
       this._finishListening(job, e);
       return done;
@@ -101,28 +197,49 @@ class App extends Homey.App {
     if (!this._signals.has(id)) {
       const sig = this.homey.rf.getSignal433(id);
       const { words } = this.homey.manifest.signals['433'][id];
-      sig.on('payload', (payload) => this._onFrame(payload.map((w) => words[w]).filter(Boolean)));
+      sig.on('payload', (payload) => this._onFrame(id, payload, words));
       this._signals.set(id, sig);
     }
     return this._signals.get(id);
   }
 
-  _onFrame(pairs) {
+  _onFrame(id, payload, words) {
+    const pairs = payload.map((w) => words[w]).filter(Boolean);
     const job = this._listening;
-    if (!job || job.frames.length >= MAX_FRAMES) return;
-    job.frames.push(pairs);
-    job.results.push(decodeFrame(pairs));
-    if (job.onHeard) job.onHeard(job.frames.length);
-    if (vote(job.results)) this._finishListening(job);
+    let result;
+    if (job && job.frames.length < MAX_FRAMES) {
+      result = this._decode(id, payload, pairs);
+      job.frames.push(pairs);
+      job.results.push(result);
+      if (job.onHeard) job.onHeard(job.frames.length);
+      if (vote(job.results)) this._finishListening(job);
+    }
+    // Mens lyt-fanen optager en kode, skal fjernbetjeningen ikke også styre sin enhed.
+    if (job || !this._matcher.size) return;
+    if (result === undefined) result = this._decode(id, payload, pairs);
+    if (result && Date.now() < this._quiet.until && this._quiet.ids.has(idOf(result))) return;
+    for (const { device, id: button } of this._matcher.frame(result, Date.now(), id)) {
+      this._receive.heard++;
+      this._receive.last = { at: new Date().toISOString(), device: device.getName(), button };
+      device.received(button).catch((e) => this.error('received', e.message));
+    }
+  }
+
+  // Dekoder et frame; samme ord-rækkefølge fra samme signal giver samme resultat, så det huskes.
+  _decode(id, payload, pairs) {
+    const key = `${id}:${payload.join(',')}`;
+    if (this._decoded.has(key)) return this._decoded.get(key);
+    const result = decodeFrame(pairs);
+    this._decoded.set(key, result);
+    if (this._decoded.size > CACHE_SIZE) this._decoded.delete(this._decoded.keys().next().value);
+    return result;
   }
 
   _finishListening(job, error) {
     if (this._listening !== job) return;
     this._listening = null;
     this.homey.clearTimeout(job.timer);
-    for (const id of RX_IDS) {
-      this._rxSignal(id).disableRX().catch((e) => this.error('disableRX', id, e.message));
-    }
+    this._syncRx().catch(() => {});
     const result = !error && vote(job.results);
     this.log('Lyttede:', job.frames.length, 'frames,', result ? `${result.code.protocol} (${result.votes} stemmer)` : 'ingen kode');
     if (result) job.resolve({ ...result, frames: job.frames.length });

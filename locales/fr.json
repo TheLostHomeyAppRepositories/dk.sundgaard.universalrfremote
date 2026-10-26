@@ -104,7 +104,9 @@
     "listen_unknown": "Un signal a été capté mais n'a pas été reconnu. Il utilise peut-être un code tournant ou un protocole que l'app ne sait pas décoder – utilisez plutôt un fichier .sub d'un Flipper Zero.",
     "listen_cancelled": "Écoute arrêtée.",
     "role_twice": "Les boutons {a} et {b} ont la même fonction – choisissez-la sur un seul bouton.",
-    "no_role": "Cette télécommande n'a pas de bouton pour cela – attribuez cette fonction à un bouton via Réparer l'appareil."
+    "no_role": "Cette télécommande n'a pas de bouton pour cela – attribuez cette fonction à un bouton via Réparer l'appareil.",
+    "receive_none": "Homey ne reconnaît aucun bouton de cette télécommande. Seuls les codes à 433,92 MHz dans un protocole que l'application sait décoder (voir l'onglet Écouter) peuvent être reçus.",
+    "receive_some": "Homey reconnaît {n} des {total} boutons. Les autres utilisent un code que l'application ne sait pas décoder."
   },
   "roles": {
     "none": "Aucune (bouton seul)",

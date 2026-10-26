@@ -104,7 +104,9 @@
     "listen_unknown": "Der blev hørt et signal, men det blev ikke genkendt. Det kan bruge en rullende kode eller en protokol, appen ikke kan dekode – brug i stedet en .sub-fil fra en Flipper Zero.",
     "listen_cancelled": "Lytning stoppet.",
     "role_twice": "Knap {a} og {b} har samme funktion – vælg den kun på én knap.",
-    "no_role": "Fjernbetjeningen har ingen knap til det – giv en knap den funktion under Reparér enhed."
+    "no_role": "Fjernbetjeningen har ingen knap til det – giv en knap den funktion under Reparér enhed.",
+    "receive_none": "Homey kan ikke genkende nogen af fjernbetjeningens knapper. Kun koder på 433,92 MHz i en protokol, appen kan dekode (se fanen Lyt), kan modtages.",
+    "receive_some": "Homey kan genkende {n} af de {total} knapper. De andre bruger en kode, appen ikke kan dekode."
   },
   "roles": {
     "none": "Ingen (kun knap)",
